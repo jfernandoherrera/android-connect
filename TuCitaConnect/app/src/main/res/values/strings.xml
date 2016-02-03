@@ -1,0 +1,23 @@
+<resources>
+    <string name="or">O</string>
+    <string name="app_name">TuCitaConnect</string>
+    <string name="facebook_app_id">1652265898354822</string>
+    <string name="app_parse_id">EazCp42Fw4yJTEGCuZ9ofl75izJY7a49nw2xufH6</string>
+    <string name="client_parse_id">Fr71FqI5chgnNWBbrDa6d9rhxo3PiL8pngM7MUt4</string>
+
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Contraseña</string>
+    <string name="prompt_name">Nombre</string>
+    <string name="action_sign_in">Iniciar sesion o registrarse</string>
+    <string name="action_sign_up">Registrarme</string>
+    <string name="action_sign_in_short">Iniciar sesion</string>
+    <string name="action_sign_in_facebook">Iniciar sesion con Facebook</string>
+    <string name="action_logout">Logout</string>
+    <string name="action_contact_us">Contáctanos</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="dont_remember_password">Olvido la contraseña?</string>
+    <string name="create_new_account">Crear una cuenta</string>
+    <string name="error">Error</string>
+</resources>

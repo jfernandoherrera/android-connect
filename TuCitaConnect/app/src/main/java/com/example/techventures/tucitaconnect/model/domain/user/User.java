@@ -1,6 +1,9 @@
 package com.example.techventures.tucitaconnect.model.domain.user;
 
 
+import com.example.techventures.tucitaconnect.model.domain.venue.Venue;
+import com.example.techventures.tucitaconnect.model.domain.venue.VenueAttributes;
+import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
 public class User {
@@ -27,6 +30,12 @@ public class User {
     public void setUserName(String name) {
 
         parseUser.put(UserAttributes.username, name);
+
+    }
+
+    public ParseRelation getVenues(){
+
+        return (ParseRelation) parseUser.get(UserAttributes.venues);
 
     }
 

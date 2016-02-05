@@ -6,5 +6,6 @@ public class UserAttributes {
     public static final String username = "username";
     public static final String email = "email";
     public static final String connected = "connected";
+    public static final String venues = "venues";
 
 }

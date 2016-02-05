@@ -1,0 +1,114 @@
+package com.example.techventures.tucitaconnect.activities.venue.adapters;
+
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.TextView;
+
+import com.example.techventures.tucitaconnect.R;
+import com.example.techventures.tucitaconnect.model.domain.slot.Slot;
+import com.mikhaellopez.circularimageview.CircularImageView;
+
+import java.util.List;
+
+
+public class SlotsAppointmentsAdapter  extends RecyclerView.Adapter<SlotsAppointmentsAdapter.ViewHolder> {
+
+        private List<Slot> items;
+
+        private Typeface typeface;
+        private int amount;
+
+        public SlotsAppointmentsAdapter(List<Slot> offer, Typeface typeface, int columns) {
+
+            super();
+
+            this.typeface = typeface;
+
+            items = offer;
+
+            amount = columns;
+
+        }
+
+
+        @Override
+        public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+
+            View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_slot, viewGroup, false);
+
+            ViewHolder viewHolder = new ViewHolder(v);
+
+            return viewHolder;
+
+        }
+
+        @Override
+        public void onBindViewHolder(ViewHolder viewHolder, int i) {
+
+            Slot slot = items.get(i / amount);
+
+            viewHolder.appointment.setText(i + " slot");
+
+            int residue = i % amount;
+
+            if(residue < slot.getAmount()){
+
+                 unconfirmed(viewHolder);
+
+            }else {
+
+                blocked(viewHolder);
+
+            }
+
+        }
+
+        private void confirmed(ViewHolder viewHolder){
+
+            viewHolder.appointment.setBackgroundColor(Color.GREEN);
+
+        }
+
+        private void unconfirmed(ViewHolder viewHolder){
+
+            viewHolder.appointment.setBackgroundColor(Color.RED);
+
+        }
+
+        private void blocked(ViewHolder viewHolder){
+
+            viewHolder.appointment.setBackgroundColor(Color.GRAY);
+
+        }
+
+        @Override
+        public int getItemCount() {
+
+            return items.size() * amount;
+
+        }
+
+        class ViewHolder extends RecyclerView.ViewHolder {
+
+            protected TextView appointment;
+
+            public ViewHolder(final View itemView) {
+
+                super(itemView);
+
+                appointment = (TextView) itemView.findViewById(R.id.appointment);
+
+                appointment.setTypeface(typeface, Typeface.BOLD);
+
+            }
+
+        }
+
+}

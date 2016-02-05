@@ -27,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.techventures.tucitaconnect.R;
+import com.example.techventures.tucitaconnect.activities.splash.SplashActivity;
 import com.example.techventures.tucitaconnect.model.context.user.UserCompletion;
 import com.example.techventures.tucitaconnect.model.context.user.UserContext;
 import com.example.techventures.tucitaconnect.model.domain.user.User;
@@ -137,12 +138,11 @@ public class LoginActivity extends AppCompatActivity {
 
         setupTitlesTypeface();
 
-        Log.i(getIntent().getBooleanExtra(UserAttributes.connected, false)+ "","ferde");
     }
 
     public void close(View v){
 
-        //processUnLoggedUser();
+        processUnLoggedUser();
 
     }
 
@@ -280,7 +280,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 } else {
 
-                  //  processLoggedUser();
+                      processLoggedUser();
 
                 }
 
@@ -307,7 +307,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 } else {
 
-                    //processLoggedUser();
+                    processLoggedUser();
 
                 }
 
@@ -316,71 +316,21 @@ public class LoginActivity extends AppCompatActivity {
         });
 
     }
-/*
+
     private void processLoggedUser() {
 
-        Bundle bundle = getIntent().getExtras();
+        SplashActivity.goToStart(getApplicationContext());
 
-        if(bundle != null){
-
-            boolean fromBook = bundle.getBoolean(BookActivity.class.getName());
-
-            if(fromBook) {
-
-                finish();
-
-            }
-
-        } else {
-
-            Intent intent = new Intent(this, MainActivity.class);
-
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-            intent.putExtra(UserAttributes.connected, true);
-
-            startActivity(intent);
-
-            finish();
-
-            overridePendingTransition(R.anim.login_animation_pull_in, R.anim.animation_hold);
-
-        }
+               finish();
 
     }
 
     private void processUnLoggedUser() {
 
-     Bundle bundle = getIntent().getExtras();
-
-        if(bundle != null){
-
-            boolean fromBook = bundle.getBoolean(BookActivity.class.getName());
-
-            if(fromBook) {
-
                 finish();
 
-            }
-
-        } else {
-
-            Intent intent = new Intent(this, MainActivity.class);
-
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-            intent.putExtra(UserAttributes.connected, false);
-
-            finish();
-
-            startActivity(intent);
-
-
-
-        }
-
     }
-*/
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -393,6 +343,8 @@ public class LoginActivity extends AppCompatActivity {
     public static void goToLogin(Context context) {
 
         Intent intent = new Intent(context, LoginActivity.class);
+
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
         context.startActivity(intent);
 

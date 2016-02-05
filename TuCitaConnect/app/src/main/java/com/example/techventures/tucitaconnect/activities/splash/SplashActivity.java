@@ -1,10 +1,12 @@
 package com.example.techventures.tucitaconnect.activities.splash;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import com.example.techventures.tucitaconnect.R;
+import com.example.techventures.tucitaconnect.activities.account.AccountActivity;
 import com.example.techventures.tucitaconnect.activities.login.LoginActivity;
 import com.example.techventures.tucitaconnect.model.context.user.UserContext;
 import com.example.techventures.tucitaconnect.model.domain.user.UserAttributes;
@@ -94,13 +96,7 @@ public class SplashActivity extends AppCompatActivity {
 
     private void processAnonymousUser() {
 
-        Class activity = LoginActivity.class;
-
-        Intent intent = new Intent(SplashActivity.this, activity);
-
-        intent.putExtra(UserAttributes.connected, false);
-
-        startActivity(intent);
+        LoginActivity.goToLogin(getApplicationContext());
 
         finish();
 
@@ -108,13 +104,7 @@ public class SplashActivity extends AppCompatActivity {
 
     private void processLoggedUser() {
 
-        Class activity = LoginActivity.class;
-
-        Intent intent = new Intent(SplashActivity.this, activity);
-
-        intent.putExtra(UserAttributes.connected, true);
-
-        startActivity(intent);
+        AccountActivity.goToAccount(getApplicationContext());
 
         finish();
 
@@ -143,6 +133,16 @@ public class SplashActivity extends AppCompatActivity {
             finish();
 
         }
+
+    }
+
+    public static void goToStart(Context context) {
+
+        Intent intent = new Intent(context, SplashActivity.class);
+
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        context.startActivity(intent);
 
     }
 

@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
+    android:id="@+id/root"
     android:layout_height="match_parent">
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -11,8 +12,49 @@
         android:theme="@style/AppTheme.Base"
         android:background="@color/colorPrimary"
         />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <Button
+        android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="@mipmap/ic_left"
+        android:layout_height="60dp" />
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="8"
+            android:id="@+id/datePicker"
+            android:background="@android:color/transparent"
+            android:onClick="showTimePickerDialog"
+            android:layout_height="60dp" />
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="@mipmap/ic_right"
+            android:layout_height="60dp" />
+        
+    </LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:id="@+id/fragmentsContainer"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+        <com.example.techventures.tucitaconnect.utils.common.scroll.AppScrollView
+        android:layout_width="match_parent"
+        android:id="@+id/scrollVertical"
+        android:layout_height="wrap_content">
+
+        <com.example.techventures.tucitaconnect.utils.common.scroll.AppHorizontalScrollView
+            android:layout_width="wrap_content"
+            android:id="@+id/scrollHorizontal"
+            android:layout_height="match_parent">
+
+            <com.example.techventures.tucitaconnect.utils.common.scroll.AppRecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+        </com.example.techventures.tucitaconnect.utils.common.scroll.AppHorizontalScrollView>
+    </com.example.techventures.tucitaconnect.utils.common.scroll.AppScrollView>
+    </RelativeLayout>
 </LinearLayout>

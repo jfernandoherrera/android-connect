@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.widget.TextView;
 
@@ -15,7 +16,7 @@ import java.lang.reflect.Field;
 
 public class AppToolbarActivity extends AppCompatActivity{
 
-    private Toolbar toolbar;
+    protected Toolbar toolbar;
     private Typeface typeface;
 
 
@@ -24,16 +25,11 @@ public class AppToolbarActivity extends AppCompatActivity{
 
         super.onCreate(savedInstanceState);
 
-        AppFont appFont = new AppFont();
-
-        typeface = appFont.getAppFont(getApplicationContext());
-
-        setToolbar();
     }
 
 
 
-    private void setToolbar(){
+    protected void setToolbar(){
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
@@ -45,7 +41,7 @@ public class AppToolbarActivity extends AppCompatActivity{
 
     }
 
-    private TextView getActionBarTextView() {
+    protected TextView getActionBarTextView() {
 
         TextView titleTextView = null;
 

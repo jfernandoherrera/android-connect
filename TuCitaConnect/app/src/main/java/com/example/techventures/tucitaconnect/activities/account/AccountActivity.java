@@ -22,12 +22,13 @@ import com.example.techventures.tucitaconnect.activities.login.LoginActivity;
 import com.example.techventures.tucitaconnect.model.context.user.UserContext;
 import com.example.techventures.tucitaconnect.model.domain.user.User;
 import com.example.techventures.tucitaconnect.utils.common.AppFont;
+import com.example.techventures.tucitaconnect.utils.common.activity.AppToolbarActivity;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class AccountActivity extends AppCompatActivity {
+public class AccountActivity extends AppToolbarActivity {
 
     private UserContext userContext;
     private Toolbar toolbar;
@@ -66,18 +67,6 @@ public class AccountActivity extends AppCompatActivity {
         setVenuesFragment();
 
         venuesShow();
-
-    }
-
-    private void setToolbar(){
-
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-
-        if (toolbar != null) {
-
-            setSupportActionBar(toolbar);
-
-        }
 
     }
 
@@ -124,29 +113,6 @@ public class AccountActivity extends AppCompatActivity {
 
     }
 
-    private TextView getActionBarTextView() {
-
-        TextView titleTextView = null;
-
-        String defaultNameTitleMenu = "mTitleTextView";
-
-        try {
-
-            Field field = toolbar.getClass().getDeclaredField(defaultNameTitleMenu);
-
-            field.setAccessible(true);
-
-            titleTextView = (TextView) field.get(toolbar);
-
-        } catch (NoSuchFieldException e) {
-
-        } catch (IllegalAccessException e) {
-
-        }
-
-        return titleTextView;
-
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

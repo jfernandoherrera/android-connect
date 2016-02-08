@@ -3,6 +3,7 @@ package com.example.techventures.tucitaconnect.activities.venue.adapters;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.techventures.tucitaconnect.R;
 import com.example.techventures.tucitaconnect.model.domain.slot.Slot;
+import com.example.techventures.tucitaconnect.utils.common.ViewUtils;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 import java.util.List;
@@ -54,19 +56,33 @@ public class SlotsAppointmentsAdapter  extends RecyclerView.Adapter<SlotsAppoint
 
             Slot slot = items.get(i / amount);
 
-            viewHolder.appointment.setText(i + " slot");
+            viewHolder.appointment.setText( slot.getFormattedHour());
 
             int residue = i % amount;
 
             if(residue < slot.getAmount()){
 
-                 unconfirmed(viewHolder);
+
+
+                viewHolder.appointment.setBackgroundResource(R.drawable.border);
 
             }else {
 
                 blocked(viewHolder);
 
+                viewHolder.appointment.setText("");
+
             }
+
+            viewHolder.appointment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Log.i("frefefr", "frfrfrf");
+
+                }
+            });
+
 
         }
 
@@ -79,6 +95,12 @@ public class SlotsAppointmentsAdapter  extends RecyclerView.Adapter<SlotsAppoint
         private void unconfirmed(ViewHolder viewHolder){
 
             viewHolder.appointment.setBackgroundColor(Color.RED);
+
+        }
+
+        private void free(ViewHolder viewHolder) {
+
+            viewHolder.appointment.setBackgroundColor(Color.LTGRAY);
 
         }
 

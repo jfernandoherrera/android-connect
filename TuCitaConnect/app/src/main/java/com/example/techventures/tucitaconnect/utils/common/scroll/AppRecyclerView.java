@@ -14,6 +14,15 @@ public class AppRecyclerView extends RecyclerView{
     }
 
     @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+
+        if(ev.getAction()!=MotionEvent.ACTION_DOWN) {
+
+            return super.dispatchTouchEvent(ev);
+        }else return false;
+    }
+
+    @Override
     public boolean onTouchEvent(MotionEvent e) {
 
         return false;

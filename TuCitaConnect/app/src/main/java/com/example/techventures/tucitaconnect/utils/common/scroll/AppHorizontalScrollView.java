@@ -20,6 +20,15 @@ public class AppHorizontalScrollView extends HorizontalScrollView{
 
 
     @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+
+        if(ev.getAction()!=MotionEvent.ACTION_DOWN) {
+
+            return super.dispatchTouchEvent(ev);
+        }else return false;
+    }
+
+    @Override
     public boolean onTouchEvent(MotionEvent ev) {
         return false;
     }

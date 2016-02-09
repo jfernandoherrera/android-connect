@@ -20,9 +20,12 @@ public class AppScrollView extends ScrollView {
         }
 
     @Override
-    public boolean onInterceptTouchEvent(MotionEvent ev) {
+    public boolean dispatchTouchEvent(MotionEvent ev) {
 
-       return false;
+        if(ev.getAction()!=MotionEvent.ACTION_DOWN) {
+
+            return super.dispatchTouchEvent(ev);
+        }else return false;
     }
 
     @Override

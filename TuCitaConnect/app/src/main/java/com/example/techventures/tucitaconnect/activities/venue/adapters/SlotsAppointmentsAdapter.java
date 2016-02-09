@@ -23,7 +23,6 @@ import java.util.List;
 public class SlotsAppointmentsAdapter  extends RecyclerView.Adapter<SlotsAppointmentsAdapter.ViewHolder> {
 
         private List<Slot> items;
-
         private Typeface typeface;
         private int amount;
 
@@ -51,7 +50,13 @@ public class SlotsAppointmentsAdapter  extends RecyclerView.Adapter<SlotsAppoint
 
         }
 
-        @Override
+    public void setAmount(int amount) {
+
+        this.amount = amount;
+
+    }
+
+    @Override
         public void onBindViewHolder(ViewHolder viewHolder, int i) {
 
             Slot slot = items.get(i / amount);
@@ -63,7 +68,6 @@ public class SlotsAppointmentsAdapter  extends RecyclerView.Adapter<SlotsAppoint
             if(residue < slot.getAmount()){
 
 
-
                 viewHolder.appointment.setBackgroundResource(R.drawable.border);
 
             }else {
@@ -73,17 +77,6 @@ public class SlotsAppointmentsAdapter  extends RecyclerView.Adapter<SlotsAppoint
                 viewHolder.appointment.setText("");
 
             }
-
-            viewHolder.appointment.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    Log.i("frefefr", "frfrfrf");
-
-                }
-            });
-
-
         }
 
         private void confirmed(ViewHolder viewHolder){
@@ -128,6 +121,24 @@ public class SlotsAppointmentsAdapter  extends RecyclerView.Adapter<SlotsAppoint
                 appointment = (TextView) itemView.findViewById(R.id.appointment);
 
                 appointment.setTypeface(typeface, Typeface.BOLD);
+
+                itemView.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+
+                        v.callOnClick();
+
+                        return true;
+                    }
+                });
+
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Log.i("hoja", "papel");
+                    }
+                });
 
             }
 

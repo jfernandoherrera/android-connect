@@ -2,15 +2,18 @@ package com.example.techventures.tucitaconnect.activities.venue;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -38,7 +41,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class VenueActivity extends AppToolbarActivity{
+public class VenueActivity extends AppToolbarActivity implements DatePickerFragment.OnDateSelected{
 
     private VenueContext venueContext;
     private AppointmentContext appointmentContext;
@@ -57,6 +60,7 @@ public class VenueActivity extends AppToolbarActivity{
     private Typeface typeface;
     private Button button;
     private Calendar calendar;
+    private double dimension;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,11 +101,19 @@ public class VenueActivity extends AppToolbarActivity{
 
         setupVenue();
 
-        dateFormat();
+        dateFormat(calendar);
+
+        WindowManager wm = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
+
+        DisplayMetrics metrics = new DisplayMetrics();
+
+        wm.getDefaultDisplay().getMetrics(metrics);
+
+        dimension = metrics.scaledDensity;
 
     }
 
-    private void dateFormat(){
+    private void dateFormat(Calendar calendar){
 
         String title = DateUtils.formatDateTime(getApplicationContext(),
 
@@ -128,22 +140,28 @@ public class VenueActivity extends AppToolbarActivity{
         String tag = "timePicker";
 
         newFragment.show(getSupportFragmentManager(), tag);
+
     }
 
     public void setupSlots(final Calendar calendar){
 
+        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+
         slotContext = SlotContext.context(slotContext);
 
-        slotContext.loadDaySlots(venue, 6, new SlotCompletion.SlotErrorCompletion() {
+        slotContext.loadDaySlots(venue, dayOfWeek, new SlotCompletion.SlotErrorCompletion() {
 
             @Override
             public void completion(List<Slot> slotList, AppError error) {
 
                 if (slotList != null && !slotList.isEmpty()) {
 
+                    slots.clear();
+
                     slots.addAll(slotList);
 
                     setupAppointments(calendar);
+
                 }
 
             }
@@ -159,10 +177,10 @@ public class VenueActivity extends AppToolbarActivity{
         public void completion(List<Appointment> appointmentList, AppError error) {
 
 
-                if (appointmentList != null && !appointmentList.isEmpty()) {
+            if (appointmentList != null && !appointmentList.isEmpty()) {
 
-                    appointments.addAll(appointmentList);
-                }
+                appointments.addAll(appointmentList);
+            }
 
             int columns = 0;
 
@@ -180,13 +198,34 @@ public class VenueActivity extends AppToolbarActivity{
 
             }
 
-            layoutManager = new SlotLayoutManager(getApplicationContext(), columns);
+            if (layoutManager == null) {
 
-            recyclerView.setLayoutManager(layoutManager);
+                layoutManager = new SlotLayoutManager(getApplicationContext(), columns, slots.size());
 
-            adapter = new SlotsAppointmentsAdapter(slots, typeface, columns);
+                recyclerView.setLayoutManager(layoutManager);
 
-            recyclerView.setAdapter(adapter);
+            } else {
+
+                ((SlotLayoutManager) layoutManager).setCols(columns);
+
+                ((SlotLayoutManager) layoutManager).setNumSlots(slots.size());
+
+            }
+
+            if (adapter == null) {
+
+                adapter = new SlotsAppointmentsAdapter(slots, typeface, columns);
+
+                recyclerView.setAdapter(adapter);
+
+            } else {
+
+                ((SlotsAppointmentsAdapter) adapter).setAmount(columns);
+
+                adapter.notifyDataSetChanged();
+
+            }
+
 
         }
 
@@ -248,17 +287,17 @@ public class VenueActivity extends AppToolbarActivity{
 
             case MotionEvent.ACTION_MOVE:
 
-                curX = event.getX();
+                    curX = event.getX();
 
-                curY = event.getY();
+                    curY = event.getY();
 
-                appScrollView.scrollBy((int) (mx - curX), (int) (my - curY));
+                    appScrollView.scrollBy((int) (mx - curX), (int) (my - curY));
 
-                appHorizontalScrollView.scrollBy((int) (mx - curX), (int) (my - curY));
+                    appHorizontalScrollView.scrollBy((int) (mx - curX), (int) (my - curY));
 
-                mx = curX;
+                    my = curY;
 
-                my = curY;
+                    mx = curX;
 
                 break;
 
@@ -276,7 +315,7 @@ public class VenueActivity extends AppToolbarActivity{
 
         }
 
-        return false;
+        return true;
 
     }
 
@@ -286,5 +325,18 @@ public class VenueActivity extends AppToolbarActivity{
 
 
         return true;
+    }
+
+    @Override
+    public void onDateSelected(int year, int monthOfYear, int dayOfMonth) {
+
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.set(year, monthOfYear, dayOfMonth);
+
+        setupSlots(calendar);
+
+        dateFormat(calendar);
+
     }
 }

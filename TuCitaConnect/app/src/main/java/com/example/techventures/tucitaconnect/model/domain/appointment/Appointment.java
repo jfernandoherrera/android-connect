@@ -13,6 +13,51 @@ import java.util.Date;
 @ParseClassName("Appointment")
 public class Appointment extends ParseObject {
 
+    int timeSlotHour = 0;
+
+    int timeSlotMinute = 0;
+
+
+    public int getTimeSlotHour() {
+
+        return timeSlotHour;
+
+    }
+
+
+    public int getTimeSlotMinute() {
+
+        return timeSlotMinute;
+
+    }
+
+    public boolean isSloted(){
+
+        int[ ] duration = getDuration();
+
+        boolean isSloted = timeSlotHour == duration[0] && timeSlotMinute == duration[1];
+
+        return isSloted;
+    }
+
+    public void incrementTimeSlot(int incrementMinutes){
+
+        int durationMinutes = incrementMinutes + timeSlotMinute;
+
+        if( durationMinutes >= 60) {
+
+            timeSlotHour = durationMinutes / 60;
+
+            timeSlotMinute = durationMinutes - (60 * timeSlotHour);
+
+        }else {
+
+            timeSlotMinute = durationMinutes;
+
+        }
+
+    }
+
     public void putDate(Calendar date){
 
         put(AppointmentAttributes.date, date.getTime());

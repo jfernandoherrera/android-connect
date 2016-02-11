@@ -1,17 +1,35 @@
 package com.example.techventures.tucitaconnect.model.domain.slot;
 
+import com.example.techventures.tucitaconnect.model.domain.appointment.Appointment;
 import com.example.techventures.tucitaconnect.utils.common.ViewUtils;
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 @ParseClassName("Slot")
 public class Slot extends ParseObject {
 
     private int amount;
     private Calendar date;
+    private List<Appointment> appointments = new ArrayList<>();
+
+    public boolean isIn(Appointment appointment){
+
+        boolean isIn = appointments.contains(appointment);
+
+        return isIn;
+
+    }
+
+    public void addAppointment(Appointment appointment){
+
+        appointments.add(appointment);
+
+    }
 
     public int getDay() {
 
@@ -28,6 +46,12 @@ public class Slot extends ParseObject {
     public void setDate(Calendar date) {
 
         this.date = date;
+
+    }
+
+    public int getDurationMinutes(){
+
+        return getInt(SlotAttributes.durationMinutes);
 
     }
 

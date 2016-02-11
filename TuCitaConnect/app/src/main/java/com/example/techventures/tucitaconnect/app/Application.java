@@ -1,5 +1,6 @@
 package com.example.techventures.tucitaconnect.app;
 
+import com.example.techventures.tucitaconnect.model.domain.appointment.Appointment;
 import com.example.techventures.tucitaconnect.model.domain.city.City;
 import com.example.techventures.tucitaconnect.model.domain.slot.Slot;
 import com.example.techventures.tucitaconnect.model.domain.venue.Venue;
@@ -21,6 +22,8 @@ public class Application extends android.app.Application {
         ParseObject.registerSubclass(Venue.class);
 
         ParseObject.registerSubclass(Slot.class);
+
+        ParseObject.registerSubclass(Appointment.class);
 
         ParseObject.registerSubclass(City.class);
 

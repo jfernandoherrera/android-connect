@@ -169,7 +169,8 @@ public class VenueActivity extends AppToolbarActivity implements DatePickerFragm
 
     }
 
-    private void setupAppointments(Calendar date) {
+    private void setupAppointments(final Calendar date) {
+
 
     appointmentContext.loadAppointmentsDateVenue(venue, date, new AppointmentCompletion.AppointmentErrorCompletion() {
 
@@ -177,7 +178,9 @@ public class VenueActivity extends AppToolbarActivity implements DatePickerFragm
         public void completion(List<Appointment> appointmentList, AppError error) {
 
 
-            if (appointmentList != null && !appointmentList.isEmpty()) {
+         
+
+            if (appointmentList != null && ! appointmentList.isEmpty()) {
 
                 appointments.addAll(appointmentList);
             }
@@ -214,7 +217,7 @@ public class VenueActivity extends AppToolbarActivity implements DatePickerFragm
 
             if (adapter == null) {
 
-                adapter = new SlotsAppointmentsAdapter(slots, typeface, columns);
+                adapter = new SlotsAppointmentsAdapter(slots, typeface, columns, appointments);
 
                 recyclerView.setAdapter(adapter);
 

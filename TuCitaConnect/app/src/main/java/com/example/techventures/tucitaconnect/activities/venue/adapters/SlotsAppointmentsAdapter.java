@@ -64,12 +64,48 @@ public class SlotsAppointmentsAdapter  extends RecyclerView.Adapter<SlotsAppoint
 
     }
 
+    public void setAppointments(List<Appointment> appointmentList){
+
+        appointments.clear();
+
+        appointments.addAll(appointmentList);
+
+        for(Appointment appointment : appointmentList) {
+
+            appointment.restart();
+
+        }
+
+        notifyDataSetChanged();
+
+    }
+
+    public void setSlots(List<Slot> slotList){
+
+        slots.clear();
+
+        slots.addAll(slotList);
+
+        for(Slot slot : slots){
+
+            slot.restart();
+
+        }
+
+        notifyDataSetChanged();
+
+    }
+
     @Override
         public void onBindViewHolder(ViewHolder viewHolder, int i) {
 
-            Slot slot = slots.get(i / amount);
+        int index = i / amount;
 
-            viewHolder.textViewAppointment.setText(slot.getFormattedHour());
+        Slot slot = slots.get(index);
+
+        String text = slot.getFormattedHour();
+
+        viewHolder.textViewAppointment.setText(text);
 
             int residue = i % amount;
 
@@ -90,6 +126,10 @@ public class SlotsAppointmentsAdapter  extends RecyclerView.Adapter<SlotsAppoint
             if(appointment != null){
 
                 viewHolder.appointment = appointment;
+
+                text = text + " " + appointment.getUser().getName() + " " + appointment.getDate().toLocaleString();
+
+                        viewHolder.textViewAppointment.setText(text);
 
                 unconfirmed(viewHolder);
 
@@ -150,8 +190,10 @@ public class SlotsAppointmentsAdapter  extends RecyclerView.Adapter<SlotsAppoint
                         appointmentSlot = appointment;
 
                         slot.addAppointment(appointment);
-                        
-                        if (appointment.isSloted()) {
+
+                        boolean appointmentSloted = appointment.isSloted();
+
+                        if ( appointmentSloted) {
 
                             appointments.remove(appointment);
 

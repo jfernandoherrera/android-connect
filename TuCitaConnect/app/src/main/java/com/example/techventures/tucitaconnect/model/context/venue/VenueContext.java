@@ -34,7 +34,8 @@ public class VenueContext {
 
     public Venue findVenue(String lookThat, String address, VenueCompletion.ListErrorCompletion completion) {
 
-        Venue venue = venueLocal.findVenue(lookThat, address);
+        Venue venue =null;
+        //= venueLocal.findVenue(lookThat, address);
 
         venueRemote.findVenue(lookThat, address, completion);
 
@@ -44,7 +45,8 @@ public class VenueContext {
 
     public Venue getVenue(String objectId, VenueCompletion.ErrorCompletion completion){
 
-        Venue venue = venueLocal.getVenue(objectId);
+        Venue venue=null;
+        //= venueLocal.getVenue(objectId);
 
         venueRemote.getVenue(objectId, completion);
 

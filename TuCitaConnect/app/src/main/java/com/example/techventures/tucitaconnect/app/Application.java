@@ -15,7 +15,7 @@ public class Application extends android.app.Application {
 
         super.onCreate();
 
-        Parse.enableLocalDatastore(this);
+       // Parse.enableLocalDatastore(this);
 
         FacebookSdk.sdkInitialize(this);
 

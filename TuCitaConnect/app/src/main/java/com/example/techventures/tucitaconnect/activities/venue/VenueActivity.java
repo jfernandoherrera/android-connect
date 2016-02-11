@@ -48,8 +48,6 @@ public class VenueActivity extends AppToolbarActivity implements DatePickerFragm
     private Venue venue;
     private float mx, my;
     private SlotContext slotContext;
-    private List<Slot> slots;
-    private List<Appointment> appointments;
     private TextView noResults;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
@@ -70,10 +68,6 @@ public class VenueActivity extends AppToolbarActivity implements DatePickerFragm
         setContentView(R.layout.activity_venue);
 
         setToolbar();
-
-        appointments = new ArrayList<Appointment>();
-
-        slots = new ArrayList<Slot>();
 
         venueContext = VenueContext.context(venueContext);
 
@@ -156,11 +150,7 @@ public class VenueActivity extends AppToolbarActivity implements DatePickerFragm
 
                 if (slotList != null && !slotList.isEmpty()) {
 
-                    slots.clear();
-
-                    slots.addAll(slotList);
-
-                    setupAppointments(calendar);
+                    setupAppointments(calendar, slotList);
 
                 }
 
@@ -169,7 +159,7 @@ public class VenueActivity extends AppToolbarActivity implements DatePickerFragm
 
     }
 
-    private void setupAppointments(final Calendar date) {
+    private void setupAppointments(final Calendar date, final List<Slot> slots) {
 
 
     appointmentContext.loadAppointmentsDateVenue(venue, date, new AppointmentCompletion.AppointmentErrorCompletion() {
@@ -177,57 +167,56 @@ public class VenueActivity extends AppToolbarActivity implements DatePickerFragm
         @Override
         public void completion(List<Appointment> appointmentList, AppError error) {
 
-
-         
-
             if (appointmentList != null && ! appointmentList.isEmpty()) {
 
-                appointments.addAll(appointmentList);
-            }
+                int columns = 0;
 
-            int columns = 0;
+                for (Slot slot : slots) {
 
-            for (Slot slot : slots) {
+                    slot.setAmount();
 
-                slot.setAmount();
+                    int amount = slot.getAmount();
 
-                int amount = slot.getAmount();
+                    if (amount > columns) {
 
-                if (amount > columns) {
+                        columns = amount;
 
-                    columns = amount;
+                    }
+
+                }
+
+                if (layoutManager == null) {
+
+                    layoutManager = new SlotLayoutManager(getApplicationContext(), columns, slots.size());
+
+                    recyclerView.setLayoutManager(layoutManager);
+
+                } else {
+
+                    ((SlotLayoutManager) layoutManager).setCols(columns);
+
+                    ((SlotLayoutManager) layoutManager).setNumSlots(slots.size());
+
+                }
+
+                if (adapter == null) {
+
+                    adapter = new SlotsAppointmentsAdapter(slots, typeface, columns, appointmentList);
+
+                    recyclerView.setAdapter(adapter);
+
+                } else {
+
+                    ((SlotsAppointmentsAdapter) adapter).setAmount(columns);
+
+                    ((SlotsAppointmentsAdapter) adapter).setAppointments(appointmentList);
+
+                    ((SlotsAppointmentsAdapter) adapter).setSlots(slots);
 
                 }
 
             }
 
-            if (layoutManager == null) {
-
-                layoutManager = new SlotLayoutManager(getApplicationContext(), columns, slots.size());
-
-                recyclerView.setLayoutManager(layoutManager);
-
-            } else {
-
-                ((SlotLayoutManager) layoutManager).setCols(columns);
-
-                ((SlotLayoutManager) layoutManager).setNumSlots(slots.size());
-
-            }
-
-            if (adapter == null) {
-
-                adapter = new SlotsAppointmentsAdapter(slots, typeface, columns, appointments);
-
-                recyclerView.setAdapter(adapter);
-
-            } else {
-
-                ((SlotsAppointmentsAdapter) adapter).setAmount(columns);
-
-                adapter.notifyDataSetChanged();
-
-            }
 
 
         }

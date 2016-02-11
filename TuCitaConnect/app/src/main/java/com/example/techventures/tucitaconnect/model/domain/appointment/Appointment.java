@@ -17,6 +17,19 @@ public class Appointment extends ParseObject {
 
     int timeSlotMinute = 0;
 
+    int column = -1;
+
+    public int getColumn() {
+
+        return column;
+
+    }
+
+    public void setColumn(int column) {
+
+        this.column = column;
+
+    }
 
     public int getTimeSlotHour() {
 
@@ -28,6 +41,14 @@ public class Appointment extends ParseObject {
     public int getTimeSlotMinute() {
 
         return timeSlotMinute;
+
+    }
+
+    public void restart(){
+
+        int timeSlotHour = 0;
+
+        int timeSlotMinute = 0;
 
     }
 
@@ -127,6 +148,16 @@ public class Appointment extends ParseObject {
     public void setUser(User user) {
 
         put(AppointmentAttributes.user, user.getParseUser());
+
+    }
+
+    public User getUser(){
+
+        User user = new User();
+
+        user.setParseUser(getParseUser(AppointmentAttributes.user));
+
+        return user;
 
     }
 

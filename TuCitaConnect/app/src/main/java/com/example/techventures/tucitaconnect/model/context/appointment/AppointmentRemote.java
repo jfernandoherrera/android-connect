@@ -62,6 +62,12 @@ public class AppointmentRemote {
 
         setQuery();
 
+        date.set(Calendar.HOUR_OF_DAY, 0);
+
+        date.set(Calendar.MINUTE, 0);
+
+        date.set(Calendar.SECOND, 0);
+
         query.whereGreaterThan(AppointmentAttributes.date, date.getTime());
 
         date.add(Calendar.DATE, 1);
@@ -71,6 +77,8 @@ public class AppointmentRemote {
         query.whereLessThan(AppointmentAttributes.date, oneMoreDay);
 
         query.whereEqualTo(AppointmentAttributes.venue, venue);
+
+        query.include(AppointmentAttributes.user);
 
         query.findInBackground(new FindCallback<Appointment>() {
 

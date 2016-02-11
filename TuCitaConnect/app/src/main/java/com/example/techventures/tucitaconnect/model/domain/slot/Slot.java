@@ -15,13 +15,31 @@ public class Slot extends ParseObject {
 
     private int amount;
     private Calendar date;
-    private List<Appointment> appointments = new ArrayList<>();
+    private List<Appointment> appointments;
 
     public boolean isIn(Appointment appointment){
 
-        boolean isIn = appointments.contains(appointment);
+        boolean isIn;
+
+        if(appointments == null){
+
+            appointments  = new ArrayList<>();
+
+            isIn = false;
+
+        }else {
+
+           isIn = appointments.contains(appointment);
+
+        }
 
         return isIn;
+
+    }
+
+    public void restart(){
+
+        appointments  = new ArrayList<>();
 
     }
 

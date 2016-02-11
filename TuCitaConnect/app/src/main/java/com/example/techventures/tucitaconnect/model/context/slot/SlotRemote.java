@@ -41,6 +41,10 @@ public class SlotRemote {
 
         query.orderByAscending(SlotAttributes.startHour + "," + SlotAttributes.startMinute);
 
+        query.setCachePolicy(ParseQuery.CachePolicy.IGNORE_CACHE);
+
+        query.clearCachedResult();
+
         query.findInBackground(new FindCallback<Slot>() {
 
             @Override

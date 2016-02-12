@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:id="@+id/root"
@@ -10,16 +11,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.Base"
-        android:background="@color/colorPrimary"
-        />
+        android:background="@color/colorPrimary"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_height="wrap_content">
         <Button
         android:layout_width="0dp"
+            android:id="@+id/left"
             android:layout_weight="1"
-            android:background="@mipmap/ic_left"
+            android:background="@drawable/left_button_interaction"
             android:onClick="removeOneDay"
         android:layout_height="60dp" />
         <Button
@@ -32,11 +34,15 @@
         <Button
             android:layout_width="0dp"
             android:layout_weight="1"
+            android:id="@+id/right"
             android:onClick="addOneDay"
-            android:background="@mipmap/ic_right"
+            android:background="@drawable/right_button_interaction"
             android:layout_height="60dp" />
         
     </LinearLayout>
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
     <RelativeLayout
         android:layout_width="match_parent"
         android:background="@android:color/white"
@@ -52,15 +58,22 @@
         android:layout_width="match_parent"
         android:id="@+id/fragmentsContainer"
         android:layout_height="match_parent">
+            <com.example.techventures.tucitaconnect.utils.common.scroll.AppRecyclerView
+                android:layout_width="50dp"
+                android:id="@+id/recycler_viewLeftBar"
+                android:layout_height="match_parent"/>
         <TextView
             android:layout_width="match_parent"
             android:id="@+id/closed"
             android:text="@string/closed"
+            android:gravity="center"
             android:visibility="gone"
             android:layout_height="match_parent" />
         <com.example.techventures.tucitaconnect.utils.common.scroll.AppScrollView
         android:layout_width="match_parent"
         android:id="@+id/scrollVertical"
+            android:layout_toRightOf="@+id/recycler_viewLeftBar"
+            android:layout_toEndOf="@+id/recycler_viewLeftBar"
         android:layout_height="match_parent">
 
         <com.example.techventures.tucitaconnect.utils.common.scroll.AppHorizontalScrollView
@@ -76,4 +89,16 @@
         </com.example.techventures.tucitaconnect.utils.common.scroll.AppHorizontalScrollView>
     </com.example.techventures.tucitaconnect.utils.common.scroll.AppScrollView>
     </RelativeLayout>
+        <TextView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="end|bottom"
+            android:id="@+id/appointmentView"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
+            android:textColor="@color/colorAccent"
+            android:tint="@color/colorPrimary"
+            android:background="@drawable/oval"
+            tools:ignore="RtlCompat"/>
+    </FrameLayout>
 </LinearLayout>

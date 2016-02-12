@@ -25,6 +25,7 @@ public class SlotsAppointmentsAdapter  extends RecyclerView.Adapter<SlotsAppoint
         private List<Appointment> appointments;
         private int amount;
         private int column;
+        private OnTouchToClick listener;
 
 
         public interface OnTouchToClick{
@@ -33,7 +34,7 @@ public class SlotsAppointmentsAdapter  extends RecyclerView.Adapter<SlotsAppoint
 
         }
 
-        public SlotsAppointmentsAdapter(List<Slot> offer, Typeface typeface, int columns, List<Appointment> appointments) {
+        public SlotsAppointmentsAdapter(List<Slot> offer, Typeface typeface, int columns, List<Appointment> appointments, OnTouchToClick onTouchToClick) {
 
             super();
 
@@ -46,6 +47,8 @@ public class SlotsAppointmentsAdapter  extends RecyclerView.Adapter<SlotsAppoint
             this.appointments = appointments;
 
             column = 1;
+
+            listener = onTouchToClick;
 
         }
 
@@ -106,10 +109,6 @@ public class SlotsAppointmentsAdapter  extends RecyclerView.Adapter<SlotsAppoint
 
         Slot slot = slots.get(index);
 
-        String text = slot.getFormattedHour();
-
-        viewHolder.textViewAppointment.setText(text);
-
             int residue = i % amount;
 
             if(residue < slot.getAmount()){
@@ -130,7 +129,7 @@ public class SlotsAppointmentsAdapter  extends RecyclerView.Adapter<SlotsAppoint
 
                 viewHolder.appointment = appointment;
 
-                text = text + " " + appointment.getUser().getName() + " " + appointment.getDate().toLocaleString();
+                String text =  appointment.getUser().getName() + "\n" + appointment.getDate().toLocaleString();
 
                         viewHolder.textViewAppointment.setText(text);
 
@@ -281,7 +280,9 @@ public class SlotsAppointmentsAdapter  extends RecyclerView.Adapter<SlotsAppoint
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
 
-                        Log.i("hoja " + event.getAction(), "papel " + MotionEvent.ACTION_UP +" "+ MotionEvent.ACTION_DOWN );
+                        Log.i(event.getX() + "hoja " + event.getAction(), event.getY() + "papel " + MotionEvent.ACTION_UP +" "+ MotionEvent.ACTION_DOWN );
+
+                        listener.onTouchToClick((int) event.getX(), (int) event.getY(), appointment);
 
                         return false;
                     }

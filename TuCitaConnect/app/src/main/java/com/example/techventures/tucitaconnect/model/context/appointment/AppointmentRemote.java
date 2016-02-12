@@ -80,6 +80,8 @@ public class AppointmentRemote {
 
         query.include(AppointmentAttributes.user);
 
+        query.clearCachedResult();
+
         query.findInBackground(new FindCallback<Appointment>() {
 
             @Override

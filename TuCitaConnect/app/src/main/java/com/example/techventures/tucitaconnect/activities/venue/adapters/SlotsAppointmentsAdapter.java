@@ -24,6 +24,7 @@ public class SlotsAppointmentsAdapter  extends RecyclerView.Adapter<SlotsAppoint
         private Typeface typeface;
         private List<Appointment> appointments;
         private int amount;
+        private int column;
 
 
         public interface OnTouchToClick{
@@ -43,6 +44,8 @@ public class SlotsAppointmentsAdapter  extends RecyclerView.Adapter<SlotsAppoint
             amount = columns;
 
             this.appointments = appointments;
+
+            column = 1;
 
         }
 
@@ -97,7 +100,7 @@ public class SlotsAppointmentsAdapter  extends RecyclerView.Adapter<SlotsAppoint
     }
 
     @Override
-        public void onBindViewHolder(ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(ViewHolder viewHolder, int i) {
 
         int index = i / amount;
 
@@ -123,7 +126,7 @@ public class SlotsAppointmentsAdapter  extends RecyclerView.Adapter<SlotsAppoint
 
             Appointment appointment = getAppointment(slot);
 
-            if(appointment != null){
+            if(appointment != null && appointment.getColumn() == column){
 
                 viewHolder.appointment = appointment;
 
@@ -135,7 +138,14 @@ public class SlotsAppointmentsAdapter  extends RecyclerView.Adapter<SlotsAppoint
 
             }
 
+            column ++;
+
+        if(column == amount + 1){
+
+            column = 1;
         }
+
+    }
 
     private int[] sixtyMinutes(int hour, int minutes) {
 
@@ -165,6 +175,8 @@ public class SlotsAppointmentsAdapter  extends RecyclerView.Adapter<SlotsAppoint
 
         Appointment appointmentSlot = null;
 
+        int noAssigned = -1;
+
         for (Appointment appointment : appointments) {
 
             Date appointmentDate = appointment.getDate();
@@ -185,27 +197,32 @@ public class SlotsAppointmentsAdapter  extends RecyclerView.Adapter<SlotsAppoint
 
                 if (isFirst || contained || isLast) {
 
-                    if(! slot.isIn(appointment)) {
+                    if(appointment.getColumn() == noAssigned) {
+
+                        appointment.setColumn(column);
+
+                    }
+
+                    if ( isLast && appointment.getColumn() == column) {
+
+                        appointmentSlot = appointment;
+
+                        appointments.remove(appointment);
+
+                        break;
+
+                    }
+
+                    if(! slot.isIn(appointment)){
 
                         appointmentSlot = appointment;
 
                         slot.addAppointment(appointment);
 
-                        boolean appointmentSloted = appointment.isSloted();
-
-                        if ( appointmentSloted) {
-
-                            appointments.remove(appointment);
-
-                        } else {
-
-                            appointment.incrementTimeSlot(slot.getDurationMinutes());
-
-                        }
-
-                    break;
+                        break;
 
                     }
+
 
                 }
 

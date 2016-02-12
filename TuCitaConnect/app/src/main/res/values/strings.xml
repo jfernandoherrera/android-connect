@@ -24,4 +24,5 @@
     <string name="users">usuarios</string>
     <string name="no_results">Sin resultados</string>
     <string name="ok">Listo</string>
+    <string name="closed">CERRADO</string>
 </resources>

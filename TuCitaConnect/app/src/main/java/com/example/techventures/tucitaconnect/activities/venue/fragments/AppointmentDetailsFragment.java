@@ -112,7 +112,7 @@ public class AppointmentDetailsFragment extends DialogFragment {
 
                         if (event.getAction() == MotionEvent.ACTION_DOWN) {
 
-                            v.setBackgroundResource(R.drawable.pressed_application_background_static);
+                            v.setBackgroundResource(R.drawable.cling_button_pressed);
 
                         } else if (event.getAction() != MotionEvent.ACTION_MOVE) {
 

@@ -109,6 +109,7 @@ public class VenueActivity extends AppToolbarActivity implements DatePickerFragm
         appointmentFloatingView = (TextView) findViewById(R.id.appointmentView);
 
         appointmentFloatingView.setOnClickListener(new View.OnClickListener() {
+            
             @Override
             public void onClick(View v) {
 

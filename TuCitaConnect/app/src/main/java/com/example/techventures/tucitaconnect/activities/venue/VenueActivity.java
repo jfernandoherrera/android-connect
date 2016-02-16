@@ -112,8 +112,11 @@ public class VenueActivity extends AppToolbarActivity implements DatePickerFragm
             @Override
             public void onClick(View v) {
 
-                showAppointmentDialog(appointment);
+                if( appointment != null) {
 
+                    showAppointmentDialog(appointment);
+
+                }
             }
         });
 

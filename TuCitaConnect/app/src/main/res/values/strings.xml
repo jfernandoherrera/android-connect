@@ -10,6 +10,7 @@
     <string name="prompt_name">Nombre</string>
     <string name="action_sign_in">Iniciar sesion o registrarse</string>
     <string name="action_sign_up">Registrarme</string>
+    <string name="action_add_user">Agregar usuario</string>
     <string name="action_sign_in_short">Iniciar sesion</string>
     <string name="action_sign_in_facebook">Iniciar sesion con Facebook</string>
     <string name="action_logout">Logout</string>
@@ -25,4 +26,6 @@
     <string name="no_results">Sin resultados</string>
     <string name="ok">Listo</string>
     <string name="closed">CERRADO</string>
+    <string name="order_total">Total :</string>
+    <string name="change_date">Cambiar fecha</string>
 </resources>

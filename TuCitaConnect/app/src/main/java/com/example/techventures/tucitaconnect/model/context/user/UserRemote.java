@@ -10,14 +10,19 @@ import com.example.techventures.tucitaconnect.activities.login.LoginActivity;
 import com.example.techventures.tucitaconnect.model.domain.facebook.FacebookPermissions;
 import com.example.techventures.tucitaconnect.model.domain.user.User;
 import com.example.techventures.tucitaconnect.model.domain.user.UserAttributes;
+import com.example.techventures.tucitaconnect.model.domain.venue.Venue;
 import com.example.techventures.tucitaconnect.model.error.AppError;
+import com.example.techventures.tucitaconnect.utils.common.attributes.CommonAttributes;
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.parse.LogInCallback;
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseFacebookUtils;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseRelation;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
@@ -83,7 +88,7 @@ public class UserRemote {
             @Override
             public void done(ParseUser parseUser, ParseException e) {
 
-                if(e != null){
+                if (e != null) {
 
                     e.printStackTrace();
 
@@ -238,6 +243,36 @@ public class UserRemote {
             e.printStackTrace();
 
         }
+
+    }
+
+    public void addVenueToUser(Venue venue, String userObjectId, UserCompletion.UserErrorCompletion completion){
+
+
+        ParseQuery query = ParseUser.getQuery();
+
+        query.whereEqualTo(CommonAttributes.objectId, userObjectId);
+
+        ParseUser user;
+        try {
+
+         user = (ParseUser) query.getFirst();
+
+            ParseRelation relation = user.getRelation(UserAttributes.venues);
+
+            relation.add(venue);
+
+            user.save();
+
+            AppError appError = new AppError(User.class.toString(), 0, null);
+
+            completion.completion(null, appError);
+
+        } catch (ParseException e) {
+
+            e.printStackTrace();
+        }
+
 
     }
 

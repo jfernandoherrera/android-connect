@@ -6,4 +6,6 @@
     <color name="light_gray">#c8c8c8</color>
     <color name="blue_link">#003eb8</color>
     <color name="blackPrimary">#de000000</color>
+    <color name="blackSecondary">#8a000000</color>
+    <color name="expanded_children_color">#FFFFFF</color>
 </resources>

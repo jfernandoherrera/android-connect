@@ -17,33 +17,41 @@ public class Slot extends ParseObject {
     private Calendar date;
     private List<Appointment> appointments;
 
-    public boolean isIn(Appointment appointment){
-
-        boolean isIn;
-
-        if(appointments == null){
-
-            appointments  = new ArrayList<>();
-
-            isIn = false;
-
-        }else {
-
-           isIn = appointments.contains(appointment);
-
-        }
-
-        return isIn;
-
-    }
-
     public void restart(){
 
         appointments  = new ArrayList<>();
 
     }
 
+    public Appointment getAppointment(int column){
+
+        Appointment appointment = null;
+
+        if(appointments == null){
+
+            appointments  = new ArrayList<>();
+
+        }else for(Appointment appointment1 : appointments){
+
+            if(appointment1.getColumn() == column){
+
+                appointment = appointment1;
+
+            }
+
+        }
+
+    return appointment;
+
+    }
+
     public void addAppointment(Appointment appointment){
+
+        if(appointments == null){
+
+            appointments  = new ArrayList<>();
+
+        }
 
         appointments.add(appointment);
 

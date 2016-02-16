@@ -3,7 +3,6 @@ package com.example.techventures.tucitaconnect.activities.venue.adapters;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -30,7 +29,7 @@ public class SlotsAppointmentsAdapter  extends RecyclerView.Adapter<SlotsAppoint
 
         public interface OnTouchToClick{
 
-            void onTouchToClick(int x, int y, Appointment appointment);
+            void onTouchToClick(int x, int y, Slot slot, int column);
 
         }
 
@@ -46,7 +45,7 @@ public class SlotsAppointmentsAdapter  extends RecyclerView.Adapter<SlotsAppoint
 
             this.appointments = appointments;
 
-            column = 1;
+            column = 0;
 
             listener = onTouchToClick;
 
@@ -109,6 +108,8 @@ public class SlotsAppointmentsAdapter  extends RecyclerView.Adapter<SlotsAppoint
 
         Slot slot = slots.get(index);
 
+        viewHolder.slot = slot;
+
             int residue = i % amount;
 
             if(residue < slot.getAmount()){
@@ -123,25 +124,21 @@ public class SlotsAppointmentsAdapter  extends RecyclerView.Adapter<SlotsAppoint
 
             }
 
-            Appointment appointment = getAppointment(slot);
+            Appointment appointment = getAppointment(slot, viewHolder);
 
             if(appointment != null && appointment.getColumn() == column){
 
-                viewHolder.appointment = appointment;
-
-                String text =  appointment.getUser().getName() + "\n" + appointment.getDate().toLocaleString();
-
-                        viewHolder.textViewAppointment.setText(text);
-
-                unconfirmed(viewHolder);
+                viewHolder.slot = slot;
 
             }
 
+            viewHolder.column = column;
+
             column ++;
 
-        if(column == amount + 1){
+        if(column == amount ){
 
-            column = 1;
+            column = 0;
         }
 
     }
@@ -170,7 +167,7 @@ public class SlotsAppointmentsAdapter  extends RecyclerView.Adapter<SlotsAppoint
 
     }
 
-    private Appointment getAppointment(Slot slot){
+    private Appointment getAppointment(Slot slot, ViewHolder viewHolder){
 
         Appointment appointmentSlot = null;
 
@@ -202,26 +199,39 @@ public class SlotsAppointmentsAdapter  extends RecyclerView.Adapter<SlotsAppoint
 
                     }
 
-                    if ( isLast && appointment.getColumn() == column) {
-
-                        appointmentSlot = appointment;
-
-                        appointments.remove(appointment);
-
-                        break;
-
-                    }
-
-                    if(! slot.isIn(appointment)){
+                    if( appointment.getColumn() == column) {
 
                         appointmentSlot = appointment;
 
                         slot.addAppointment(appointment);
 
-                        break;
+                        if (isLast) {
+
+                            appointments.remove(appointment);
+
+                            unconfirmedLast(viewHolder);
+
+                            break;
+
+                        }
+
+                        if (contained) {
+
+                            unconfirmed(viewHolder);
+
+                            break;
+
+                        }
+
+                            unconfirmedFirst(viewHolder);
+
+                            String text = appointment.getUser().getName();
+
+                            viewHolder.textViewAppointment.setText(text);
+
+                            break;
 
                     }
-
 
                 }
 
@@ -237,11 +247,23 @@ public class SlotsAppointmentsAdapter  extends RecyclerView.Adapter<SlotsAppoint
 
         }
 
-        private void unconfirmed(ViewHolder viewHolder){
+        private void unconfirmedLast(ViewHolder viewHolder){
 
-            viewHolder.textViewAppointment.setBackgroundResource(R.drawable.border_uncorfimed);
+            viewHolder.textViewAppointment.setBackgroundResource(R.drawable.border_unconfirmed_last);
 
         }
+
+    private void unconfirmedFirst(ViewHolder viewHolder){
+
+        viewHolder.textViewAppointment.setBackgroundResource(R.drawable.border_unconfirmed_first);
+
+    }
+
+    private void unconfirmed(ViewHolder viewHolder){
+
+        viewHolder.textViewAppointment.setBackgroundResource(R.drawable.border_uncorfimed_contained);
+
+    }
 
         private void free(ViewHolder viewHolder) {
 
@@ -265,7 +287,8 @@ public class SlotsAppointmentsAdapter  extends RecyclerView.Adapter<SlotsAppoint
         class ViewHolder extends RecyclerView.ViewHolder {
 
             protected TextView textViewAppointment;
-            protected Appointment appointment;
+            protected Slot slot;
+            protected int column;
 
             public ViewHolder(final View itemView) {
 
@@ -280,9 +303,7 @@ public class SlotsAppointmentsAdapter  extends RecyclerView.Adapter<SlotsAppoint
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
 
-                        Log.i(event.getX() + "hoja " + event.getAction(), event.getY() + "papel " + MotionEvent.ACTION_UP +" "+ MotionEvent.ACTION_DOWN );
-
-                        listener.onTouchToClick((int) event.getX(), (int) event.getY(), appointment);
+                        listener.onTouchToClick((int) event.getX(), (int) event.getY(), slot, column);
 
                         return false;
                     }

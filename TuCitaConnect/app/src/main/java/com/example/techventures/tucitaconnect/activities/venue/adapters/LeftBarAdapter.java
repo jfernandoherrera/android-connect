@@ -56,7 +56,7 @@ public class LeftBarAdapter extends RecyclerView.Adapter<LeftBarAdapter.ViewHold
     @Override
     public void onBindViewHolder(LeftBarAdapter.ViewHolder holder, int position) {
 
-        holder.textView.setBackgroundResource(R.drawable.border_uncorfimed);
+        holder.textView.setBackgroundResource(R.drawable.border_left_bar);
 
         holder.textView.setText(hour(position));
 

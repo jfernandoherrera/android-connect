@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 
 import com.example.techventures.tucitaconnect.model.domain.user.User;
+import com.example.techventures.tucitaconnect.model.domain.venue.Venue;
 import com.parse.ParseFacebookUtils;
 
 public class UserContext {
@@ -46,6 +47,12 @@ public class UserContext {
     public void loginWithFacebook(Activity activity, UserCompletion.UserErrorCompletion completion) {
 
         remote.loginWithFacebook(activity, completion);
+
+    }
+
+    public void addVenueToUser(Venue venue, String userObjectId, UserCompletion.UserErrorCompletion completion){
+
+        remote.addVenueToUser(venue, userObjectId, completion);
 
     }
 

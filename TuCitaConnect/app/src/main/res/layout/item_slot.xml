@@ -4,4 +4,5 @@
     android:layout_width="180sp"
     android:id="@+id/appointment"
     android:layout_height="180sp"
+    android:gravity="center"
     xmlns:android="http://schemas.android.com/apk/res/android" />

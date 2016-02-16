@@ -2,7 +2,6 @@ package com.example.techventures.tucitaconnect.activities.venue;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -10,8 +9,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -19,17 +19,23 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.example.techventures.tucitaconnect.R;
+import com.example.techventures.tucitaconnect.activities.login.LoginActivity;
 import com.example.techventures.tucitaconnect.activities.venue.adapters.LeftBarAdapter;
 import com.example.techventures.tucitaconnect.activities.venue.adapters.SlotsAppointmentsAdapter;
 import com.example.techventures.tucitaconnect.activities.venue.adapters.layout.SlotLayoutManager;
+import com.example.techventures.tucitaconnect.activities.venue.fragments.AddUserFragment;
+import com.example.techventures.tucitaconnect.activities.venue.fragments.AppointmentDetailsFragment;
 import com.example.techventures.tucitaconnect.activities.venue.fragments.DatePickerFragment;
 import com.example.techventures.tucitaconnect.model.context.appointment.AppointmentCompletion;
 import com.example.techventures.tucitaconnect.model.context.appointment.AppointmentContext;
+import com.example.techventures.tucitaconnect.model.context.service.ServiceCompletion;
+import com.example.techventures.tucitaconnect.model.context.service.ServiceContext;
 import com.example.techventures.tucitaconnect.model.context.slot.SlotCompletion;
 import com.example.techventures.tucitaconnect.model.context.slot.SlotContext;
 import com.example.techventures.tucitaconnect.model.context.venue.VenueCompletion;
 import com.example.techventures.tucitaconnect.model.context.venue.VenueContext;
 import com.example.techventures.tucitaconnect.model.domain.appointment.Appointment;
+import com.example.techventures.tucitaconnect.model.domain.service.Service;
 import com.example.techventures.tucitaconnect.model.domain.slot.Slot;
 import com.example.techventures.tucitaconnect.model.domain.venue.Venue;
 import com.example.techventures.tucitaconnect.model.error.AppError;
@@ -40,6 +46,7 @@ import com.example.techventures.tucitaconnect.utils.common.attributes.CommonAttr
 import com.example.techventures.tucitaconnect.utils.common.scroll.AppHorizontalScrollView;
 import com.example.techventures.tucitaconnect.utils.common.scroll.AppScrollView;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class VenueActivity extends AppToolbarActivity implements DatePickerFragment.OnDateSelected, SlotsAppointmentsAdapter.OnTouchToClick{
@@ -63,7 +70,13 @@ public class VenueActivity extends AppToolbarActivity implements DatePickerFragm
     private Button button;
     private Calendar calendar;
     private double dimension;
-    private TextView appointmentView;
+    private Appointment appointment;
+    private Slot slot;
+    private TextView appointmentFloatingView;
+    private ServiceContext serviceContext;
+    float downX = 0, downY = 0;
+    int twoDigitsNumber = 10;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -74,6 +87,8 @@ public class VenueActivity extends AppToolbarActivity implements DatePickerFragm
         setToolbar();
 
         venueContext = VenueContext.context(venueContext);
+
+        serviceContext = ServiceContext.context(serviceContext);
 
         appointmentContext = AppointmentContext.context(appointmentContext);
 
@@ -91,13 +106,13 @@ public class VenueActivity extends AppToolbarActivity implements DatePickerFragm
 
         button = (Button) findViewById(R.id.datePicker);
 
-        appointmentView = (TextView) findViewById(R.id.appointmentView);
+        appointmentFloatingView = (TextView) findViewById(R.id.appointmentView);
 
-        appointmentView.setOnClickListener(new View.OnClickListener() {
+        appointmentFloatingView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                appointmentView.setText("flotando");
+                showAppointmentDialog(appointment);
 
             }
         });
@@ -172,6 +187,58 @@ public class VenueActivity extends AppToolbarActivity implements DatePickerFragm
 
     }
 
+    public void showAppointmentDialog(Appointment appointment) {
+
+        AppointmentDetailsFragment newFragment = new AppointmentDetailsFragment();
+
+        newFragment.setAppointment(appointment);
+
+        setupServices(newFragment, appointment);
+
+    }
+
+    public void showAddUserDialog() {
+
+        AddUserFragment newFragment = new AddUserFragment();
+
+        newFragment.setVenue(venue);
+
+        final String tag = "AddUser";
+
+        newFragment.show(getSupportFragmentManager(), tag);
+
+    }
+
+
+
+
+    private void setupServices(final AppointmentDetailsFragment appointmentDetailsFragment , final Appointment appointment){
+
+        final String tag = "AppointmentDetails";
+
+        serviceContext.loadAppointmentServices(appointment, new ServiceCompletion.ErrorCompletion() {
+
+            @Override
+            public void completion(List<Service> servicesList, AppError error) {
+
+                if (servicesList != null) {
+
+                    appointmentDetailsFragment.setServices(servicesList);
+
+
+                    if (!servicesList.isEmpty()) {
+
+                        appointmentDetailsFragment.show(getSupportFragmentManager(), tag);
+
+                    }
+
+                }
+
+            }
+        });
+
+    }
+
     public void setupSlots(final Calendar calendar){
 
         concealer.setVisibility(View.VISIBLE);
@@ -197,7 +264,7 @@ public class VenueActivity extends AppToolbarActivity implements DatePickerFragm
 
                     leftBarRecyclerView.setVisibility(View.VISIBLE);
 
-                }else {
+                } else {
 
                     leftBarRecyclerView.setVisibility(View.GONE);
 
@@ -287,7 +354,7 @@ public class VenueActivity extends AppToolbarActivity implements DatePickerFragm
 
                 ((SlotsAppointmentsAdapter) adapter).setSlots(slots);
 
-                ((LeftBarAdapter)leftBarAdapter).setAmount(slots.size());
+                ((LeftBarAdapter) leftBarAdapter).setAmount(slots.size());
 
                 Calendar calendar = Calendar.getInstance();
 
@@ -297,7 +364,7 @@ public class VenueActivity extends AppToolbarActivity implements DatePickerFragm
 
                 calendar.set(Calendar.SECOND, 0);
 
-                ((LeftBarAdapter)leftBarAdapter).setInitialDate(calendar);
+                ((LeftBarAdapter) leftBarAdapter).setInitialDate(calendar);
             }
 
             concealer.setVisibility(View.GONE);
@@ -386,6 +453,10 @@ public class VenueActivity extends AppToolbarActivity implements DatePickerFragm
 
                 my = event.getY();
 
+                downX = mx;
+
+                downY = my;
+
                 break;
 
             case MotionEvent.ACTION_MOVE:
@@ -418,8 +489,16 @@ public class VenueActivity extends AppToolbarActivity implements DatePickerFragm
 
                 appHorizontalScrollView.scrollBy((int) (mx - curX), (int) (my - curY));
 
+                boolean equalX = curX == downX;
 
-                Log.i("x = "+ curX, "y= "+curY);
+                boolean equalY = curY == downY;
+
+                if(equalX && equalY && appointment != null){
+
+                    showAppointmentDialog(appointment);
+
+                }
+
                 break;
 
         }
@@ -428,13 +507,6 @@ public class VenueActivity extends AppToolbarActivity implements DatePickerFragm
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-
-
-        return true;
-    }
 
     @Override
     public void onDateSelected(int year, int monthOfYear, int dayOfMonth) {
@@ -451,15 +523,122 @@ public class VenueActivity extends AppToolbarActivity implements DatePickerFragm
 
     }
 
+    private void setupFloatButton(){
+
+        if(appointment == null) {
+
+            setupJustSlot();
+
+        }else {
+
+            setupWithAppointment();
+
+        }
+
+    }
+
+    private void setupWithAppointment(){
+
+        Date date = appointment.getDate();
+
+        int hour = date.getHours();
+
+        int minute = date.getMinutes();
+
+        String startHour = setupSpacesTime(hour, minute);
+
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+
+        calendar.set(Calendar.MINUTE, minute);
+
+        int[] duration = appointment.getDuration();
+
+        calendar.add(Calendar.HOUR_OF_DAY, duration[0]);
+
+        calendar.add(Calendar.MINUTE, duration[1]);
+
+        date = calendar.getTime();
+
+        hour = date.getHours();
+
+        minute = date.getMinutes();
+
+        String endHour = setupSpacesTime(hour, minute);
+
+        String text = startHour + "\n" + endHour;
+
+        appointmentFloatingView.setText(text);
+
+    }
+
+    private void setupJustSlot(){
+
+        String time = setupSpacesTime(slot.getStartHour(), slot.getStartMinute());
+
+        String preMinute =  slot.getDurationMinutes() + " min";
+
+        String text = time + "\n" + preMinute;
+
+        appointmentFloatingView.setText(text);
+
+    }
+
+    private String setupSpacesTime(int hour, int minute) {
+
+        String text;
+
+        if(minute < twoDigitsNumber){
+
+            text = setupSpacesHour(hour) + ":0" + minute;
+
+        }else {
+
+            text = setupSpacesHour(hour) + ":" + minute;
+
+        }
+
+        return text;
+
+    }
+
+    private String setupSpacesHour(int hour){
+
+        String hourString;
+
+        if(hour < twoDigitsNumber) {
+
+            hourString = " " + hour;
+
+        }else {
+
+            hourString = "" + hour;
+        }
+
+        return hourString;
+    }
+
+
+
     @Override
-    public void onTouchToClick(int x, int y, Appointment appointment) {
+    public void onTouchToClick(int x, int y, Slot slot, int column) {
+
+        this.slot = slot;
+
+        Appointment appointment = slot.getAppointment(column);
 
         if(appointment != null) {
 
+            this.appointment = appointment;
 
+        }else {
 
-            appointmentView.setText(appointment.getUser().getName());
+            this.appointment = null;
 
         }
+
+        setupFloatButton();
+
     }
 }

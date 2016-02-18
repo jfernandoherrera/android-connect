@@ -37,11 +37,6 @@ public class VenuesFragment extends AppFragment {
     private User user;
     private RelativeLayout relativeLayout;
 
-
-
-
-
-
     public void setUser( User user) {
 
         this.user = user;

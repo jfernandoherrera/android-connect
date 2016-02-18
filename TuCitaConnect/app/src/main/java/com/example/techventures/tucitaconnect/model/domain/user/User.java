@@ -45,6 +45,12 @@ public class User {
 
     }
 
+    public String getTelephone() {
+
+        return parseUser.getString(UserAttributes.telephone);
+
+    }
+
     public void setEmail(String email) {
 
         parseUser.put(UserAttributes.email, email);

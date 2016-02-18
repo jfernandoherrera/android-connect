@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:id="@+id/root"
     android:layout_height="match_parent">
@@ -16,6 +15,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
+        android:id="@+id/dateBar"
+        android:layout_below="@+id/toolbar"
         android:layout_height="wrap_content">
         <Button
         android:layout_width="0dp"
@@ -40,8 +41,23 @@
             android:layout_height="60dp" />
         
     </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_below="@+id/dateBar"
+        android:layout_height="match_parent"
+        android:id="@+id/progress"
+        android:background="@android:color/transparent"
+        android:gravity="center"
+        >
+        <ProgressBar
+        android:layout_width="180sp"
+            android:background="@android:color/transparent"
+            android:indeterminate="true"
+        android:layout_height="180sp"
+        /></RelativeLayout>
     <FrameLayout
         android:layout_width="wrap_content"
+        android:layout_below="@+id/dateBar"
         android:layout_height="wrap_content">
     <RelativeLayout
         android:layout_width="match_parent"
@@ -102,4 +118,4 @@
             android:background="@drawable/oval"
             tools:ignore="RtlCompat"/>
     </FrameLayout>
-</LinearLayout>
+</RelativeLayout>

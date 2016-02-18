@@ -72,6 +72,7 @@ public class VenueActivity extends AppToolbarActivity implements DatePickerFragm
     private double dimension;
     private Appointment appointment;
     private Slot slot;
+    private RelativeLayout progress;
     private TextView appointmentFloatingView;
     private ServiceContext serviceContext;
     float downX = 0, downY = 0;
@@ -106,10 +107,14 @@ public class VenueActivity extends AppToolbarActivity implements DatePickerFragm
 
         button = (Button) findViewById(R.id.datePicker);
 
+        progress = (RelativeLayout) findViewById(R.id.progress);
+
+        progress.setVisibility(View.GONE);
+
         appointmentFloatingView = (TextView) findViewById(R.id.appointmentView);
 
         appointmentFloatingView.setOnClickListener(new View.OnClickListener() {
-            
+
             @Override
             public void onClick(View v) {
 
@@ -193,6 +198,8 @@ public class VenueActivity extends AppToolbarActivity implements DatePickerFragm
 
     public void showAppointmentDialog(Appointment appointment) {
 
+        progress.setVisibility(View.VISIBLE);
+
         AppointmentDetailsFragment newFragment = new AppointmentDetailsFragment();
 
         newFragment.setAppointment(appointment);
@@ -237,6 +244,8 @@ public class VenueActivity extends AppToolbarActivity implements DatePickerFragm
                     }
 
                 }
+
+                progress.setVisibility(View.GONE);
 
             }
         });

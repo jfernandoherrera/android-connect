@@ -161,8 +161,9 @@ public class VenuesAdapter extends RecyclerView.Adapter<VenuesAdapter.ViewHolder
 
             name.setTypeface(typeface);
 
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            textViewReviews.setTypeface(typeface);
 
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
 
                 venueIcon.setOnTouchListener(new View.OnTouchListener() {
                     @Override

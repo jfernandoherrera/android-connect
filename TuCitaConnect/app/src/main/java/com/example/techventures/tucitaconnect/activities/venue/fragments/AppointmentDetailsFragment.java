@@ -18,6 +18,7 @@ import com.example.techventures.tucitaconnect.R;
 import com.example.techventures.tucitaconnect.activities.venue.adapters.ExpandableWithoutParentAdapter;
 import com.example.techventures.tucitaconnect.model.domain.appointment.Appointment;
 import com.example.techventures.tucitaconnect.model.domain.service.Service;
+import com.example.techventures.tucitaconnect.model.domain.user.User;
 import com.example.techventures.tucitaconnect.model.domain.venue.Venue;
 import com.example.techventures.tucitaconnect.utils.common.ViewUtils;
 import com.example.techventures.tucitaconnect.utils.common.views.AppointmentView;
@@ -95,6 +96,8 @@ public class AppointmentDetailsFragment extends DialogFragment {
 
         button.setTypeface(typeface);
 
+        button.setVisibility(View.GONE);
+
         int oneDay = 24;
 
         calendar.add(Calendar.HOUR, oneDay);
@@ -147,6 +150,7 @@ public class AppointmentDetailsFragment extends DialogFragment {
             e.printStackTrace();
 
         }
+
         this.inflater = inflater;
 
         setup();
@@ -187,6 +191,16 @@ public class AppointmentDetailsFragment extends DialogFragment {
 
         setupTotal();
 
+        setupUser();
+
+    }
+
+    private void setupUser(){
+
+        User user = appointment.getUser();
+
+        appointmentView.setTextName(user.getTelephone());
+
     }
 
     private void setupTotal() {
@@ -208,6 +222,10 @@ public class AppointmentDetailsFragment extends DialogFragment {
     private void setupAppointment(){
 
         String date = appointment.getDate().toLocaleString();
+
+        String telephone = appointment.getTelephone();
+
+        appointmentView.setTextName(telephone);
 
         appointmentView.setTextDate(date);
 

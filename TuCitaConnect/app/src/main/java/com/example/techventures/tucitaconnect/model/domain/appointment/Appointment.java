@@ -44,6 +44,12 @@ public class Appointment extends ParseObject {
 
     }
 
+    public String getTelephone(){
+
+
+        return getString(AppointmentAttributes.telephone);
+    }
+
     public void restart(){
 
         int timeSlotHour = 0;

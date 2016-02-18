@@ -7,5 +7,6 @@ public class UserAttributes {
     public static final String email = "email";
     public static final String connected = "connected";
     public static final String venues = "venues";
+    public static final String telephone = "telephone";
 
 }

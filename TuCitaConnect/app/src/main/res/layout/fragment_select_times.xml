@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="228sp"
+        android:background="@android:color/transparent"
+        android:id="@+id/concealer"
+        android:layout_height="228sp">
+        <ProgressBar
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerInParent="true"
+            android:indeterminate="true"/>
+    </RelativeLayout>
+<com.prolificinteractive.materialcalendarview.MaterialCalendarView
+    android:layout_width="228sp"
+    android:id="@+id/calendarView"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingEnd="8sp"
+    android:paddingRight="8sp"
+    android:paddingStart="8sp"
+    android:paddingLeft="8sp"
+    android:paddingBottom="8sp"
+    app:mcv_showOtherDates="all"
+    app:mcv_selectionColor="@color/colorAccent"
+    android:layout_height="228sp"/>
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="50sp"
+        android:id="@+id/slots"
+        android:layout_toRightOf="@+id/calendarView"
+        android:layout_toEndOf="@+id/calendarView"
+        android:visibility="gone"
+        android:layout_height="320sp"/>
+</RelativeLayout>

@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.techventures.tucitaconnect.R;
 import com.example.techventures.tucitaconnect.activities.venue.adapters.LeftBarAdapter;
@@ -33,6 +34,7 @@ public class SelectTimesFragment extends DialogFragment{
     private List<Slot> slots;
     private Calendar calendar;
     private RelativeLayout concealer;
+    private TextView closed;
 
     public interface OnJustOneDateSelected{
 
@@ -52,27 +54,48 @@ public class SelectTimesFragment extends DialogFragment{
 
     public void setSlots(List<Slot> slots) {
 
-        this.slots.addAll(slots);
+        boolean justOneSelected = calendarView.getSelectedDates().size() == 1;
 
-        calendar.set(Calendar.HOUR_OF_DAY, slots.get(0).getStartHour());
+        if(slots.isEmpty()){
 
-        calendar.set(Calendar.MINUTE, slots.get(0).getStartMinute());
+            if(justOneSelected) {
 
-        calendar.set(Calendar.SECOND, 0);
+                closed.setVisibility(View.VISIBLE);
 
-        if(adapter == null) {
+            }
 
-            adapter = new SelectSlotsAdapter(slots.get(0).getDurationMinutes(), slots.size(), calendar);
+        } else {
 
-            recyclerView.setAdapter(adapter);
+            calendar.set(Calendar.HOUR_OF_DAY, slots.get(0).getStartHour());
+
+            calendar.set(Calendar.MINUTE, slots.get(0).getStartMinute());
+
+            calendar.set(Calendar.SECOND, 0);
+
+            if (adapter == null) {
+
+                adapter = new SelectSlotsAdapter(slots, calendar);
+
+                recyclerView.setAdapter(adapter);
+
+            } else {
+
+                ((SelectSlotsAdapter) adapter).setSlots(slots);
+
+            }
+
+
+            adapter.notifyDataSetChanged();
+
+            if (justOneSelected) {
+
+                recyclerView.setVisibility(View.VISIBLE);
+
+                concealer.setVisibility(View.GONE);
+
+            }
 
         }
-
-        recyclerView.setVisibility(View.VISIBLE);
-
-        adapter.notifyDataSetChanged();
-
-        concealer.setVisibility(View.GONE);
 
     }
 
@@ -85,6 +108,8 @@ public class SelectTimesFragment extends DialogFragment{
         calendarView = (MaterialCalendarView) rootView.findViewById(R.id.calendarView);
 
         concealer = (RelativeLayout) rootView.findViewById(R.id.concealer);
+
+        closed = (TextView) rootView.findViewById(R.id.closed);
 
         slots = new ArrayList<>();
 
@@ -117,6 +142,8 @@ public class SelectTimesFragment extends DialogFragment{
 
                 concealer.setVisibility(View.VISIBLE);
 
+                closed.setVisibility(View.GONE);
+
                 if (widget.getSelectedDates().size() == 1) {
 
                     listener.onJustOneDateSelected(widget.getSelectedDate());
@@ -130,6 +157,7 @@ public class SelectTimesFragment extends DialogFragment{
                 }
 
             }
+
         });
 
         return rootView;

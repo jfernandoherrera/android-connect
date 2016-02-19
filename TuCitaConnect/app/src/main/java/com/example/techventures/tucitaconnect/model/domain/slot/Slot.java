@@ -16,11 +16,23 @@ public class Slot extends ParseObject {
     private int amount;
     private Calendar date;
     private List<Appointment> appointments;
+    private boolean selected;
 
     public void restart(){
 
         appointments  = new ArrayList<>();
 
+    }
+
+    public void setSelected(boolean selected) {
+
+        this.selected = selected;
+
+    }
+
+    public boolean isSelected(){
+
+        return selected;
     }
 
     public Appointment getAppointment(int column){

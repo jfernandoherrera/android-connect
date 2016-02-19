@@ -2,11 +2,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <TextView
+        android:layout_width="220sp"
+        android:text="@string/closed"
+        android:id="@+id/closed"
+        android:visibility="gone"
+        android:gravity="center"
+        android:layout_height="220sp" />
     <RelativeLayout
-        android:layout_width="228sp"
+        android:layout_width="220sp"
         android:background="@android:color/transparent"
         android:id="@+id/concealer"
-        android:layout_height="228sp">
+        android:layout_height="220sp">
         <ProgressBar
             android:layout_width="150dp"
             android:layout_height="150dp"
@@ -14,7 +21,7 @@
             android:indeterminate="true"/>
     </RelativeLayout>
 <com.prolificinteractive.materialcalendarview.MaterialCalendarView
-    android:layout_width="228sp"
+    android:layout_width="220sp"
     android:id="@+id/calendarView"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingEnd="8sp"
@@ -24,12 +31,19 @@
     android:paddingBottom="8sp"
     app:mcv_showOtherDates="all"
     app:mcv_selectionColor="@color/colorAccent"
-    android:layout_height="228sp"/>
+    android:layout_height="220sp"/>
     <android.support.v7.widget.RecyclerView
-        android:layout_width="50sp"
+        android:layout_width="42sp"
         android:id="@+id/slots"
         android:layout_toRightOf="@+id/calendarView"
         android:layout_toEndOf="@+id/calendarView"
         android:visibility="gone"
-        android:layout_height="320sp"/>
+        android:layout_height="312sp"/>
+    <Button
+        android:padding="14sp"
+        android:layout_width="212sp"
+        android:background="@drawable/button_interaction"
+        android:text="@string/action_block"
+        android:layout_below="@+id/calendarView"
+        android:layout_height="84sp" />
 </RelativeLayout>

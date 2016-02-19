@@ -7,28 +7,34 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.example.techventures.tucitaconnect.R;
-
+import com.example.techventures.tucitaconnect.model.domain.slot.Slot;
 import java.util.Calendar;
+import java.util.List;
 
 public class SelectSlotsAdapter extends RecyclerView.Adapter<SelectSlotsAdapter.ViewHolder> {
 
     int duration;
     int amount;
     Calendar initialDate;
+    List<Slot> slots;
 
-    public SelectSlotsAdapter(int duration, int amount, Calendar initialDate){
+    public SelectSlotsAdapter(List<Slot> slots, Calendar initialDate){
 
-        this.duration = duration;
+        this.slots = slots;
 
-        this.amount = amount;
+        this.duration = slots.get(0).getDurationMinutes();
+
+        this.amount = slots.size();
 
         this.initialDate = initialDate;
 
     }
 
-    public void setAmount(int amount) {
+    public void setSlots(List<Slot> slots) {
 
-        this.amount = amount;
+        this.slots.clear();
+
+        this.slots.addAll(slots);
 
         notifyDataSetChanged();
 
@@ -53,43 +59,46 @@ public class SelectSlotsAdapter extends RecyclerView.Adapter<SelectSlotsAdapter.
     }
 
     @Override
-    public void onBindViewHolder(final SelectSlotsAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(final SelectSlotsAdapter.ViewHolder holder, final int position) {
 
-        if(holder.selected) {
+        if(slots.get(position) != null) {
 
-            holder.textView.setBackgroundResource(R.drawable.border_selected_slot);
-
-        } else {
-
-            holder.textView.setBackgroundResource(R.drawable.border_left_bar);
-
-        }
+            if (slots.get(position).isSelected()) {
 
 
+                holder.textView.setBackgroundResource(R.drawable.border_selected_slot);
 
-        holder.textView.setOnClickListener(new View.OnClickListener() {
+            } else {
 
-            @Override
-            public void onClick(View v) {
-
-                if(holder.selected){
-
-                    holder.selected = false;
-
-                    holder.textView.setBackgroundResource(R.drawable.border_left_bar);
-
-                }else {
-
-                    holder.selected = true;
-
-                    holder.textView.setBackgroundResource(R.drawable.border_selected_slot);
-
-                }
+                holder.textView.setBackgroundResource(R.drawable.border_left_bar);
 
             }
-        });
 
-        holder.textView.setText(hour(position));
+            holder.textView.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+
+                    if (!slots.get(position).isSelected()) {
+
+                        slots.get(position).setSelected(true);
+
+                        holder.textView.setBackgroundResource(R.drawable.border_selected_slot);
+
+                    } else {
+
+                        slots.get(position).setSelected(false);
+
+                        holder.textView.setBackgroundResource(R.drawable.border_left_bar);
+
+                    }
+
+                }
+            });
+
+            holder.textView.setText(hour(position));
+
+        }
 
     }
 
@@ -114,7 +123,7 @@ public class SelectSlotsAdapter extends RecyclerView.Adapter<SelectSlotsAdapter.
     @Override
     public int getItemCount() {
 
-        return amount;
+        return slots.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

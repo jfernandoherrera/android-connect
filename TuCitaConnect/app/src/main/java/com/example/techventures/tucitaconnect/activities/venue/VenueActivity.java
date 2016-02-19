@@ -334,11 +334,12 @@ public class VenueActivity extends AppToolbarActivity implements DatePickerFragm
 
                 if (calendarDay != null ) {
 
-                    if(slotList != null && !slotList.isEmpty()){
+                    if(slotList != null){
 
                         selectTimesFragment.setSlots(slotList);
 
                     }
+
                 } else {
 
                     TextView closed = (TextView) findViewById(R.id.closed);
@@ -361,11 +362,11 @@ public class VenueActivity extends AppToolbarActivity implements DatePickerFragm
 
                         appScrollView.setVisibility(View.GONE);
 
-                        concealer.setVisibility(View.GONE);
-
                     }
 
                 }
+
+                concealer.setVisibility(View.GONE);
 
             }
         });

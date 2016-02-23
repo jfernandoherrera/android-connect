@@ -102,6 +102,12 @@ public class SelectSlotsAdapter extends RecyclerView.Adapter<SelectSlotsAdapter.
 
     }
 
+    public List<Slot> getSlots() {
+
+        return slots;
+
+    }
+
     private String hour(int position){
 
         Calendar calendar = Calendar.getInstance();

@@ -1,27 +1,34 @@
 package com.example.techventures.tucitaconnect.activities.venue.fragments;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.example.techventures.tucitaconnect.R;
-import com.example.techventures.tucitaconnect.activities.venue.adapters.LeftBarAdapter;
+import com.example.techventures.tucitaconnect.activities.splash.SplashActivity;
 import com.example.techventures.tucitaconnect.activities.venue.adapters.SelectSlotsAdapter;
+import com.example.techventures.tucitaconnect.model.context.blockade.BlockadeCompletion;
+import com.example.techventures.tucitaconnect.model.context.blockade.BlockadeContext;
+import com.example.techventures.tucitaconnect.model.domain.blockade.Blockade;
+import com.example.techventures.tucitaconnect.model.domain.blockade.BlockadeAttributes;
 import com.example.techventures.tucitaconnect.model.domain.slot.Slot;
+import com.example.techventures.tucitaconnect.model.domain.venue.Venue;
+import com.example.techventures.tucitaconnect.model.error.AppError;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class SelectTimesFragment extends DialogFragment{
@@ -33,6 +40,7 @@ public class SelectTimesFragment extends DialogFragment{
     private OnJustOneDateSelected listener;
     private List<Slot> slots;
     private Calendar calendar;
+    private BlockadeContext context;
     private RelativeLayout concealer;
     private TextView closed;
 
@@ -84,7 +92,6 @@ public class SelectTimesFragment extends DialogFragment{
 
             }
 
-
             adapter.notifyDataSetChanged();
 
             if (justOneSelected) {
@@ -114,6 +121,8 @@ public class SelectTimesFragment extends DialogFragment{
         slots = new ArrayList<>();
 
         calendar = Calendar.getInstance();
+
+        context = BlockadeContext.context(context);
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.slots);
 
@@ -164,6 +173,118 @@ public class SelectTimesFragment extends DialogFragment{
 
     }
 
+    public void blockades(Venue venue){
 
+        Blockade blockade = new Blockade();
 
+        List<CalendarDay> dates = getDates();
+
+        Date blockadeDate;
+
+        List<String> blockades = new ArrayList<>();
+
+        if(dates.size() == 1){
+
+            blockade.putType(BlockadeAttributes.typeSlots);
+
+            blockadeDate = dates.get(0).getDate();
+
+            blockadeDate.setMinutes(0);
+
+            blockadeDate.setHours(0);
+
+            blockade.putDate(blockadeDate);
+
+            List<Slot> slots = ((SelectSlotsAdapter)adapter).getSlots();
+
+            for (Slot slot : slots) {
+
+                if(slot.isSelected()) {
+
+                    blockades.add(slot.getObjectId());
+
+                }
+
+            }
+
+            blockade.putDataArray(blockades);
+
+        }else {
+
+            blockade.putType(BlockadeAttributes.typeDays);
+
+            CalendarDay firstDay = dates.get(0);
+
+            for (CalendarDay calendarDay : dates) {
+
+                String dateString = calendarDay.getDay() + " " + calendarDay.getMonth() + " " + calendarDay.getYear();
+
+                blockades.add(dateString);
+
+                if(firstDay.isAfter(calendarDay)) {
+
+                    firstDay = calendarDay;
+
+                }
+
+            }
+
+            blockadeDate = firstDay.getDate();
+
+            blockadeDate.setMinutes(0);
+
+            blockadeDate.setHours(0);
+
+            blockade.putDate(blockadeDate);
+
+            blockade.addAllUnique(BlockadeAttributes.dataArray, blockades);
+
+        }
+
+        context.saveBlockade(blockade, venue, new BlockadeCompletion.ErrorCompletion() {
+
+            @Override
+            public void completion(List<Blockade> blockadeList, AppError error) {
+
+                if(error == null) {
+
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+
+                            SelectTimesFragment.this.getContext());
+
+                    String continueString = getString(R.string.continue_option);
+
+                    String successful = getString(R.string.successful_transaction);
+
+                    String message = getString(R.string.app_name);
+
+                    alertDialogBuilder.setTitle(successful)
+
+                            .setPositiveButton(continueString, new DialogInterface.OnClickListener() {
+
+                                public void onClick(DialogInterface dialog, int id) {
+
+                                    SplashActivity.goToStart(getContext());
+
+                                }
+                            }).setCancelable(false)
+
+                            .setMessage(message).show();
+
+                }
+
+            }
+        });
+    }
+
+    public List<CalendarDay> getDates() {
+
+        return calendarView.getSelectedDates();
+
+    }
+
+    public List<Slot> getSlots() {
+
+        return slots;
+    }
 }

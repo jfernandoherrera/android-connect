@@ -31,4 +31,11 @@
     <string name="closed">CERRADO</string>
     <string name="order_total">Total :</string>
     <string name="change_date">Cambiar fecha</string>
+    <string name="continue_option">Continuar</string>
+    <string name="successful_transaction">Transacción Exitosa</string>
+    <string name="action_edit_working_hours">Editar Horario</string>
+    <string name="do_you_really">Esta seguro?</string>
+    <string name="will_block_the_day">Se bloqueará el día</string>
+    <string name="from">desde</string>
+    <string name="to">hasta</string>
 </resources>

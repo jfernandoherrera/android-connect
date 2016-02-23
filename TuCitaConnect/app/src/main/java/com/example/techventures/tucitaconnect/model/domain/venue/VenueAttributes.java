@@ -17,5 +17,6 @@ public class VenueAttributes {
     public static final String updatedAt = "updatedAt";
     public static final String slots = "slots";
     public static final String reviewsCount = "reviewsCount";
+    public static final String blockades = "blockades";
 
 }

@@ -1,6 +1,7 @@
 package com.example.techventures.tucitaconnect.app;
 
 import com.example.techventures.tucitaconnect.model.domain.appointment.Appointment;
+import com.example.techventures.tucitaconnect.model.domain.blockade.Blockade;
 import com.example.techventures.tucitaconnect.model.domain.city.City;
 import com.example.techventures.tucitaconnect.model.domain.service.Service;
 import com.example.techventures.tucitaconnect.model.domain.slot.Slot;
@@ -21,6 +22,8 @@ public class Application extends android.app.Application {
         FacebookSdk.sdkInitialize(this);
 
         ParseObject.registerSubclass(Venue.class);
+
+        ParseObject.registerSubclass(Blockade.class);
 
         ParseObject.registerSubclass(Slot.class);
 

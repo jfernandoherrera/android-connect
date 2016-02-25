@@ -16,4 +16,8 @@ public class ResponsiveInteraction {
 
     }
 
+    public static int backgroundClosed = R.drawable.cling_button_normal;
+
+    public static int backgroundOpen = R.drawable.cling_button_pressed;
+
 }

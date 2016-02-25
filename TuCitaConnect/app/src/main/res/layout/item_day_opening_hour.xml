@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginRight="8dp"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.example.techventures.tucitaconnect.utils.common.views.StateButton
+        android:layout_width="70dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_height="50dp"
+        android:id="@+id/business"/>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_toRightOf="@+id/business"
+        android:layout_toEndOf="@+id/business"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:id="@+id/textDay"
+            android:paddingLeft="8dp"
+            android:paddingStart="8dp"
+            android:layout_height="50dp" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_below="@+id/textDay"
+            android:paddingBottom="8dp"
+            android:id="@+id/concealer"
+            android:visibility="gone"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="@string/open"
+                android:paddingLeft="8dp"
+                android:paddingStart="8dp"
+                android:id="@+id/open"
+                android:layout_height="wrap_content" />
+            <Button
+                android:layout_width="wrap_content"
+                android:onClick="showHourPickerDialog"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="@string/close"
+                android:paddingLeft="8dp"
+                android:paddingStart="8dp"
+                android:id="@+id/close"
+                android:layout_height="wrap_content" />
+            <Button
+                android:layout_width="wrap_content"
+                android:onClick="showHourPickerDialog"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"/>
+        </LinearLayout></RelativeLayout>
+</RelativeLayout>

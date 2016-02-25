@@ -2,5 +2,7 @@
 <TextView
     android:layout_width="50sp"
     android:layout_height="180sp"
+    android:paddingLeft="3sp"
+    android:paddingStart="3sp"
     android:id="@+id/lapses"
     xmlns:android="http://schemas.android.com/apk/res/android" />

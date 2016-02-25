@@ -104,6 +104,7 @@
                 />
         </com.example.techventures.tucitaconnect.utils.common.scroll.AppHorizontalScrollView>
     </com.example.techventures.tucitaconnect.utils.common.scroll.AppScrollView>
+
     </RelativeLayout>
         <TextView
             android:layout_width="58dp"

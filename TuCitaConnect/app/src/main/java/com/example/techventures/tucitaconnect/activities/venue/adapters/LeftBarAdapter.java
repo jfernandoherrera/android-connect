@@ -35,6 +35,49 @@ public class LeftBarAdapter extends RecyclerView.Adapter<LeftBarAdapter.ViewHold
 
     }
 
+
+    private String formatHour(int hour, int minute) {
+
+        int twelveHoursClock = 12;
+
+        String fine;
+
+        String am = "AM";
+
+        String pm = "PM";
+
+        String ampm;
+
+        if(hour > twelveHoursClock) {
+
+            hour = hour - twelveHoursClock;
+
+            ampm = pm;
+
+        }else {
+
+            ampm = am;
+
+        }
+
+        String min;
+
+        if(minute < 10) {
+
+            min = "0" + minute;
+
+        }else {
+
+            min = String.valueOf(minute);
+
+        }
+
+        fine = hour + ":" + min + "  " + ampm;
+
+        return fine;
+
+    }
+
     public void setInitialDate(Calendar initialDate) {
 
         this.initialDate = initialDate;
@@ -74,7 +117,7 @@ public class LeftBarAdapter extends RecyclerView.Adapter<LeftBarAdapter.ViewHold
 
         calendar.add(Calendar.MINUTE, time);
 
-        String hourSlot = calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE);
+        String hourSlot = formatHour(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE));
 
         return hourSlot;
 

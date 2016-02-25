@@ -5,11 +5,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
 import android.text.format.DateUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -32,6 +35,8 @@ import com.example.techventures.tucitaconnect.activities.venue.adapters.layout.S
 import com.example.techventures.tucitaconnect.activities.venue.fragments.AddUserFragment;
 import com.example.techventures.tucitaconnect.activities.venue.fragments.AppointmentDetailsFragment;
 import com.example.techventures.tucitaconnect.activities.venue.fragments.DatePickerFragment;
+import com.example.techventures.tucitaconnect.activities.venue.fragments.EditOpeningHoursFragment;
+import com.example.techventures.tucitaconnect.activities.venue.fragments.HourPickerFragment;
 import com.example.techventures.tucitaconnect.activities.venue.fragments.SelectTimesFragment;
 import com.example.techventures.tucitaconnect.model.context.appointment.AppointmentCompletion;
 import com.example.techventures.tucitaconnect.model.context.appointment.AppointmentContext;
@@ -51,11 +56,13 @@ import com.example.techventures.tucitaconnect.model.domain.slot.Slot;
 import com.example.techventures.tucitaconnect.model.domain.venue.Venue;
 import com.example.techventures.tucitaconnect.model.error.AppError;
 import com.example.techventures.tucitaconnect.utils.common.AppFont;
+import com.example.techventures.tucitaconnect.utils.common.CustomSpanTypeface;
 import com.example.techventures.tucitaconnect.utils.common.ResponsiveInteraction;
 import com.example.techventures.tucitaconnect.utils.common.activity.AppToolbarActivity;
 import com.example.techventures.tucitaconnect.utils.common.attributes.CommonAttributes;
 import com.example.techventures.tucitaconnect.utils.common.scroll.AppHorizontalScrollView;
 import com.example.techventures.tucitaconnect.utils.common.scroll.AppScrollView;
+import com.example.techventures.tucitaconnect.utils.common.views.StateButton;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 import java.util.ArrayList;
@@ -63,7 +70,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class VenueActivity extends AppToolbarActivity implements DatePickerFragment.OnDateSelected, SlotsAppointmentsAdapter.OnTouchToClick, SelectTimesFragment.OnJustOneDateSelected{
+public class VenueActivity extends AppToolbarActivity implements EditOpeningHoursFragment.OnTimeSelected, DatePickerFragment.OnDateSelected, SlotsAppointmentsAdapter.OnTouchToClick, SelectTimesFragment.OnJustOneDateSelected{
 
     private VenueContext venueContext;
     private AppointmentContext appointmentContext;
@@ -175,14 +182,26 @@ public class VenueActivity extends AppToolbarActivity implements DatePickerFragm
 
                       String day = new java.text.SimpleDateFormat("EEEE/d/MMMM/yyyy").format(calendar.getTime());
 
-                      String from = getString(R.string.from) + " " + slot.getStartHour() + ":" + slot.getStartMinute();
+                      String from = getString(R.string.from) + " " + formatHour(slot.getStartHour(), slot.getStartMinute());
 
-                      String to = getString(R.string.to) + " " + slot.getEndHour() + ":" + slot.getEndMinute();
+                      String to = getString(R.string.to) + " " + formatHour(slot.getEndHour(), slot.getEndMinute());
+
+                      String willBlock = getString(R.string.will_block_the_day) + " " +  day + " " + from + " " + to;
+
+                      String title = getString(R.string.do_you_really);
+
+                      SpannableStringBuilder stringBuilder = new SpannableStringBuilder(willBlock);
+
+                      stringBuilder.setSpan(new CustomSpanTypeface(null, Typeface.BOLD, 20, null, null, typeface), 0, willBlock.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+
+                      SpannableStringBuilder stringBuilderTitle = new SpannableStringBuilder(title);
+
+                      stringBuilderTitle.setSpan(new CustomSpanTypeface(null, Typeface.BOLD, 26, null, null, typeface), 0, title.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
 
                       new AlertDialog.Builder(VenueActivity.this)
 
-                              .setTitle(getString(R.string.do_you_really))
-                              .setMessage(getString(R.string.will_block_the_day) + " " +  day + " " + from + " " + to)
+                              .setTitle(stringBuilderTitle)
+                              .setMessage(stringBuilder)
                               .setIcon(android.R.drawable.ic_dialog_alert)
                               .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
@@ -194,13 +213,17 @@ public class VenueActivity extends AppToolbarActivity implements DatePickerFragm
 
                               .setNegativeButton(android.R.string.no, null).show();
 
-                  } else if(item.getTitle().equals(getString(R.string.action_multiple_block))){
+                  } else if(item.getTitle().equals(getString(R.string.action_multiple_block))) {
 
                     showSelectTimesDialog();
 
-                  } else if(item.getTitle().equals(getString(R.string.action_add_appointment))){
+                  } else if(item.getTitle().equals(getString(R.string.action_add_appointment))) {
 
 
+
+                  } else if(item.getTitle().equals(getString(R.string.action_edit_working_hours))) {
+
+                        showEditOpeningHoursDialog();
 
                   }
 
@@ -253,6 +276,48 @@ public class VenueActivity extends AppToolbarActivity implements DatePickerFragm
         wm.getDefaultDisplay().getMetrics(metrics);
 
         dimension = metrics.scaledDensity;
+
+    }
+
+    private String formatHour(int hour, int minute) {
+
+        int twelveHoursClock = 12;
+
+        String fine;
+
+        String am = "AM";
+
+        String pm = "PM";
+
+        String ampm;
+
+        if(hour > twelveHoursClock) {
+
+            hour = hour - twelveHoursClock;
+
+            ampm = pm;
+
+        }else {
+
+            ampm = am;
+
+        }
+
+        String min;
+
+        if(minute < 10) {
+
+        min = "0" + minute;
+
+        }else {
+
+            min = String.valueOf(minute);
+
+        }
+
+        fine = hour + ":" + min + " " + ampm;
+
+        return fine;
 
     }
 
@@ -333,6 +398,27 @@ public class VenueActivity extends AppToolbarActivity implements DatePickerFragm
         DialogFragment newFragment = new DatePickerFragment();
 
         String tag = "timePicker";
+
+        newFragment.show(getSupportFragmentManager(), tag);
+
+    }
+    public void showHourPickerDialog(View v) {
+
+        DialogFragment newFragment = new HourPickerFragment();
+
+        String tag = "hourPicker";
+
+        newFragment.show(getSupportFragmentManager(), tag);
+
+    }
+
+    public void showEditOpeningHoursDialog() {
+
+        EditOpeningHoursFragment newFragment = new EditOpeningHoursFragment();
+
+        newFragment.setVenue(venue);
+
+        String tag = "editOpeningHours";
 
         newFragment.show(getSupportFragmentManager(), tag);
 
@@ -819,13 +905,33 @@ public class VenueActivity extends AppToolbarActivity implements DatePickerFragm
 
         String text;
 
-        if(minute < twoDigitsNumber){
+        int twelveHoursClock = 12;
 
-            text = setupSpacesHour(hour) + ":0" + minute;
+        String am = "AM";
+
+        String pm = "PM";
+
+        String ampm;
+
+        if(hour > twelveHoursClock) {
+
+            hour = hour - twelveHoursClock;
+
+            ampm = pm;
 
         }else {
 
-            text = setupSpacesHour(hour) + ":" + minute;
+            ampm = am;
+
+        }
+
+        if(minute < twoDigitsNumber){
+
+            text = setupSpacesHour(hour) + ":0" + minute + " " + ampm;
+
+        }else {
+
+            text = setupSpacesHour(hour) + ":" + minute + " " + ampm;
 
         }
 
@@ -890,4 +996,10 @@ public class VenueActivity extends AppToolbarActivity implements DatePickerFragm
         selectTimesFragment.blockades(venue);
 
     }
+
+    @Override
+    public void onTimeSelected() {
+
+    }
+
 }

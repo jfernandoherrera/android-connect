@@ -4,7 +4,8 @@
     <string name="facebook_app_id">1652265898354822</string>
     <string name="app_parse_id">EazCp42Fw4yJTEGCuZ9ofl75izJY7a49nw2xufH6</string>
     <string name="client_parse_id">Fr71FqI5chgnNWBbrDa6d9rhxo3PiL8pngM7MUt4</string>
-
+    <string name="open_default">9:00 AM</string>
+    <string name="close_default">7:00 PM</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Contraseña</string>
     <string name="prompt_name">Nombre</string>
@@ -29,6 +30,9 @@
     <string name="no_results">Sin resultados</string>
     <string name="ok">Listo</string>
     <string name="closed">CERRADO</string>
+    <string name="open">Abre</string>
+    <string name="opened">Abierto</string>
+    <string name="close">Cierra</string>
     <string name="order_total">Total :</string>
     <string name="change_date">Cambiar fecha</string>
     <string name="continue_option">Continuar</string>
@@ -38,4 +42,11 @@
     <string name="will_block_the_day">Se bloqueará el día</string>
     <string name="from">desde</string>
     <string name="to">hasta</string>
+    <string name="monday">Lunes</string>
+    <string name="tuesday">Martes</string>
+    <string name="wednesday">Miercoles</string>
+    <string name="thursday">Jueves</string>
+    <string name="friday">Viernes</string>
+    <string name="saturday">Sabado</string>
+    <string name="sunday">Domingo</string>
 </resources>

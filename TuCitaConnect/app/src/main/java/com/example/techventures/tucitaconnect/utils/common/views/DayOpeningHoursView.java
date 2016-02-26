@@ -2,24 +2,21 @@ package com.example.techventures.tucitaconnect.utils.common.views;
 
 
 import android.content.Context;
-import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.example.techventures.tucitaconnect.R;
-
 import java.util.Calendar;
-import java.util.Date;
 
 public class DayOpeningHoursView extends RelativeLayout{
 
     private StateButton stateButton;
-    private TextView textFrom;
-    private TextView textTo;
+    private Button textFrom;
+    private Button  textTo;
     private TextView day;
     private LinearLayout relativeLayout;
 
@@ -38,9 +35,9 @@ public class DayOpeningHoursView extends RelativeLayout{
 
         inflater.inflate(R.layout.item_day_opening_hour, this);
 
-        textFrom = (TextView) findViewById(R.id.open);
+        textFrom = (Button ) findViewById(R.id.open);
 
-        textTo = (TextView) findViewById(R.id.close);
+        textTo = (Button ) findViewById(R.id.close);
 
         day = (TextView) findViewById(R.id.textDay);
 
@@ -61,6 +58,48 @@ public class DayOpeningHoursView extends RelativeLayout{
 
             }
         });
+
+    }
+
+    private String formatHour(int hour, int minute) {
+
+        int twelveHoursClock = 12;
+
+        String fine;
+
+        String am = "AM";
+
+        String pm = "PM";
+
+        String ampm;
+
+        if(hour > twelveHoursClock) {
+
+            hour = hour - twelveHoursClock;
+
+            ampm = pm;
+
+        }else {
+
+            ampm = am;
+
+        }
+
+        String min;
+
+        if(minute < 10) {
+
+            min = "0" + minute;
+
+        }else {
+
+            min = String.valueOf(minute);
+
+        }
+
+        fine = hour + ":" + min + " " + ampm;
+
+        return fine;
 
     }
 
@@ -92,11 +131,11 @@ public class DayOpeningHoursView extends RelativeLayout{
 
     }
 
-    public void setOpeningHour(int open, int close) {
+    public void setOpeningHour(int openHour, int openMinute, int closeHour, int closeMinute) {
 
-        textFrom.setText(String.valueOf(open));
+        textFrom.setText(formatHour(openHour, openMinute));
 
-        textTo.setText(String.valueOf(close));
+        textTo.setText(formatHour(closeHour, closeMinute));
 
     }
 

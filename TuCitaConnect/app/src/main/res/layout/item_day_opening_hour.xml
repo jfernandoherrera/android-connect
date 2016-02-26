@@ -37,10 +37,12 @@
                 android:text="@string/open"
                 android:paddingLeft="8dp"
                 android:paddingStart="8dp"
-                android:id="@+id/open"
+                android:paddingRight="4dp"
+                android:paddingEnd="4dp"
                 android:layout_height="wrap_content" />
             <Button
-                android:layout_width="wrap_content"
+                android:layout_width="60dp"
+                android:id="@+id/open"
                 android:onClick="showHourPickerDialog"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"/>
@@ -49,11 +51,13 @@
                 android:text="@string/close"
                 android:paddingLeft="8dp"
                 android:paddingStart="8dp"
-                android:id="@+id/close"
+                android:paddingRight="4dp"
+                android:paddingEnd="4dp"
                 android:layout_height="wrap_content" />
             <Button
-                android:layout_width="wrap_content"
+                android:layout_width="60dp"
                 android:onClick="showHourPickerDialog"
+                android:id="@+id/close"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"/>
         </LinearLayout></RelativeLayout>

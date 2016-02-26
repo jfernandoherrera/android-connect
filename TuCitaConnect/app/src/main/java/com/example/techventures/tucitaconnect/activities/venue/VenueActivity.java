@@ -402,9 +402,12 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
         newFragment.show(getSupportFragmentManager(), tag);
 
     }
+    
     public void showHourPickerDialog(View v) {
 
-        DialogFragment newFragment = new HourPickerFragment();
+        HourPickerFragment newFragment = new HourPickerFragment();
+
+        newFragment.setText((Button) v);
 
         String tag = "hourPicker";
 
@@ -678,7 +681,6 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
             SplashActivity.goToStart(getApplicationContext());
 
         }
-
 
     }
 
@@ -998,7 +1000,9 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
     }
 
     @Override
-    public void onTimeSelected() {
+    public void onTimeSelected(View view) {
+
+
 
     }
 

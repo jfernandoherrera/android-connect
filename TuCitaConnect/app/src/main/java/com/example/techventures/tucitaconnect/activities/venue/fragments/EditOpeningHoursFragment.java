@@ -31,7 +31,7 @@ public class EditOpeningHoursFragment extends DialogFragment {
 
     public interface OnTimeSelected{
 
-        void onTimeSelected();
+        void onTimeSelected(View view);
 
     }
 
@@ -103,6 +103,10 @@ public class EditOpeningHoursFragment extends DialogFragment {
 
         openingHourContext = OpeningHourContext.context(openingHourContext);
 
+        toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
+
+        toolbar.inflateMenu(R.menu.menu_all_set);
+
         setup(rootView);
 
         return rootView;
@@ -140,7 +144,7 @@ public class EditOpeningHoursFragment extends DialogFragment {
 
     private void populateOpeningHours(View view) {
 
-        for(   int day = 0; day < 7; day ++) {
+        for(int day = 0; day < 7; day ++) {
 
             final  DayOpeningHoursView stateButton = getDayStateView(day, view);
 
@@ -155,8 +159,6 @@ public class EditOpeningHoursFragment extends DialogFragment {
                    
                         stateButton.clickState();
 
-                        stateButton.setOpeningHour(openingHour.getStartHour(), openingHour.getEndHour());
-
                     }
 
                 });
@@ -164,6 +166,8 @@ public class EditOpeningHoursFragment extends DialogFragment {
                 if(openingHour.getDay() == day) {
                     
                     stateButton.clickState();
+
+                    stateButton.setOpeningHour(openingHour.getStartHour(), openingHour.getStartMinute(), openingHour.getEndHour(), openingHour.getEndMinute());
 
                 }
 
@@ -175,6 +179,8 @@ public class EditOpeningHoursFragment extends DialogFragment {
 
     @Override
     public void onAttach(Context context) {
+
+        setStyle(DialogFragment.STYLE_NO_TITLE, 0);
 
         super.onAttach(context);
 

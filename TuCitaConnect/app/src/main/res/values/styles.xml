@@ -13,9 +13,16 @@
         <item name="actionOverflowButtonStyle">@style/OverFlow</item>
     </style>
     <style name="OverFlow" parent="Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:src">@mipmap/ic_all_set</item>
+    </style>
+    <style name="AppTheme.BaseAccount" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="actionOverflowButtonStyle">@style/OverFlowAccount</item>
+    </style>
+    <style name="OverFlowAccount" parent="Widget.AppCompat.ActionButton.Overflow">
         <item name="android:src">@mipmap/ic_name</item>
     </style>
       <style name="PopupMenu" parent="@android:style/Widget.PopupMenu">
         <item name="android:popupBackground">@android:color/transparent</item>
     </style>
+
 </resources>

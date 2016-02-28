@@ -74,7 +74,7 @@
         android:layout_width="match_parent"
         android:id="@+id/fragmentsContainer"
         android:layout_height="match_parent">
-            <com.example.techventures.tucitaconnect.utils.common.scroll.AppRecyclerView
+            <com.techventures.tucitaconnect.utils.common.scroll.AppRecyclerView
                 android:layout_width="42sp"
                 android:id="@+id/recycler_viewLeftBar"
                 android:layout_height="match_parent"/>
@@ -85,25 +85,25 @@
             android:gravity="center"
             android:visibility="gone"
             android:layout_height="match_parent" />
-        <com.example.techventures.tucitaconnect.utils.common.scroll.AppScrollView
+        <com.techventures.tucitaconnect.utils.common.scroll.AppScrollView
         android:layout_width="match_parent"
         android:id="@+id/scrollVertical"
             android:layout_toRightOf="@+id/recycler_viewLeftBar"
             android:layout_toEndOf="@+id/recycler_viewLeftBar"
         android:layout_height="match_parent">
 
-        <com.example.techventures.tucitaconnect.utils.common.scroll.AppHorizontalScrollView
+        <com.techventures.tucitaconnect.utils.common.scroll.AppHorizontalScrollView
             android:layout_width="match_parent"
             android:id="@+id/scrollHorizontal"
             android:layout_height="match_parent">
 
-            <com.example.techventures.tucitaconnect.utils.common.scroll.AppRecyclerView
+            <com.techventures.tucitaconnect.utils.common.scroll.AppRecyclerView
                 android:id="@+id/recycler_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 />
-        </com.example.techventures.tucitaconnect.utils.common.scroll.AppHorizontalScrollView>
-    </com.example.techventures.tucitaconnect.utils.common.scroll.AppScrollView>
+        </com.techventures.tucitaconnect.utils.common.scroll.AppHorizontalScrollView>
+    </com.techventures.tucitaconnect.utils.common.scroll.AppScrollView>
 
     </RelativeLayout>
         <TextView

@@ -28,6 +28,16 @@ public class SlotContext {
 
     }
 
+    public void getDuration(Venue venue, SlotCompletion.SlotErrorCompletion completion) {
+
+        ParseRelation<Slot> object = (ParseRelation) venue.get(VenueAttributes.slots);
+
+        ParseQuery<Slot> query = object.getQuery();
+
+        slotRemote.getDuration(query, completion);
+
+    }
+
     public void loadDaySlots(Venue venue, int day, SlotCompletion.SlotErrorCompletion completion) {
 
         try {

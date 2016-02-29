@@ -19,6 +19,10 @@ public class DayOpeningHoursView extends RelativeLayout{
     private Button  textTo;
     private TextView day;
     private LinearLayout relativeLayout;
+    private int startHour;
+    private int startMinute;
+    private int endHour;
+    private int endMinute;
 
     public DayOpeningHoursView(Context context, AttributeSet attrs) {
 
@@ -28,6 +32,35 @@ public class DayOpeningHoursView extends RelativeLayout{
 
     }
 
+    public StateButton getStateButton() {
+
+        return stateButton;
+
+    }
+
+    public int getEndHour() {
+
+        return endHour;
+
+    }
+
+    public int getEndMinute() {
+
+        return endMinute;
+
+    }
+
+    public int getStartHour() {
+
+        return startHour;
+
+    }
+
+    public int getStartMinute() {
+
+        return startMinute;
+
+    }
 
     private void init(Context context) {
 
@@ -47,7 +80,15 @@ public class DayOpeningHoursView extends RelativeLayout{
 
         textFrom.setText(getResources().getString(R.string.open_default));
 
+        startHour = 9;
+
+        startMinute = 0;
+
         textTo.setText(getResources().getString(R.string.close_default));
+
+        endHour = 19;
+
+        endMinute = 0;
 
         stateButton.setOnClickListener(new OnClickListener() {
 
@@ -135,7 +176,15 @@ public class DayOpeningHoursView extends RelativeLayout{
 
         textFrom.setText(formatHour(openHour, openMinute));
 
+        startHour = openHour;
+
+        startMinute = openMinute;
+
         textTo.setText(formatHour(closeHour, closeMinute));
+
+        endMinute = closeMinute;
+
+        endHour = closeHour;
 
     }
 

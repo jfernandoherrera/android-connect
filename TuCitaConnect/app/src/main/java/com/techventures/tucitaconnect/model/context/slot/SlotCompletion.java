@@ -10,5 +10,7 @@ public class SlotCompletion {
 
         void completion(List<Slot> slotList, AppError error);
 
+        void completion(int duration, AppError error);
+
     }
 }

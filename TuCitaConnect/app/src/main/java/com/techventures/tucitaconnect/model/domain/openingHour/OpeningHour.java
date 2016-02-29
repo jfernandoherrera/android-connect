@@ -19,6 +19,36 @@ public class OpeningHour extends ParseObject {
 
     }
 
+    public void putStartHour(int startHour) {
+
+        put(OpeningHourAttributes.startHour, startHour);
+
+    }
+
+    public void putDay(int day) {
+
+        put(OpeningHourAttributes.day, day);
+
+    }
+
+    public void putEndHour(int endHour) {
+
+        put(OpeningHourAttributes.endHour, endHour);
+
+    }
+
+    public void putStartMinute(int startMinute) {
+
+        put(OpeningHourAttributes.startMinute, startMinute);
+
+    }
+
+    public void putEndMinute(int endMinute) {
+
+        put(OpeningHourAttributes.endMinute, endMinute);
+
+    }
+
     public int getEndHour() {
 
         return getInt(OpeningHourAttributes.endHour);

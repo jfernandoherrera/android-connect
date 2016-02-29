@@ -14,20 +14,21 @@
         android:theme="@style/AppTheme.Base"
         android:background="@color/colorPrimary">
         <EditText
-        android:layout_width="wrap_content"
-        android:hint="@string/duration"
-        android:paddingLeft="8dp"
-        android:paddingStart="8dp"
+            android:layout_width="wrap_content"
+            android:hint="@string/duration"
+            android:paddingLeft="8dp"
+            android:paddingStart="8dp"
             android:inputType="numberDecimal"
-        android:paddingRight="4dp"
-        android:lines="1"
-        android:paddingEnd="4dp"
-        android:layout_height="wrap_content" />
+            android:id="@+id/textDuration"
+            android:paddingRight="4dp"
+            android:lines="1"
+            android:paddingEnd="4dp"
+            android:layout_height="wrap_content" />
     </android.support.v7.widget.Toolbar>
-<com.techventures.tucitaconnect.utils.common.views.DayOpeningHoursView
-    android:layout_width="wrap_content"
-    android:id="@+id/mondayBusiness"
-    android:layout_height="wrap_content"/>
+    <com.techventures.tucitaconnect.utils.common.views.DayOpeningHoursView
+        android:layout_width="wrap_content"
+        android:id="@+id/mondayBusiness"
+        android:layout_height="wrap_content"/>
     <com.techventures.tucitaconnect.utils.common.views.DayOpeningHoursView
         android:layout_width="wrap_content"
         android:id="@+id/tuesdayBusiness"

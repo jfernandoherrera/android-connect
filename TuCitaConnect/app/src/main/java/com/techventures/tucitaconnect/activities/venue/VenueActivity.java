@@ -552,6 +552,11 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
                 concealer.setVisibility(View.GONE);
 
             }
+
+            @Override
+            public void completion(int duration, AppError error) {
+
+            }
         });
 
     }

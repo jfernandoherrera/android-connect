@@ -28,6 +28,19 @@ public class OpeningHourContext {
 
     }
 
+    public void deleteOpeningHour(OpeningHour openingHour, OpeningHourCompletion.OpeningHourErrorCompletion completion) {
+
+        openingHourRemote.deleteOpeningHouir(openingHour, completion);
+
+    }
+
+
+    public void saveOpeningHours(List<OpeningHour> openingHours, Venue venue, OpeningHourCompletion.OpeningHourErrorCompletion completion) {
+
+        openingHourRemote.saveOpeningHours(openingHours, venue, completion);
+
+    }
+
     public static OpeningHourContext context(OpeningHourContext openingHourContext) {
 
         if (openingHourContext == null) {

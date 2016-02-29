@@ -11,6 +11,7 @@
         android:layout_width="70dp"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
+        android:textSize="12sp"
         android:layout_height="50dp"
         android:id="@+id/business"/>
     <RelativeLayout
@@ -51,8 +52,6 @@
                 android:text="@string/close"
                 android:paddingLeft="8dp"
                 android:paddingStart="8dp"
-                android:paddingRight="4dp"
-                android:paddingEnd="4dp"
                 android:layout_height="wrap_content" />
             <Button
                 android:layout_width="60dp"

@@ -1,7 +1,9 @@
 package com.techventures.tucitaconnect.model.context.slot;
 
+import com.parse.GetCallback;
 import com.techventures.tucitaconnect.model.domain.slot.Slot;
 import com.techventures.tucitaconnect.model.domain.slot.SlotAttributes;
+import com.techventures.tucitaconnect.model.domain.venue.Venue;
 import com.techventures.tucitaconnect.model.error.AppError;
 import com.parse.FindCallback;
 import com.parse.ParseACL;
@@ -30,6 +32,28 @@ public class SlotRemote {
             query.cancel();
 
         }
+
+    }
+
+    public void getDuration(ParseQuery<Slot> slotParseQuery, final SlotCompletion.SlotErrorCompletion completion) {
+
+        query = slotParseQuery;
+
+
+
+            query.getFirstInBackground(new GetCallback<Slot>() {
+
+                @Override
+                public void done(Slot object, ParseException e) {
+
+                    AppError appError = e != null ? new AppError(Slot.class.toString(), 0, null) : null;
+
+                    completion.completion(object.getDurationMinutes(), appError);
+
+                }
+            });
+
+
 
     }
 

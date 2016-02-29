@@ -4,12 +4,15 @@ package com.techventures.tucitaconnect.utils.common.views;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.techventures.tucitaconnect.R;
+import com.techventures.tucitaconnect.activities.venue.fragments.EditOpeningHoursFragment;
+
 import java.util.Calendar;
 
 public class DayOpeningHoursView extends RelativeLayout{
@@ -22,6 +25,7 @@ public class DayOpeningHoursView extends RelativeLayout{
     final int twelveHoursClock = 12;
     final String am = "AM";
     final String pm = "PM";
+    private EditOpeningHoursFragment.OnTimeSelected onTimeSelected;
 
 
     public DayOpeningHoursView(Context context, AttributeSet attrs) {
@@ -29,6 +33,20 @@ public class DayOpeningHoursView extends RelativeLayout{
         super(context, attrs);
 
         init(context);
+
+    }
+
+    public boolean hasInitialDateListener() {
+
+        boolean has = onTimeSelected != null;
+
+        return has;
+
+    }
+
+    public void setOnTimeSelected(EditOpeningHoursFragment.OnTimeSelected onTimeSelected) {
+
+        this.onTimeSelected = onTimeSelected;
 
     }
 
@@ -211,7 +229,29 @@ public class DayOpeningHoursView extends RelativeLayout{
 
         textFrom.setText(formatHour(openHour, openMinute));
 
+        textFrom.setOnTouchListener(new OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                onTimeSelected.onTimeSelected(textTo, getStartHour(), getStartMinute());
+
+                return false;
+            }
+        });
+
         textTo.setText(formatHour(closeHour, closeMinute));
+
+        textTo.setOnTouchListener(new OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                onTimeSelected.onTimeSelected(textFrom, getEndHour(), getEndMinute());
+
+                return false;
+            }
+        });
 
     }
 

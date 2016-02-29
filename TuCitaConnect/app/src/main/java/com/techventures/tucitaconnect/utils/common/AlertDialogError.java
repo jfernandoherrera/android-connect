@@ -23,9 +23,9 @@ public class AlertDialogError {
 
     }
 
-    public void noAvailableSlot(Context context) {
+    public void noIsPossible(Context context) {
 
-        Toast typeMore = Toast.makeText(context, R.string.no_internet_connection, Toast.LENGTH_SHORT);
+        Toast typeMore = Toast.makeText(context, R.string.no_is_possible, Toast.LENGTH_SHORT);
 
         typeMore.setGravity(Gravity.CENTER | Gravity.LEFT, 0, 0);
 

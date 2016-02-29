@@ -51,4 +51,5 @@
     <string name="saturday">Sabado</string>
     <string name="sunday">Domingo</string>
     <string name="no_internet_connection">No hay conexión a internet</string>
+    <string name="no_is_possible">No puede cerrar antes de abrir</string>
 </resources>

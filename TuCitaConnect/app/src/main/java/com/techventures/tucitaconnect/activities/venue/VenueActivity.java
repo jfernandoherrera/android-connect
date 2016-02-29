@@ -70,7 +70,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class VenueActivity extends AppToolbarActivity implements EditOpeningHoursFragment.OnTimeSelected, DatePickerFragment.OnDateSelected, SlotsAppointmentsAdapter.OnTouchToClick, SelectTimesFragment.OnJustOneDateSelected{
+public class VenueActivity extends AppToolbarActivity implements EditOpeningHoursFragment.OnTimeSelected, DatePickerFragment.OnDateSelected, SlotsAppointmentsAdapter.OnTouchToClick, SelectTimesFragment.OnJustOneDateSelected, HourPickerFragment.OnHourSelected{
 
     private VenueContext venueContext;
     private AppointmentContext appointmentContext;
@@ -105,6 +105,9 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
     private int column;
     private BlockadeContext blockadeContext;
     int i;
+    private Button isTo;
+    private int ultimateIsToHour, ultimateIsToMinute, ultimateIsFromHour, ultimateIsFromMinute;
+    private Button isFrom;
     Handler handler = new Handler();
     Runnable r = new Runnable() {
 
@@ -340,7 +343,7 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
             @Override
             public void completion(List<Blockade> blockadeList, AppError error) {
 
-                if(error == null) {
+                if (error == null) {
 
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 
@@ -407,6 +410,20 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
 
         HourPickerFragment newFragment = new HourPickerFragment();
 
+        if(isTo != null) {
+
+            newFragment.setInitialHour(ultimateIsFromHour);
+
+            newFragment.setInitialMinute(ultimateIsFromMinute);
+
+        } else {
+
+            newFragment.setInitialHour(ultimateIsToHour);
+
+            newFragment.setInitialMinute(ultimateIsToMinute);
+
+        }
+
         newFragment.setText((Button) v);
 
         String tag = "hourPicker";
@@ -417,13 +434,13 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
 
     public void showEditOpeningHoursDialog() {
 
-        EditOpeningHoursFragment newFragment = new EditOpeningHoursFragment();
+        EditOpeningHoursFragment editOpeningHoursFragment = new EditOpeningHoursFragment();
 
-        newFragment.setVenue(venue);
+        editOpeningHoursFragment.setVenue(venue);
 
         String tag = "editOpeningHours";
 
-        newFragment.show(getSupportFragmentManager(), tag);
+        editOpeningHoursFragment.show(getSupportFragmentManager(), tag);
 
     }
 
@@ -1005,9 +1022,92 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
     }
 
     @Override
-    public void onTimeSelected(View view) {
+    public void onTimeSelected(Button view, int hour, int minute) {
+
+        if(view.getId() == R.id.open) {
+
+            isFrom = view;
+
+            ultimateIsToHour = hour;
+
+            ultimateIsToMinute = minute;
+
+            isTo = null;
+
+        } else {
+
+            ultimateIsFromMinute = minute;
+
+            ultimateIsFromHour = hour;
+
+            isTo = view;
+
+            isFrom = null;
+
+        }
+
+    }
+
+    @Override
+    public boolean onHourSelected(int hour, int min) {
+
+        boolean isGreater;
+
+        if(isTo == null) {
+
+            isGreater = hour > getStartHour(isFrom) || (hour == getStartHour(isFrom) && min > getStartMinute(isFrom));
+
+        } else {
+
+            isGreater = hour < getStartHour(isTo) || (hour == getStartHour(isTo) && min < getStartMinute(isTo));
 
 
+        }
+
+        return isGreater;
+
+    }
+
+    public int getStartHour(Button button) {
+
+        final String pm = "PM";
+
+        int hour = 0;
+
+            String[] startHour = button.getText().toString().split("[:]+|AM|PM");
+
+            hour = Integer.parseInt(startHour[0]);
+
+            if (button.getText().toString().contains(pm)) {
+
+                hour += 12;
+
+            }
+
+        return hour;
+
+    }
+
+
+    public int getStartMinute(Button button) {
+
+        int startMinute = 0;
+
+        String minute;
+
+            minute = button.getText().toString().split("[:]+|AM|PM")[1];
+
+            try {
+
+                startMinute = Integer.parseInt(minute);
+
+            } catch (NumberFormatException e) {
+
+                startMinute = Integer.parseInt(minute.replaceFirst("0", "").trim());
+
+            }
+
+        return startMinute;
 
     }
 

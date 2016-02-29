@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.techventures.tucitaconnect.R;
@@ -42,9 +43,10 @@ public class EditOpeningHoursFragment extends DialogFragment {
     private SlotContext slotContext;
     private EditText textDuration;
 
+
     public interface OnTimeSelected{
 
-        void onTimeSelected(View view);
+        void onTimeSelected(Button view, int hour, int minute);
 
     }
 
@@ -101,6 +103,12 @@ public class EditOpeningHoursFragment extends DialogFragment {
                 stateButton = ( DayOpeningHoursView) view.findViewById(R.id.sundayBusiness);
 
                 break;
+
+        }
+
+        if(! stateButton.hasInitialDateListener()) {
+
+            stateButton.setOnTimeSelected(listener);
 
         }
 

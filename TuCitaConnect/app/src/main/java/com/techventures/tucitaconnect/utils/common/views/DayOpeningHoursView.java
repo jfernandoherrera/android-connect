@@ -19,10 +19,10 @@ public class DayOpeningHoursView extends RelativeLayout{
     private Button  textTo;
     private TextView day;
     private LinearLayout relativeLayout;
-    private int startHour;
-    private int startMinute;
-    private int endHour;
-    private int endMinute;
+    final int twelveHoursClock = 12;
+    final String am = "AM";
+    final String pm = "PM";
+
 
     public DayOpeningHoursView(Context context, AttributeSet attrs) {
 
@@ -40,23 +40,72 @@ public class DayOpeningHoursView extends RelativeLayout{
 
     public int getEndHour() {
 
-        return endHour;
+        String endHour = textTo.getText().toString().split("[:]+|AM|PM")[0];
+
+        int hour =  Integer.parseInt(endHour);
+
+        if(textTo.getText().toString().contains(pm)) {
+
+            hour += 12;
+
+        }
+
+        return hour;
 
     }
 
     public int getEndMinute() {
 
-        return endMinute;
 
+        String minute = textTo.getText().toString().split("[:]+|AM|PM")[1];
+
+        int endMinute;
+
+        try {
+
+            endMinute = Integer.parseInt(minute);
+
+        } catch (NumberFormatException e) {
+
+            endMinute = Integer.parseInt(minute.replaceFirst("0", "").trim());
+
+        }
+
+        return endMinute;
     }
 
     public int getStartHour() {
 
-        return startHour;
+
+        String[] startHour = textFrom.getText().toString().split("[:]+|AM|PM");
+
+        int hour =  Integer.parseInt(startHour[0]);
+
+        if(textFrom.getText().toString().contains(pm)) {
+
+            hour += 12;
+
+        }
+
+        return hour;
 
     }
 
     public int getStartMinute() {
+
+        String minute = textFrom.getText().toString().split("[:]+|AM|PM")[1];
+
+        int startMinute;
+
+        try {
+
+            startMinute = Integer.parseInt(minute);
+
+        } catch (NumberFormatException e) {
+
+            startMinute = Integer.parseInt(minute.replaceFirst("0", "").trim());
+
+        }
 
         return startMinute;
 
@@ -80,15 +129,7 @@ public class DayOpeningHoursView extends RelativeLayout{
 
         textFrom.setText(getResources().getString(R.string.open_default));
 
-        startHour = 9;
-
-        startMinute = 0;
-
         textTo.setText(getResources().getString(R.string.close_default));
-
-        endHour = 19;
-
-        endMinute = 0;
 
         stateButton.setOnClickListener(new OnClickListener() {
 
@@ -104,13 +145,7 @@ public class DayOpeningHoursView extends RelativeLayout{
 
     private String formatHour(int hour, int minute) {
 
-        int twelveHoursClock = 12;
-
         String fine;
-
-        String am = "AM";
-
-        String pm = "PM";
 
         String ampm;
 
@@ -176,15 +211,7 @@ public class DayOpeningHoursView extends RelativeLayout{
 
         textFrom.setText(formatHour(openHour, openMinute));
 
-        startHour = openHour;
-
-        startMinute = openMinute;
-
         textTo.setText(formatHour(closeHour, closeMinute));
-
-        endMinute = closeMinute;
-
-        endHour = closeHour;
 
     }
 

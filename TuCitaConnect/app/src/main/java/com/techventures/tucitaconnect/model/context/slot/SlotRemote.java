@@ -39,8 +39,6 @@ public class SlotRemote {
 
         query = slotParseQuery;
 
-
-
             query.getFirstInBackground(new GetCallback<Slot>() {
 
                 @Override
@@ -48,8 +46,17 @@ public class SlotRemote {
 
                     AppError appError = e != null ? new AppError(Slot.class.toString(), 0, null) : null;
 
-                    completion.completion(object.getDurationMinutes(), appError);
+                    if(e != null) {
 
+                        completion.completion(-1, appError);
+
+                        e.printStackTrace();
+
+                    } else {
+
+                        completion.completion(object.getDurationMinutes(), null);
+
+                    }
                 }
             });
 

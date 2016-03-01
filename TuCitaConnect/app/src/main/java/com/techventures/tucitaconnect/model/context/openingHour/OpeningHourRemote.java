@@ -52,36 +52,41 @@ public class OpeningHourRemote {
 
     public void saveOpeningHours(final List<OpeningHour> openingHours, final Venue venue, final OpeningHourCompletion.OpeningHourErrorCompletion completion) {
 
+                        ParseObject.saveAllInBackground(openingHours, new SaveCallback() {
+                            @Override
+                            public void done(ParseException e) {
 
-        ParseRelation openingHourParseRelation = (ParseRelation) venue.get(VenueAttributes.openingHours);
+                                    ParseRelation openingHourParseRelation = (ParseRelation) venue.get(VenueAttributes.openingHours);
 
-                    try {
+                                    for (OpeningHour openingHour : openingHours) {
 
-                        ParseObject.saveAll(openingHours);
+                                        openingHourParseRelation.add(openingHour);
 
-                    for (OpeningHour openingHour : openingHours) {
+                                    }
 
-                        openingHourParseRelation.add(openingHour);
+                                venue.saveInBackground(new SaveCallback() {
 
-                    }
+                                    @Override
+                                    public void done(ParseException e) {
 
-                    venue.saveInBackground(new SaveCallback() {
+                                        if(e != null) {
 
-                        @Override
-                        public void done(ParseException e) {
+                                            e.printStackTrace();
 
-                            AppError appError = e != null ? new AppError(OpeningHour.class.toString(), 0, null) : null;
+                                        }
 
-                            completion.completion(null, appError);
+                                        AppError appError = e != null ? new AppError(OpeningHour.class.toString(), 0, null) : null;
 
-                        }
+                                        completion.completion(null, appError);
+
+                                    }
+
+                                });
+
+                            }
 
                     });
-                    } catch (ParseException e1) {
 
-                        e1.printStackTrace();
-
-                    }
                 }
 
 

@@ -149,6 +149,28 @@ public class DayOpeningHoursView extends RelativeLayout{
 
         textTo.setText(getResources().getString(R.string.close_default));
 
+        textFrom.setOnTouchListener(new OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                onTimeSelected.onTimeSelected(textTo, getStartHour(), getStartMinute());
+
+                return false;
+            }
+        });
+
+        textTo.setOnTouchListener(new OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                onTimeSelected.onTimeSelected(textFrom, getEndHour(), getEndMinute());
+
+                return false;
+            }
+        });
+
         stateButton.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -229,29 +251,7 @@ public class DayOpeningHoursView extends RelativeLayout{
 
         textFrom.setText(formatHour(openHour, openMinute));
 
-        textFrom.setOnTouchListener(new OnTouchListener() {
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-
-                onTimeSelected.onTimeSelected(textTo, getStartHour(), getStartMinute());
-
-                return false;
-            }
-        });
-
         textTo.setText(formatHour(closeHour, closeMinute));
-
-        textTo.setOnTouchListener(new OnTouchListener() {
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-
-                onTimeSelected.onTimeSelected(textFrom, getEndHour(), getEndMinute());
-
-                return false;
-            }
-        });
 
     }
 

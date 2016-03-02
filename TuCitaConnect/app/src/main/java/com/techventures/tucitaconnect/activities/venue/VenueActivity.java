@@ -524,6 +524,7 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
             dayOfWeek = calendarDay.getCalendar().get(Calendar.DAY_OF_WEEK);
 
         }
+
         slotContext = SlotContext.context(slotContext);
 
         slotContext.loadDaySlots(venue, dayOfWeek, new SlotCompletion.SlotErrorCompletion() {

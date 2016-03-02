@@ -39,19 +39,26 @@ public class VenuesFragment extends AppFragment {
 
     private void setupVenues() {
 
-        venueContext.loadVenues(user, new VenueCompletion.ListErrorCompletion() {
+        if(venueContext == null) {
 
-            @Override
-            public void completion(List<Venue> venueList, AppError error) {
+            venueContext = VenueContext.context(null);
 
-                venues = venueList;
+        }
 
-                setupList();
+            venueContext.loadVenues(user, new VenueCompletion.ListErrorCompletion() {
 
-            }
-        });
+                @Override
+                public void completion(List<Venue> venueList, AppError error) {
+
+                    venues = venueList;
+
+                    setupList();
+
+                }
+            });
 
     }
+
 
     public void setupList() {
 

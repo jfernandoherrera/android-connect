@@ -62,43 +62,43 @@ public class EditOpeningHoursFragment extends DialogFragment {
 
         switch (day) {
 
-            case 1:
+            case 2:
 
                 stateButton = ( DayOpeningHoursView) view.findViewById(R.id.mondayBusiness);
 
                 break;
 
-            case 2:
+            case 3:
 
                 stateButton = ( DayOpeningHoursView) view.findViewById(R.id.tuesdayBusiness);
 
                 break;
 
-            case 3:
+            case 4:
 
                 stateButton = ( DayOpeningHoursView) view.findViewById(R.id.wednesdayBusiness);
 
                 break;
 
-            case 4:
+            case 5:
 
                 stateButton = ( DayOpeningHoursView) view.findViewById(R.id.thursdayBusiness);
 
                 break;
 
-            case 5:
+            case 6:
 
                 stateButton = ( DayOpeningHoursView) view.findViewById(R.id.fridayBusiness);
 
                 break;
 
-            case 6:
+            case 7:
 
                 stateButton = ( DayOpeningHoursView) view.findViewById(R.id.saturdayBusiness);
 
                 break;
 
-            case 0:
+            case 1:
 
                 stateButton = ( DayOpeningHoursView) view.findViewById(R.id.sundayBusiness);
 
@@ -163,9 +163,9 @@ public class EditOpeningHoursFragment extends DialogFragment {
 
                 List<OpeningHour> toSave = new ArrayList<OpeningHour>();
 
-                if(openingHourList != null) {
+                if (openingHourList != null) {
 
-                    for(int count = 0; count < weekDays; count ++) {
+                    for (int count = 1; count <= weekDays; count++) {
 
                         OpeningHour sameDay = null;
 
@@ -181,13 +181,14 @@ public class EditOpeningHoursFragment extends DialogFragment {
 
                         }
 
+
                         DayOpeningHoursView openingHoursView = getDayStateView(count, getView());
 
                         boolean isOpen = openingHoursView.getStateButton().getOpen();
 
-                        if(sameDay != null) {
+                        if (sameDay != null) {
 
-                            if(isOpen) {
+                            if (isOpen) {
 
                                 sameDay.putStartHour(openingHoursView.getStartHour());
 
@@ -204,7 +205,7 @@ public class EditOpeningHoursFragment extends DialogFragment {
                                     @Override
                                     public void completion(List<OpeningHour> openingHourList, AppError error) {
 
-                                        if(error != null) {
+                                        if (error != null) {
 
                                             AlertDialogError alertDialogError = new AlertDialogError();
 
@@ -219,7 +220,7 @@ public class EditOpeningHoursFragment extends DialogFragment {
 
                         } else {
 
-                            if(isOpen) {
+                            if (isOpen) {
 
                                 sameDay = new OpeningHour();
 
@@ -237,7 +238,7 @@ public class EditOpeningHoursFragment extends DialogFragment {
 
                         }
 
-                        if(sameDay != null) {
+                        if (sameDay != null) {
 
                             toSave.add(sameDay);
 
@@ -249,7 +250,7 @@ public class EditOpeningHoursFragment extends DialogFragment {
                         @Override
                         public void completion(List<OpeningHour> openingHourList, AppError error) {
 
-                            if(error != null) {
+                            if (error != null) {
 
                                 AlertDialogError alertDialogError = new AlertDialogError();
 
@@ -301,27 +302,33 @@ public class EditOpeningHoursFragment extends DialogFragment {
 
     }
 
+
+
     private void setupDuration() {
 
-        slotContext.getDuration(venue, new SlotCompletion.SlotErrorCompletion() {
+        if(slotContext != null) {
 
-            @Override
-            public void completion(List<Slot> slotList, AppError error) {
+            slotContext.getDuration(venue, new SlotCompletion.SlotErrorCompletion() {
 
-            }
-
-            @Override
-            public void completion(int duration, AppError error) {
-
-                if(error == null) {
-
-                    textDuration.setText(String.valueOf(duration));
+                @Override
+                public void completion(List<Slot> slotList, AppError error) {
 
                 }
 
-            }
+                @Override
+                public void completion(int duration, AppError error) {
 
-        });
+                    if (error == null) {
+
+                        textDuration.setText(String.valueOf(duration));
+
+                    }
+
+                }
+
+            });
+
+        }
 
     }
 
@@ -350,7 +357,7 @@ public class EditOpeningHoursFragment extends DialogFragment {
 
     private void populateOpeningHours(View view) {
 
-        for(int day = 0; day < 7; day ++) {
+        for(int day = 1; day <= 7; day ++) {
 
             final  DayOpeningHoursView stateButton = getDayStateView(day, view);
 

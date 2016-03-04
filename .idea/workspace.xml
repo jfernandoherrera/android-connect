@@ -1,27 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="37b3c1cb-e080-4404-9304-f319259e8c35" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/TuCitaConnect/.idea/encodings.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/venue/adapters/SlotsAppointmentsAdapter.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/utils/common/AlertDialogError.java" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/utils/common/AlertDialogError.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/app/Application.java" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/app/Application.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/venue/fragments/DatePickerFragment.java" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/venue/fragments/DatePickerFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/venue/fragments/EditOpeningHoursFragment.java" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/venue/fragments/EditOpeningHoursFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/model/context/openingHour/OpeningHourRemote.java" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/model/context/openingHour/OpeningHourRemote.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/venue/fragments/SelectTimesFragment.java" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/venue/fragments/SelectTimesFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/model/domain/slot/Slot.java" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/model/domain/slot/Slot.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/model/context/slot/SlotContext.java" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/model/context/slot/SlotContext.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/model/context/slot/SlotRemote.java" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/model/context/slot/SlotRemote.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/venue/VenueActivity.java" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/venue/VenueActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/account/fragments/venues/VenuesFragment.java" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/account/fragments/venues/VenuesFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/app.iml" afterPath="$PROJECT_DIR$/TuCitaConnect/app/app.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout/fragment_edit_opening_hours.xml" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout/fragment_edit_opening_hours.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/.idea/misc.xml" afterPath="$PROJECT_DIR$/TuCitaConnect/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/values/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="37b3c1cb-e080-4404-9304-f319259e8c35" name="Default" comment="" />
     <ignored path="tucita-connect.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -61,7 +41,8 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="y" value="23" />
+    <option name="x" value="537" />
+    <option name="y" value="324" />
     <option name="width" value="1920" />
     <option name="height" value="1002" />
   </component>
@@ -329,7 +310,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1920" height="1002" extended-state="6" />
+    <frame x="537" y="324" width="1920" height="1002" extended-state="0" />
     <editor active="false" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32939634" sideWeight="0.49743918" order="6" side_tool="false" content_ui="tabs" />

@@ -4,15 +4,19 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.gesture.GestureOverlayView;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.format.DateUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -69,8 +73,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import static android.view.GestureDetector.*;
 
-public class VenueActivity extends AppToolbarActivity implements EditOpeningHoursFragment.OnTimeSelected, DatePickerFragment.OnDateSelected, DiaryAdapter.OnTouchToClick, SelectTimesFragment.OnJustOneDateSelected, HourPickerFragment.OnHourSelected{
+public class VenueActivity extends AppToolbarActivity implements  GestureDetector.OnGestureListener, EditOpeningHoursFragment.OnTimeSelected, DatePickerFragment.OnDateSelected, DiaryAdapter.OnTouchToClick, SelectTimesFragment.OnJustOneDateSelected, HourPickerFragment.OnHourSelected{
 
     private VenueContext venueContext;
     private AppointmentContext appointmentContext;
@@ -93,6 +98,8 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
     private Calendar currentDay;
     private double dimension;
     private Appointment appointment;
+   final int SWIPE_MIN_DISTANCE = 290;
+    final int SWIPE_THRESHOLD_VELOCITY = 6500;
     private Slot slot;
     private RelativeLayout progress;
     private TextView appointmentFloatingView;
@@ -108,6 +115,8 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
     private Button isTo;
     private int ultimateIsToHour, ultimateIsToMinute, ultimateIsFromHour, ultimateIsFromMinute;
     private Button isFrom;
+
+    private GestureDetectorCompat mDetector;
     Handler handler = new Handler();
     Runnable r = new Runnable() {
 
@@ -132,6 +141,8 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
         venueContext = VenueContext.context(venueContext);
 
         currentDay = Calendar.getInstance();
+
+        mDetector = new GestureDetectorCompat(this,this);
 
         blockadeContext = BlockadeContext.context(blockadeContext);
 
@@ -854,8 +865,8 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
+        this.mDetector.onTouchEvent(event);
         float curX, curY;
-
         switch (event.getAction()) {
 
             case MotionEvent.ACTION_DOWN:
@@ -868,23 +879,30 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
 
                 downY = my;
 
+                /*
+
+
+                leftBarRecyclerView.stopScroll();
+
+                appScrollView.stopNestedScroll();
+    */
                 break;
 
             case MotionEvent.ACTION_MOVE:
 
-                    curX = event.getX();
+                curX = event.getX();
 
-                    curY = event.getY();
+                curY = event.getY();
 
-                    appScrollView.scrollBy((int) (mx - curX), (int) (my - curY));
+                appScrollView.scrollBy((int) (mx - curX), (int) (my - curY));
 
-                    leftBarRecyclerView.scrollBy((int) (mx - curX), (int) (my - curY));
+                leftBarRecyclerView.scrollBy((int) (mx - curX), (int) (my - curY));
 
-                    appHorizontalScrollView.scrollBy((int) (mx - curX), (int) (my - curY));
+                appHorizontalScrollView.scrollBy((int) (mx - curX), (int) (my - curY));
 
-                    my = curY;
+                my = curY;
 
-                    mx = curX;
+                mx = curX;
 
                 break;
 
@@ -900,41 +918,13 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
 
                 appHorizontalScrollView.scrollBy((int) (mx - curX), (int) (my - curY));
 
-                boolean equalX = curX == downX;
 
-                boolean equalY = curY == downY;
-
-                if(equalX && equalY && appointment != null){
-
-                    i++;
-
-                    if (i == 1) {
-
-                        handler.postDelayed(r, 250);
-
-                    } else if (i == 2) {
-
-                        i = 0;
-
-                        if(slot == slotToDoubleClick) {
-
-                            if (column == columnToDoubleClick) {
-
-                                showAppointmentDialog(appointment);
-
-                            }
-
-                        }
-                    }
-
-
-                }
 
                 break;
 
         }
 
-        return true;
+        return false;
 
     }
 
@@ -1202,4 +1192,60 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
 
     }
 
+    @Override
+    public boolean onDown(MotionEvent e) {
+        return false;
+    }
+
+    @Override
+    public void onShowPress(MotionEvent e) {
+
+    }
+
+    @Override
+    public boolean onSingleTapUp(MotionEvent e) {
+
+        return false;
+    }
+
+    @Override
+    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+        return false;
+    }
+
+    @Override
+    public void onLongPress(MotionEvent e) {
+
+    }
+
+    @Override
+    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+        Log.i("hola" + String.valueOf(velocityX), " mundo6" + String.valueOf(velocityY));
+
+
+                    if( Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY) {
+
+                appScrollView.fling((int) velocityY);
+
+                leftBarRecyclerView.fling(0, (int) velocityY);
+
+
+        } else {
+
+                        if (Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+
+
+                                appHorizontalScrollView.fling((int) velocityX);
+
+
+                                appHorizontalScrollView.fling((int) velocityX);
+
+
+
+                        }
+                    }
+
+
+        return false;
+    }
 }

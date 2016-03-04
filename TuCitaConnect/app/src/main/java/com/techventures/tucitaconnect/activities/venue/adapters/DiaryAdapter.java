@@ -11,13 +11,14 @@ import android.widget.TextView;
 
 import com.techventures.tucitaconnect.R;
 import com.techventures.tucitaconnect.model.domain.appointment.Appointment;
+import com.techventures.tucitaconnect.model.domain.blockade.Blockade;
 import com.techventures.tucitaconnect.model.domain.slot.Slot;
 
 import java.util.Date;
 import java.util.List;
 
 
-public class SlotsAppointmentsAdapter  extends RecyclerView.Adapter<SlotsAppointmentsAdapter.ViewHolder> {
+public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> {
 
         private List<Slot> slots;
         private Typeface typeface;
@@ -25,7 +26,7 @@ public class SlotsAppointmentsAdapter  extends RecyclerView.Adapter<SlotsAppoint
         private int amount;
         private int column;
         private OnTouchToClick listener;
-
+        private List<Blockade> blockades;
 
         public interface OnTouchToClick{
 
@@ -33,7 +34,7 @@ public class SlotsAppointmentsAdapter  extends RecyclerView.Adapter<SlotsAppoint
 
         }
 
-        public SlotsAppointmentsAdapter(List<Slot> offer, Typeface typeface, int columns, List<Appointment> appointments, OnTouchToClick onTouchToClick) {
+        public DiaryAdapter(List<Slot> offer, Typeface typeface, int columns, List<Appointment> appointments, OnTouchToClick onTouchToClick, List<Blockade> blockades) {
 
             super();
 
@@ -49,6 +50,7 @@ public class SlotsAppointmentsAdapter  extends RecyclerView.Adapter<SlotsAppoint
 
             listener = onTouchToClick;
 
+            this.blockades = blockades;
         }
 
 
@@ -124,13 +126,15 @@ public class SlotsAppointmentsAdapter  extends RecyclerView.Adapter<SlotsAppoint
 
             }
 
-            Appointment appointment = getAppointment(slot, viewHolder);
+            setAppointment(slot, viewHolder);
 
-            if(appointment != null && appointment.getColumn() == column){
+        if(slots.get(index).isSelected()) {
 
-                viewHolder.slot = slot;
+            selected(viewHolder);
 
-            }
+        }
+
+            viewHolder.slot = slot;
 
             viewHolder.column = column;
 
@@ -167,9 +171,7 @@ public class SlotsAppointmentsAdapter  extends RecyclerView.Adapter<SlotsAppoint
 
     }
 
-    private Appointment getAppointment(Slot slot, ViewHolder viewHolder){
-
-        Appointment appointmentSlot = null;
+    private void setAppointment(Slot slot, ViewHolder viewHolder){
 
         int noAssigned = -1;
 
@@ -201,13 +203,9 @@ public class SlotsAppointmentsAdapter  extends RecyclerView.Adapter<SlotsAppoint
 
                     if( appointment.getColumn() == column) {
 
-                        appointmentSlot = appointment;
-
                         slot.addAppointment(appointment);
 
                         if (isLast) {
-
-                            appointments.remove(appointment);
 
                             unconfirmedLast(viewHolder);
 
@@ -237,8 +235,6 @@ public class SlotsAppointmentsAdapter  extends RecyclerView.Adapter<SlotsAppoint
 
         }
 
-        return appointmentSlot;
-
     }
 
         private void confirmed(ViewHolder viewHolder){
@@ -262,6 +258,12 @@ public class SlotsAppointmentsAdapter  extends RecyclerView.Adapter<SlotsAppoint
     private void unconfirmed(ViewHolder viewHolder){
 
         viewHolder.textViewAppointment.setBackgroundResource(R.drawable.border_uncorfimed_contained);
+
+    }
+
+    private void selected(ViewHolder viewHolder){
+
+        viewHolder.textViewAppointment.setBackgroundResource(R.drawable.border_selected_slot);
 
     }
 
@@ -302,6 +304,24 @@ public class SlotsAppointmentsAdapter  extends RecyclerView.Adapter<SlotsAppoint
 
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
+
+                        for(Slot slot1 : slots) {
+
+                            if(slot1.equals(slot) && slot1.getAppointment(column) == null) {
+
+                                slot1.setSelected(true);
+
+                                slot.setSelected(true);
+
+                            } else {
+
+                                slot1.setSelected(false);
+
+                            }
+
+                        }
+
+                        notifyDataSetChanged();
 
                         listener.onTouchToClick((int) event.getX(), (int) event.getY(), slot, column);
 

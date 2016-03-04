@@ -3,6 +3,7 @@ package com.techventures.tucitaconnect.app;
 import com.techventures.tucitaconnect.model.domain.appointment.Appointment;
 import com.techventures.tucitaconnect.model.domain.blockade.Blockade;
 import com.techventures.tucitaconnect.model.domain.city.City;
+import com.techventures.tucitaconnect.model.domain.editedOpeningHour.EditedOpeningHour;
 import com.techventures.tucitaconnect.model.domain.openingHour.OpeningHour;
 import com.techventures.tucitaconnect.model.domain.service.Service;
 import com.techventures.tucitaconnect.model.domain.slot.Slot;
@@ -27,6 +28,8 @@ public class Application extends android.app.Application {
         ParseObject.registerSubclass(Blockade.class);
 
         ParseObject.registerSubclass(OpeningHour.class);
+
+        ParseObject.registerSubclass(EditedOpeningHour.class);
 
         ParseObject.registerSubclass(Slot.class);
 

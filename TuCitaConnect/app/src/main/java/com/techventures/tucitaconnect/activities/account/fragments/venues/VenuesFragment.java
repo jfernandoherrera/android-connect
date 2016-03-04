@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.techventures.tucitaconnect.R;
 import com.techventures.tucitaconnect.activities.account.adapters.VenuesAdapter;
+import com.techventures.tucitaconnect.activities.splash.SplashActivity;
 import com.techventures.tucitaconnect.model.context.venue.VenueCompletion;
 import com.techventures.tucitaconnect.model.context.venue.VenueContext;
 import com.techventures.tucitaconnect.model.domain.user.User;
@@ -39,11 +40,11 @@ public class VenuesFragment extends AppFragment {
 
     private void setupVenues() {
 
-        if(venueContext == null) {
+        if(venueContext == null || user == null) {
 
-            venueContext = VenueContext.context(null);
+            SplashActivity.goToStart(getContext());
 
-        }
+        }else {
 
             venueContext.loadVenues(user, new VenueCompletion.ListErrorCompletion() {
 
@@ -56,6 +57,8 @@ public class VenuesFragment extends AppFragment {
 
                 }
             });
+
+        }
 
     }
 

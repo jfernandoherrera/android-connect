@@ -17,10 +17,13 @@ import android.widget.EditText;
 
 import com.techventures.tucitaconnect.R;
 import com.techventures.tucitaconnect.activities.splash.SplashActivity;
+import com.techventures.tucitaconnect.model.context.editedOpeningHour.EditedOpeningHourCompletion;
+import com.techventures.tucitaconnect.model.context.editedOpeningHour.EditedOpeningHourContext;
 import com.techventures.tucitaconnect.model.context.openingHour.OpeningHourCompletion;
 import com.techventures.tucitaconnect.model.context.openingHour.OpeningHourContext;
 import com.techventures.tucitaconnect.model.context.slot.SlotCompletion;
 import com.techventures.tucitaconnect.model.context.slot.SlotContext;
+import com.techventures.tucitaconnect.model.domain.editedOpeningHour.EditedOpeningHour;
 import com.techventures.tucitaconnect.model.domain.openingHour.OpeningHour;
 import com.techventures.tucitaconnect.model.domain.slot.Slot;
 import com.techventures.tucitaconnect.model.domain.venue.Venue;
@@ -42,6 +45,7 @@ public class EditOpeningHoursFragment extends DialogFragment {
     private Toolbar toolbar;
     private SlotContext slotContext;
     private EditText textDuration;
+    private EditedOpeningHourContext editedOpeningHourContext;
 
 
     public interface OnTimeSelected{
@@ -124,6 +128,8 @@ public class EditOpeningHoursFragment extends DialogFragment {
 
         openingHourContext = OpeningHourContext.context(openingHourContext);
 
+        editedOpeningHourContext = EditedOpeningHourContext.context(editedOpeningHourContext);
+
         slotContext = SlotContext.context(slotContext);
 
         toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
@@ -154,146 +160,201 @@ public class EditOpeningHoursFragment extends DialogFragment {
 
     private void save() {
 
-        final int weekDays = 7;
+        final int duration;
 
-        openingHourContext.loadOpeningHours(venue, new OpeningHourCompletion.OpeningHourErrorCompletion() {
+        try {
 
-            @Override
-            public void completion(List<OpeningHour> openingHourList, AppError error) {
+            duration = Integer.parseInt(textDuration.getText().toString());
 
-                List<OpeningHour> toSave = new ArrayList<OpeningHour>();
+            final int weekDays = 7;
 
-                if (openingHourList != null) {
+            openingHourContext.loadOpeningHours(venue, new OpeningHourCompletion.OpeningHourErrorCompletion() {
 
-                    for (int count = 1; count <= weekDays; count++) {
+                @Override
+                public void completion(List<OpeningHour> openingHourList, AppError error) {
 
-                        OpeningHour sameDay = null;
+                    List<OpeningHour> toSave = new ArrayList<OpeningHour>();
 
-                        for (OpeningHour openingHour : openingHourList) {
+                    if (openingHourList != null) {
 
-                            if (openingHour.getDay() == count) {
+                        for (int count = 1; count <= weekDays; count++) {
 
-                                sameDay = openingHour;
+                            OpeningHour sameDay = null;
 
-                                break;
+                            for (OpeningHour openingHour : openingHourList) {
+
+                                if (openingHour.getDay() == count) {
+
+                                    sameDay = openingHour;
+
+                                    break;
+
+                                }
 
                             }
 
-                        }
+                            DayOpeningHoursView openingHoursView = getDayStateView(count, getView());
 
+                            boolean isOpen = openingHoursView.getStateButton().getOpen();
 
-                        DayOpeningHoursView openingHoursView = getDayStateView(count, getView());
+                            if (sameDay != null) {
 
-                        boolean isOpen = openingHoursView.getStateButton().getOpen();
+                                if (isOpen) {
 
-                        if (sameDay != null) {
+                                    sameDay.putStartHour(openingHoursView.getStartHour());
 
-                            if (isOpen) {
+                                    sameDay.putStartMinute(openingHoursView.getStartMinute());
 
-                                sameDay.putStartHour(openingHoursView.getStartHour());
+                                    sameDay.putEndHour(openingHoursView.getEndHour());
 
-                                sameDay.putStartMinute(openingHoursView.getStartMinute());
+                                    sameDay.putEndMinute(openingHoursView.getEndMinute());
 
-                                sameDay.putEndHour(openingHoursView.getEndHour());
+                                } else {
 
-                                sameDay.putEndMinute(openingHoursView.getEndMinute());
+                                    openingHourContext.deleteOpeningHour(sameDay, new OpeningHourCompletion.OpeningHourErrorCompletion() {
+
+                                        @Override
+                                        public void completion(List<OpeningHour> openingHourList, AppError error) {
+
+                                            if (error != null) {
+
+                                                AlertDialogError alertDialogError = new AlertDialogError();
+
+                                                alertDialogError.noInternetConnectionAlert(getContext());
+
+                                            }
+
+                                        }
+                                    });
+
+                                }
 
                             } else {
 
-                                openingHourContext.deleteOpeningHour(sameDay, new OpeningHourCompletion.OpeningHourErrorCompletion() {
+                                if (isOpen) {
 
-                                    @Override
-                                    public void completion(List<OpeningHour> openingHourList, AppError error) {
+                                    sameDay = new OpeningHour();
 
-                                        if (error != null) {
+                                    sameDay.putDay(count);
 
-                                            AlertDialogError alertDialogError = new AlertDialogError();
+                                    sameDay.putStartHour(openingHoursView.getStartHour());
 
-                                            alertDialogError.noInternetConnectionAlert(getContext());
+                                    sameDay.putStartMinute(openingHoursView.getStartMinute());
+
+                                    sameDay.putEndHour(openingHoursView.getEndHour());
+
+                                    sameDay.putEndMinute(openingHoursView.getEndMinute());
+
+                                }
+
+                            }
+
+                            if (sameDay != null) {
+
+                                toSave.add(sameDay);
+
+                            }
+                        }
+
+                        openingHourContext.saveOpeningHours(toSave, venue, new OpeningHourCompletion.OpeningHourErrorCompletion() {
+
+                            @Override
+                            public void completion(List<OpeningHour> openingHourList, AppError error) {
+
+                                if (error != null) {
+
+                                    AlertDialogError alertDialogError = new AlertDialogError();
+
+                                    alertDialogError.noInternetConnectionAlert(getContext());
+
+                                } else {
+
+                                    editedOpeningHourContext.getEditedOpeningHour(venue, new EditedOpeningHourCompletion.EditedOpeningHourErrorCompletion() {
+
+                                        @Override
+                                        public void completion(List<EditedOpeningHour> editedOpeningHours, AppError error) {
+
+                                            final EditedOpeningHour editedOpeningHour;
+
+                                            if (error == null && editedOpeningHours.size() > 0) {
+
+                                                editedOpeningHour = editedOpeningHours.get(0);
+
+                                            } else {
+
+                                                editedOpeningHour = new EditedOpeningHour();
+
+                                                editedOpeningHour.putVenue(venue);
+
+                                            }
+
+                                            editedOpeningHour.putDurationMinutes(duration);
+
+                                            editedOpeningHourContext.saveEditedOpeningHour(editedOpeningHour, new EditedOpeningHourCompletion.EditedOpeningHourErrorCompletion() {
+
+                                                @Override
+                                                public void completion(List<EditedOpeningHour> editedOpeningHours, AppError error) {
+
+                                                    if(error == null) {
+
+                                                        showSuccessfulTransaction();
+
+                                                    }
+
+                                                }
+                                            });
 
                                         }
 
-                                    }
-                                });
+                                    });
+
+                                }
 
                             }
+                        });
 
-                        } else {
-
-                            if (isOpen) {
-
-                                sameDay = new OpeningHour();
-
-                                sameDay.putDay(count);
-
-                                sameDay.putStartHour(openingHoursView.getStartHour());
-
-                                sameDay.putStartMinute(openingHoursView.getStartMinute());
-
-                                sameDay.putEndHour(openingHoursView.getEndHour());
-
-                                sameDay.putEndMinute(openingHoursView.getEndMinute());
-
-                            }
-
-                        }
-
-                        if (sameDay != null) {
-
-                            toSave.add(sameDay);
-
-                        }
                     }
-
-                    openingHourContext.saveOpeningHours(toSave, venue, new OpeningHourCompletion.OpeningHourErrorCompletion() {
-
-                        @Override
-                        public void completion(List<OpeningHour> openingHourList, AppError error) {
-
-                            if (error != null) {
-
-                                AlertDialogError alertDialogError = new AlertDialogError();
-
-                                alertDialogError.noInternetConnectionAlert(getContext());
-
-                            } else {
-
-                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-
-                                        getContext());
-
-                                String continueString = getString(R.string.continue_option);
-
-                                String successful = getString(R.string.successful_transaction);
-
-                                String message = getString(R.string.app_name);
-
-                                alertDialogBuilder.setTitle(successful)
-
-                                        .setPositiveButton(continueString, new DialogInterface.OnClickListener() {
-
-                                            public void onClick(DialogInterface dialog, int id) {
-
-                                                SplashActivity.goToStart(getContext());
-
-                                            }
-                                        }).setCancelable(false)
-
-                                        .setMessage(message).show();
-
-                            }
-
-                        }
-                    });
 
                 }
 
-            }
+            });
 
-        });
+        } catch (NumberFormatException exception) {
+
+          AlertDialogError error = new AlertDialogError();
+
+            error.mustBeANumber(getContext());
+
+        }
 
     }
 
+    private void showSuccessfulTransaction() {
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+
+                getContext());
+
+        String continueString = getString(R.string.continue_option);
+
+        String successful = getString(R.string.successful_transaction);
+
+        String message = getString(R.string.app_name);
+
+        alertDialogBuilder.setTitle(successful)
+
+                .setPositiveButton(continueString, new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        SplashActivity.goToStart(getContext());
+
+                    }
+                }).setCancelable(false)
+
+                .setMessage(message).show();
+
+    }
     private void setup(View view) {
 
         setupDuration();
@@ -306,7 +367,7 @@ public class EditOpeningHoursFragment extends DialogFragment {
 
     private void setupDuration() {
 
-        if(slotContext != null) {
+        if(slotContext != null && venue != null) {
 
             slotContext.getDuration(venue, new SlotCompletion.SlotErrorCompletion() {
 
@@ -327,6 +388,10 @@ public class EditOpeningHoursFragment extends DialogFragment {
                 }
 
             });
+
+        }else {
+
+            SplashActivity.goToStart(getContext());
 
         }
 

@@ -24,6 +24,12 @@ public class Slot extends ParseObject {
 
     }
 
+    public void putAmount(int amount) {
+
+        put(SlotAttributes.amount, amount);
+
+    }
+
     public void setSelected(boolean selected) {
 
         this.selected = selected;

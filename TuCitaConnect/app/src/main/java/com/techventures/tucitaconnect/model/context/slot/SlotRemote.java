@@ -35,6 +35,14 @@ public class SlotRemote {
 
     }
 
+    public void setAmount(Slot slot, int amount, SaveCallback callback) {
+
+        slot.putAmount(amount);
+
+        slot.saveInBackground(callback);
+
+    }
+
     public void getDuration(ParseQuery<Slot> slotParseQuery, final SlotCompletion.SlotErrorCompletion completion) {
 
         query = slotParseQuery;
@@ -58,9 +66,8 @@ public class SlotRemote {
 
                     }
                 }
+
             });
-
-
 
     }
 

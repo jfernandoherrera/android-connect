@@ -5,18 +5,15 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.format.DateUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.ContextMenu;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -24,13 +21,17 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.parse.ParseException;
+import com.parse.SaveCallback;
 import com.techventures.tucitaconnect.R;
 import com.techventures.tucitaconnect.activities.splash.SplashActivity;
 import com.techventures.tucitaconnect.activities.venue.adapters.LeftBarAdapter;
-import com.techventures.tucitaconnect.activities.venue.adapters.SlotsAppointmentsAdapter;
+import com.techventures.tucitaconnect.activities.venue.adapters.DiaryAdapter;
 import com.techventures.tucitaconnect.activities.venue.adapters.layout.SlotLayoutManager;
 import com.techventures.tucitaconnect.activities.venue.fragments.AddUserFragment;
 import com.techventures.tucitaconnect.activities.venue.fragments.AppointmentDetailsFragment;
@@ -62,7 +63,6 @@ import com.techventures.tucitaconnect.utils.common.activity.AppToolbarActivity;
 import com.techventures.tucitaconnect.utils.common.attributes.CommonAttributes;
 import com.techventures.tucitaconnect.utils.common.scroll.AppHorizontalScrollView;
 import com.techventures.tucitaconnect.utils.common.scroll.AppScrollView;
-import com.techventures.tucitaconnect.utils.common.views.StateButton;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 import java.util.ArrayList;
@@ -70,7 +70,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class VenueActivity extends AppToolbarActivity implements EditOpeningHoursFragment.OnTimeSelected, DatePickerFragment.OnDateSelected, SlotsAppointmentsAdapter.OnTouchToClick, SelectTimesFragment.OnJustOneDateSelected, HourPickerFragment.OnHourSelected{
+public class VenueActivity extends AppToolbarActivity implements EditOpeningHoursFragment.OnTimeSelected, DatePickerFragment.OnDateSelected, DiaryAdapter.OnTouchToClick, SelectTimesFragment.OnJustOneDateSelected, HourPickerFragment.OnHourSelected{
 
     private VenueContext venueContext;
     private AppointmentContext appointmentContext;
@@ -174,6 +174,8 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
 
                     popupMenu.getMenu().add(getString(R.string.action_block));
 
+                    popupMenu.getMenu().add(getString(R.string.action_change_amount));
+
                 }
 
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -183,38 +185,7 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
 
                   if(item.getTitle().equals(getString(R.string.action_block))){
 
-                      String day = new java.text.SimpleDateFormat("EEEE/d/MMMM/yyyy").format(calendar.getTime());
-
-                      String from = getString(R.string.from) + " " + formatHour(slot.getStartHour(), slot.getStartMinute());
-
-                      String to = getString(R.string.to) + " " + formatHour(slot.getEndHour(), slot.getEndMinute());
-
-                      String willBlock = getString(R.string.will_block_the_day) + " " +  day + " " + from + " " + to;
-
-                      String title = getString(R.string.do_you_really);
-
-                      SpannableStringBuilder stringBuilder = new SpannableStringBuilder(willBlock);
-
-                      stringBuilder.setSpan(new CustomSpanTypeface(null, Typeface.BOLD, 20, null, null, typeface), 0, willBlock.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-
-                      SpannableStringBuilder stringBuilderTitle = new SpannableStringBuilder(title);
-
-                      stringBuilderTitle.setSpan(new CustomSpanTypeface(null, Typeface.BOLD, 26, null, null, typeface), 0, title.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-
-                      new AlertDialog.Builder(VenueActivity.this)
-
-                              .setTitle(stringBuilderTitle)
-                              .setMessage(stringBuilder)
-                              .setIcon(android.R.drawable.ic_dialog_alert)
-                              .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-
-                                  public void onClick(DialogInterface dialog, int whichButton) {
-
-                                      blockSlot();
-
-                                  }})
-
-                              .setNegativeButton(android.R.string.no, null).show();
+                      actionBlock();
 
                   } else if(item.getTitle().equals(getString(R.string.action_multiple_block))) {
 
@@ -227,6 +198,82 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
                   } else if(item.getTitle().equals(getString(R.string.action_edit_working_hours))) {
 
                         showEditOpeningHoursDialog();
+
+                  } else if(item.getTitle().equals(getString(R.string.action_change_amount))) {
+
+                      LayoutInflater layoutInflater = LayoutInflater.from(VenueActivity.this);
+
+                      View promptView = layoutInflater.inflate(R.layout.input_number, null);
+
+                      AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(VenueActivity.this);
+
+                      alertDialogBuilder.setView(promptView);
+
+                      final EditText editText = (EditText) promptView;
+
+                      alertDialogBuilder.setCancelable(false)
+
+                              .setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+
+                                  public void onClick(DialogInterface dialog, int id) {
+
+                                      slotContext.setAmount(slot, Integer.parseInt(editText.getText().toString()), new SaveCallback() {
+                                          @Override
+                                          public void done(ParseException e) {
+
+                                              if(e != null) {
+
+                                                  e.printStackTrace();
+
+                                              } else {
+
+                                                  AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+
+                                                          VenueActivity.this);
+
+                                                  String continueString = getString(R.string.continue_option);
+
+                                                  String successful = getString(R.string.successful_transaction);
+
+                                                  String message = getString(R.string.app_name);
+
+                                                  alertDialogBuilder.setTitle(successful)
+
+                                                          .setPositiveButton(continueString, new DialogInterface.OnClickListener() {
+
+                                                              public void onClick(DialogInterface dialog, int id) {
+
+                                                                  SplashActivity.goToStart(getApplicationContext());
+
+                                                              }
+                                                          }).setCancelable(false)
+
+                                                          .setMessage(message).show();
+
+                                              }
+
+                                          }
+                                      });
+
+                                  }
+
+                              })
+
+                              .setNegativeButton(getString(R.string.cancel),
+
+                                      new DialogInterface.OnClickListener() {
+
+                                          public void onClick(DialogInterface dialog, int id) {
+
+                                              dialog.cancel();
+
+                                          }
+
+                                      });
+
+                      AlertDialog alert = alertDialogBuilder.create();
+
+                      alert.show();
 
                   }
 
@@ -279,6 +326,47 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
         wm.getDefaultDisplay().getMetrics(metrics);
 
         dimension = metrics.scaledDensity;
+
+    }
+
+    private void actionBlock() {
+
+        String day = new java.text.SimpleDateFormat("EEEE/d/MMMM/yyyy").format(calendar.getTime());
+
+        String from = getString(R.string.from) + " " + formatHour(slot.getStartHour(), slot.getStartMinute());
+
+        String to = getString(R.string.to) + " " + formatHour(slot.getEndHour(), slot.getEndMinute());
+
+        String willBlock = getString(R.string.will_block_the_day) + " " +  day + " " + from + " " + to;
+
+        String title = getString(R.string.do_you_really);
+
+        SpannableStringBuilder stringBuilder = new SpannableStringBuilder(willBlock);
+
+        stringBuilder.setSpan(new CustomSpanTypeface(null, Typeface.BOLD, 20, null, null, typeface), 0, willBlock.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+
+        SpannableStringBuilder stringBuilderTitle = new SpannableStringBuilder(title);
+
+        stringBuilderTitle.setSpan(new CustomSpanTypeface(null, Typeface.BOLD, 26, null, null, typeface), 0, title.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+
+        new AlertDialog.Builder(VenueActivity.this)
+
+                .setTitle(stringBuilderTitle)
+
+                .setMessage(stringBuilder)
+
+                .setIcon(android.R.drawable.ic_dialog_alert)
+
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int whichButton) {
+
+                        blockSlot();
+
+                    }
+                })
+
+                .setNegativeButton(android.R.string.no, null).show();
 
     }
 
@@ -398,9 +486,11 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
 
     public void showTimePickerDialog(View v) {
 
-        DialogFragment newFragment = new DatePickerFragment();
+        DatePickerFragment newFragment = new DatePickerFragment();
 
         String tag = "timePicker";
+
+        newFragment.setCalendar(calendar);
 
         newFragment.show(getSupportFragmentManager(), tag);
 
@@ -532,7 +622,6 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
             @Override
             public void completion(List<Slot> slotList, AppError error) {
 
-
                 if (calendarDay != null) {
 
                     if (slotList != null) {
@@ -575,6 +664,7 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
             public void completion(int duration, AppError error) {
 
             }
+
         });
 
     }
@@ -628,7 +718,7 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
 
             if (adapter == null) {
 
-                adapter = new SlotsAppointmentsAdapter(slots, typeface, columns, appointmentList, VenueActivity.this);
+                adapter = new DiaryAdapter(slots, typeface, columns, appointmentList, VenueActivity.this, null);
 
                 recyclerView.setAdapter(adapter);
 
@@ -646,11 +736,11 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
 
             } else {
 
-                ((SlotsAppointmentsAdapter) adapter).setAmount(columns);
+                ((DiaryAdapter) adapter).setAmount(columns);
 
-                ((SlotsAppointmentsAdapter) adapter).setAppointments(appointmentList);
+                ((DiaryAdapter) adapter).setAppointments(appointmentList);
 
-                ((SlotsAppointmentsAdapter) adapter).setSlots(slots);
+                ((DiaryAdapter) adapter).setSlots(slots);
 
                 ((LeftBarAdapter) leftBarAdapter).setAmount(slots.size());
 

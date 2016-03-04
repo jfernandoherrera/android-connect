@@ -33,4 +33,15 @@ public class AlertDialogError {
 
     }
 
+    public void mustBeANumber(Context context) {
+
+        Toast typeMore = Toast.makeText(context, R.string.must_be_a_number, Toast.LENGTH_SHORT);
+
+        typeMore.setGravity(Gravity.CENTER | Gravity.LEFT, 0, 0);
+
+        typeMore.show();
+
+    }
+
+
 }

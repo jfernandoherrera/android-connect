@@ -10,6 +10,7 @@
     <string name="prompt_password">Contraseña</string>
     <string name="prompt_name">Nombre</string>
     <string name="action_sign_in">Iniciar sesion o registrarse</string>
+    <string name="action_change_amount">Cambiar cantidad</string>
     <string name="action_sign_up">Registrarme</string>
     <string name="action_add_user">Agregar usuario</string>
     <string name="action_sign_in_short">Iniciar sesion</string>
@@ -52,4 +53,7 @@
     <string name="sunday">Domingo</string>
     <string name="no_internet_connection">No hay conexión a internet</string>
     <string name="no_is_possible">No puede cerrar antes de abrir</string>
+    <string name="must_be_a_number">Debe ser un numero</string>
+    <string name="amount">Cantidad</string>
+    <string name="cancel">Cancelar</string>
 </resources>

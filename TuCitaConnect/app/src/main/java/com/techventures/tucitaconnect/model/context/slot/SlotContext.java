@@ -56,6 +56,11 @@ public class SlotContext {
 
     }
 
+    public void setAmount(Slot slot, int amount, SaveCallback callback) {
+
+        slotRemote.setAmount(slot, amount, callback);
+    }
+
     public void lockSlot(Slot slot, SaveCallback callback) {
 
         slotRemote.lockSlot(slot, callback);

@@ -50,6 +50,10 @@ public class OpeningHourRemote {
 
     }
 
+    private void saveOneSlotToDuration() {
+
+    }
+
     public void saveOpeningHours(final List<OpeningHour> openingHours, final Venue venue, final OpeningHourCompletion.OpeningHourErrorCompletion completion) {
 
                         ParseObject.saveAllInBackground(openingHours, new SaveCallback() {
@@ -63,6 +67,7 @@ public class OpeningHourRemote {
                                         openingHourParseRelation.add(openingHour);
 
                                     }
+
 
                                 venue.saveInBackground(new SaveCallback() {
 

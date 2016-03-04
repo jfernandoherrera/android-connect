@@ -183,7 +183,7 @@ public class SelectTimesFragment extends DialogFragment{
 
         List<String> blockades = new ArrayList<>();
 
-        if(dates.size() == 1){
+        if(dates.size() == 1 && adapter != null){
 
             blockade.putType(BlockadeAttributes.typeSlots);
 

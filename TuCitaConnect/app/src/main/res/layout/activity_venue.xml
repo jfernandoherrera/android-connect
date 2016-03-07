@@ -74,10 +74,15 @@
         android:layout_width="match_parent"
         android:id="@+id/fragmentsContainer"
         android:layout_height="match_parent">
+        <com.techventures.tucitaconnect.utils.common.scroll.AppScrollView
+    android:layout_width="42sp"
+    android:id="@+id/leftBarContainer"
+    android:layout_height="match_parent">
             <com.techventures.tucitaconnect.utils.common.scroll.AppRecyclerView
                 android:layout_width="42sp"
                 android:id="@+id/recycler_viewLeftBar"
-                android:layout_height="match_parent"/>
+                android:layout_height="wrap_content"/>
+        </com.techventures.tucitaconnect.utils.common.scroll.AppScrollView>
         <TextView
             android:layout_width="match_parent"
             android:id="@+id/closed"
@@ -88,8 +93,8 @@
         <com.techventures.tucitaconnect.utils.common.scroll.AppScrollView
         android:layout_width="match_parent"
         android:id="@+id/scrollVertical"
-            android:layout_toRightOf="@+id/recycler_viewLeftBar"
-            android:layout_toEndOf="@+id/recycler_viewLeftBar"
+            android:layout_toRightOf="@+id/leftBarContainer"
+            android:layout_toEndOf="@+id/leftBarContainer"
         android:layout_height="match_parent">
 
         <com.techventures.tucitaconnect.utils.common.scroll.AppHorizontalScrollView

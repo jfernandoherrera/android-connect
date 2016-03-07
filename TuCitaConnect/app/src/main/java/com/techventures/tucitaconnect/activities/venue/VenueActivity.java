@@ -4,12 +4,10 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.gesture.GestureOverlayView;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.GestureDetectorCompat;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -29,7 +27,6 @@ import android.widget.EditText;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.parse.ParseException;
 import com.parse.SaveCallback;
 import com.techventures.tucitaconnect.R;
@@ -68,12 +65,12 @@ import com.techventures.tucitaconnect.utils.common.attributes.CommonAttributes;
 import com.techventures.tucitaconnect.utils.common.scroll.AppHorizontalScrollView;
 import com.techventures.tucitaconnect.utils.common.scroll.AppScrollView;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.techventures.tucitaconnect.utils.common.scroll.LinearLayoutManager;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import static android.view.GestureDetector.*;
 
 public class VenueActivity extends AppToolbarActivity implements  GestureDetector.OnGestureListener, EditOpeningHoursFragment.OnTimeSelected, DatePickerFragment.OnDateSelected, DiaryAdapter.OnTouchToClick, SelectTimesFragment.OnJustOneDateSelected, HourPickerFragment.OnHourSelected{
 
@@ -91,6 +88,7 @@ public class VenueActivity extends AppToolbarActivity implements  GestureDetecto
     private RecyclerView.LayoutManager leftBarLayoutManager;
     private RelativeLayout concealer;
     private AppScrollView appScrollView;
+    private AppScrollView leftAppScrollView;
     private AppHorizontalScrollView appHorizontalScrollView;
     private Typeface typeface;
     private Button button;
@@ -115,8 +113,8 @@ public class VenueActivity extends AppToolbarActivity implements  GestureDetecto
     private Button isTo;
     private int ultimateIsToHour, ultimateIsToMinute, ultimateIsFromHour, ultimateIsFromMinute;
     private Button isFrom;
-
     private GestureDetectorCompat mDetector;
+
     Handler handler = new Handler();
     Runnable r = new Runnable() {
 
@@ -157,6 +155,8 @@ public class VenueActivity extends AppToolbarActivity implements  GestureDetecto
         appHorizontalScrollView = (AppHorizontalScrollView)findViewById(R.id.scrollHorizontal);
 
         appScrollView = (AppScrollView) findViewById(R.id.scrollVertical);
+
+        leftAppScrollView = (AppScrollView) findViewById(R.id.leftBarContainer);
 
         concealer = (RelativeLayout) findViewById(R.id.concealer);
 
@@ -653,11 +653,7 @@ public class VenueActivity extends AppToolbarActivity implements  GestureDetecto
 
                         closed.setVisibility(View.GONE);
 
-                        leftBarRecyclerView.setVisibility(View.VISIBLE);
-
                     } else {
-
-                        leftBarRecyclerView.setVisibility(View.GONE);
 
                         closed.setVisibility(View.VISIBLE);
 
@@ -896,7 +892,7 @@ public class VenueActivity extends AppToolbarActivity implements  GestureDetecto
 
                 appScrollView.scrollBy((int) (mx - curX), (int) (my - curY));
 
-                leftBarRecyclerView.scrollBy((int) (mx - curX), (int) (my - curY));
+                leftAppScrollView.scrollBy((int) (mx - curX), (int) (my - curY));
 
                 appHorizontalScrollView.scrollBy((int) (mx - curX), (int) (my - curY));
 
@@ -914,11 +910,11 @@ public class VenueActivity extends AppToolbarActivity implements  GestureDetecto
 
                 appScrollView.scrollBy((int) (mx - curX), (int) (my - curY));
 
-                leftBarRecyclerView.scrollBy((int) (mx - curX), (int) (my - curY));
+                leftAppScrollView.scrollBy((int) (mx - curX), (int) (my - curY));
 
                 appHorizontalScrollView.scrollBy((int) (mx - curX), (int) (my - curY));
 
-
+                ((DiaryAdapter) adapter).setSelected(slot);
 
                 break;
 
@@ -940,7 +936,7 @@ public class VenueActivity extends AppToolbarActivity implements  GestureDetecto
 
         appScrollView.scrollTo(0, 0);
 
-        leftBarRecyclerView.scrollToPosition(0);
+        leftAppScrollView.scrollTo(0, 0);
 
     }
 
@@ -1205,7 +1201,20 @@ public class VenueActivity extends AppToolbarActivity implements  GestureDetecto
     @Override
     public boolean onSingleTapUp(MotionEvent e) {
 
+        int x = appScrollView.getScrollX();
+
+        int y = appScrollView.getScrollY();
+
+        Log.i(" x" + x, "y " + y);
+
+        appScrollView.smoothScrollTo(x, y);
+
+        leftAppScrollView.smoothScrollTo(0, y);
+
+        appHorizontalScrollView.smoothScrollTo(x, y);
+
         return false;
+
     }
 
     @Override
@@ -1220,31 +1229,21 @@ public class VenueActivity extends AppToolbarActivity implements  GestureDetecto
 
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-        Log.i("hola" + String.valueOf(velocityX), " mundo6" + String.valueOf(velocityY));
 
+        if( Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY) {
 
-                    if( Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY) {
+                appScrollView.fling((int) - velocityY);
 
-                appScrollView.fling((int) velocityY);
+            leftAppScrollView.fling((int) -velocityY);
 
-                leftBarRecyclerView.fling(0, (int) velocityY);
-
-
-        } else {
-
-                        if (Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-
-
-                                appHorizontalScrollView.fling((int) velocityX);
+        } else if (Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
 
 
                                 appHorizontalScrollView.fling((int) velocityX);
 
 
 
-                        }
-                    }
-
+                            }
 
         return false;
     }

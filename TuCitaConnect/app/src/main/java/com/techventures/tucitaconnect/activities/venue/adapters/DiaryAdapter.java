@@ -286,6 +286,27 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> 
 
         }
 
+        public void setSelected(Slot slot) {
+
+            for (Slot slot1 : slots) {
+
+                if (slot1.equals(slot) && slot1.getAppointment(column) == null) {
+
+                    slot1.setSelected(true);
+
+                    slot.setSelected(true);
+
+                } else {
+
+                    slot1.setSelected(false);
+
+                }
+
+            }
+
+            notifyDataSetChanged();
+        }
+
         class ViewHolder extends RecyclerView.ViewHolder {
 
             protected TextView textViewAppointment;
@@ -304,24 +325,6 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> 
 
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
-
-                        for(Slot slot1 : slots) {
-
-                            if(slot1.equals(slot) && slot1.getAppointment(column) == null) {
-
-                                slot1.setSelected(true);
-
-                                slot.setSelected(true);
-
-                            } else {
-
-                                slot1.setSelected(false);
-
-                            }
-
-                        }
-
-                        notifyDataSetChanged();
 
                         listener.onTouchToClick((int) event.getX(), (int) event.getY(), slot, column);
 

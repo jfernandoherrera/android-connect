@@ -97,8 +97,8 @@ public class VenueActivity extends AppToolbarActivity implements  GestureDetecto
     private Calendar currentDay;
     private double dimension;
     private Appointment appointment;
-    float maxFlingVelocity ;
 
+    private final int swipeThresholdVelocityInsensitive = 110;
     private final int swipeThresholdVelocity = 3500;
     private Slot slot;
     private RelativeLayout progress;
@@ -116,7 +116,8 @@ public class VenueActivity extends AppToolbarActivity implements  GestureDetecto
     private int ultimateIsToHour, ultimateIsToMinute, ultimateIsFromHour, ultimateIsFromMinute;
     private Button isFrom;
     private GestureDetectorCompat mDetector;
-    boolean isInsensitive = false;
+    float isInsensitive;
+
 
     Handler handler = new Handler();
     Runnable r = new Runnable() {
@@ -138,6 +139,8 @@ public class VenueActivity extends AppToolbarActivity implements  GestureDetecto
         setContentView(R.layout.activity_venue);
 
         setToolbar();
+
+        isInsensitive = 0;
 
         venueContext = VenueContext.context(venueContext);
 
@@ -861,84 +864,6 @@ public class VenueActivity extends AppToolbarActivity implements  GestureDetecto
 
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-
-        this.mDetector.onTouchEvent(event);
-
-        float curX, curY;
-
-        float insensitivePressure = (float) 1.0;
-
-    if(event.getPressure() == insensitivePressure)
-    {
-
-        isInsensitive = true;
-
-    }
-
-        switch (event.getAction()) {
-
-            case MotionEvent.ACTION_DOWN:
-
-                mx = event.getX();
-
-                my = event.getY();
-
-                downX = mx;
-
-                downY = my;
-
-                int x = appScrollView.getScrollX();
-
-                int y = appScrollView.getScrollY();
-
-                appScrollView.smoothScrollTo(x, y);
-
-                leftAppScrollView.smoothScrollTo(0, y);
-
-                appHorizontalScrollView.smoothScrollTo(x, y);
-
-                break;
-
-            case MotionEvent.ACTION_MOVE:
-
-                curX = event.getX();
-
-                curY = event.getY();
-
-                appScrollView.scrollBy((int) (mx - curX), (int) (my - curY));
-
-                leftAppScrollView.scrollBy((int) (mx - curX), (int) (my - curY));
-
-                appHorizontalScrollView.scrollBy((int) (mx - curX), (int) (my - curY));
-
-                my = curY;
-
-                mx = curX;
-
-                break;
-
-            case MotionEvent.ACTION_UP:
-
-                curX = event.getX();
-
-                curY = event.getY();
-
-                appScrollView.scrollBy((int) (mx - curX), (int) (my - curY));
-
-                leftAppScrollView.scrollBy((int) (mx - curX), (int) (my - curY));
-
-                appHorizontalScrollView.scrollBy((int) (mx - curX), (int) (my - curY));
-
-                break;
-
-        }
-
-        return false;
-
-    }
-
 
     @Override
     public void onDateSelected(int year, int monthOfYear, int dayOfMonth) {
@@ -1205,6 +1130,15 @@ public class VenueActivity extends AppToolbarActivity implements  GestureDetecto
 
     @Override
     public boolean onDown(MotionEvent e) {
+
+        int x = appHorizontalScrollView.getScrollX();
+
+        int y = leftAppScrollView.getScrollY();
+
+        appScrollView.smoothScrollTo(x, y);
+
+        leftAppScrollView.smoothScrollTo(x, y);
+
         return false;
     }
 
@@ -1216,7 +1150,11 @@ public class VenueActivity extends AppToolbarActivity implements  GestureDetecto
     @Override
     public boolean onSingleTapUp(MotionEvent e) {
 
-        ((DiaryAdapter) adapter).setSelected(slot);
+        if(adapter != null && slot != null) {
+
+            ((DiaryAdapter) adapter).setSelected(slot);
+
+        }
 
         return false;
 
@@ -1224,7 +1162,15 @@ public class VenueActivity extends AppToolbarActivity implements  GestureDetecto
 
     @Override
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+
+        leftAppScrollView.scrollBy(0, (int) distanceY);
+
+        appScrollView.scrollBy((int) distanceX, (int) distanceY);
+
+        appHorizontalScrollView.scrollBy((int) distanceX, (int) distanceY);
+
         return false;
+
     }
 
     @Override
@@ -1235,9 +1181,9 @@ public class VenueActivity extends AppToolbarActivity implements  GestureDetecto
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
 
-        if(isInsensitive) {
+        if(isInsensitive == 1) {
 
-            if( Math.abs(velocityY) > 110) {
+            if( Math.abs(velocityY) > swipeThresholdVelocityInsensitive ) {
 
                 velocityY = getInsensitiveVelocity((int) velocityY);
 
@@ -1245,29 +1191,37 @@ public class VenueActivity extends AppToolbarActivity implements  GestureDetecto
 
                 leftAppScrollView.fling((int) - velocityY);
 
-            } else if (Math.abs(velocityX) > 110) {
-
-                appHorizontalScrollView.fling( - getInsensitiveVelocity((int) velocityX));
-
             }
 
-        } else {
-
-            if (Math.abs(velocityY) > swipeThresholdVelocity) {
+        } else if (Math.abs(velocityY) > swipeThresholdVelocity  ) {
 
                 appScrollView.fling((int) - velocityY);
 
-                leftAppScrollView.fling((int) - velocityY);
-
-            } else if (Math.abs(velocityX) > swipeThresholdVelocity) {
-
-                appHorizontalScrollView.fling((int) -  velocityX);
-
-            }
+                leftAppScrollView.fling((int) -velocityY);
 
         }
 
+
         return true;
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+
+        if(isInsensitive == 0) {
+
+            isInsensitive = event.getPressure();
+
+        }
+
+        if(this.mDetector != null) {
+
+            mDetector.onTouchEvent(event);
+
+        }
+
+        return false;
+
     }
 
     public static boolean isBetween(int x, int lower, int upper) {

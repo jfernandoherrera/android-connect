@@ -128,7 +128,7 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> 
 
             setAppointment(slot, viewHolder);
 
-        if(slots.get(index).isSelected()) {
+        if(slot.isSelected() && slot.getAmount() > column) {
 
             selected(viewHolder);
 

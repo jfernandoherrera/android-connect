@@ -164,6 +164,7 @@ public class SlotRemote {
         });
 
     }
+
             public void destroyAllSlots(final ParseQuery<Slot> slotParseQuery, final SlotCompletion.SlotErrorCompletion completion) {
 
              findSlots(slotParseQuery, new SlotCompletion.SlotErrorCompletion() {

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 
 import com.techventures.tucitaconnect.R;
 import com.techventures.tucitaconnect.activities.splash.SplashActivity;
@@ -30,11 +30,8 @@ import com.techventures.tucitaconnect.model.domain.venue.Venue;
 import com.techventures.tucitaconnect.model.error.AppError;
 import com.techventures.tucitaconnect.utils.common.AlertDialogError;
 import com.techventures.tucitaconnect.utils.common.views.DayOpeningHoursView;
-import com.techventures.tucitaconnect.utils.common.views.StateButton;
-
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class EditOpeningHoursFragment extends DialogFragment {
 
@@ -46,6 +43,7 @@ public class EditOpeningHoursFragment extends DialogFragment {
     private SlotContext slotContext;
     private EditText textDuration;
     private EditedOpeningHourContext editedOpeningHourContext;
+    private RelativeLayout concealer;
 
 
     public interface OnTimeSelected{
@@ -138,6 +136,10 @@ public class EditOpeningHoursFragment extends DialogFragment {
 
         toolbar.inflateMenu(R.menu.menu_all_set);
 
+        concealer = (RelativeLayout) rootView.findViewById(R.id.concealer);
+
+        concealer.setVisibility(View.VISIBLE);
+
         MenuItem allSet = toolbar.getMenu().getItem(0);
 
         allSet.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
@@ -159,6 +161,8 @@ public class EditOpeningHoursFragment extends DialogFragment {
     }
 
     private void save() {
+
+        concealer.setVisibility(View.VISIBLE);
 
         final int duration;
 
@@ -313,6 +317,8 @@ public class EditOpeningHoursFragment extends DialogFragment {
                                                             @Override
                                                             public void completion(List<EditedOpeningHour> editedOpeningHours, AppError error) {
 
+                                                                concealer.setVisibility(View.GONE);
+
                                                                 if (error == null) {
 
                                                                     showSuccessfulTransaction();
@@ -326,6 +332,7 @@ public class EditOpeningHoursFragment extends DialogFragment {
                                                                 }
 
                                                             }
+
                                                         });
 
                                                     }
@@ -333,8 +340,6 @@ public class EditOpeningHoursFragment extends DialogFragment {
                                                 }
 
                                             });
-
-
 
                                         }
 
@@ -387,6 +392,7 @@ public class EditOpeningHoursFragment extends DialogFragment {
                 .setMessage(message).show();
 
     }
+
     private void setup(View view) {
 
         setupDuration();
@@ -441,6 +447,8 @@ public class EditOpeningHoursFragment extends DialogFragment {
                        openingHours = openingHoursList;
 
                     }
+
+                    concealer.setVisibility(View.GONE);
 
                     populateOpeningHours(view);
 

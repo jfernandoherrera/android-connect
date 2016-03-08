@@ -6,13 +6,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.format.DateUtils;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -21,8 +19,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewConfiguration;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupMenu;
@@ -67,18 +63,16 @@ import com.techventures.tucitaconnect.utils.common.scroll.AppHorizontalScrollVie
 import com.techventures.tucitaconnect.utils.common.scroll.AppScrollView;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.techventures.tucitaconnect.utils.common.scroll.LinearLayoutManager;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class VenueActivity extends AppToolbarActivity implements  GestureDetector.OnGestureListener, EditOpeningHoursFragment.OnTimeSelected, DatePickerFragment.OnDateSelected, DiaryAdapter.OnTouchToClick, SelectTimesFragment.OnJustOneDateSelected, HourPickerFragment.OnHourSelected{
+public class VenueActivity extends AppToolbarActivity implements GestureDetector.OnDoubleTapListener, GestureDetector.OnGestureListener, EditOpeningHoursFragment.OnTimeSelected, DatePickerFragment.OnDateSelected, DiaryAdapter.OnTouchToClick, SelectTimesFragment.OnJustOneDateSelected, HourPickerFragment.OnHourSelected{
 
     private VenueContext venueContext;
     private AppointmentContext appointmentContext;
     private Venue venue;
-    private float mx, my;
     private SlotContext slotContext;
     private TextView noResults;
     private RecyclerView recyclerView;
@@ -95,41 +89,22 @@ public class VenueActivity extends AppToolbarActivity implements  GestureDetecto
     private Button button;
     private Calendar calendar;
     private Calendar currentDay;
-    private double dimension;
     private Appointment appointment;
-
     private final int swipeThresholdVelocityInsensitive = 110;
     private final int swipeThresholdVelocity = 3500;
     private Slot slot;
     private RelativeLayout progress;
-    private TextView appointmentFloatingView;
+    private Button appointmentFloatingView;
     private ServiceContext serviceContext;
-    float downX = 0, downY = 0;
     int twoDigitsNumber = 10;
     private SelectTimesFragment selectTimesFragment;
-    private Slot slotToDoubleClick;
-    private int columnToDoubleClick;
     private int column;
     private BlockadeContext blockadeContext;
-    int i;
     private Button isTo;
     private int ultimateIsToHour, ultimateIsToMinute, ultimateIsFromHour, ultimateIsFromMinute;
     private Button isFrom;
     private GestureDetectorCompat mDetector;
     float isInsensitive;
-
-
-    Handler handler = new Handler();
-    Runnable r = new Runnable() {
-
-        @Override
-        public void run() {
-
-            i = 0;
-
-        }
-    };
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -174,7 +149,7 @@ public class VenueActivity extends AppToolbarActivity implements  GestureDetecto
 
         progress.setVisibility(View.GONE);
 
-        appointmentFloatingView = (TextView) findViewById(R.id.appointmentOptionsView);
+        appointmentFloatingView = (Button) findViewById(R.id.appointmentOptionsView);
 
         appointmentFloatingView.setOnClickListener(new View.OnClickListener() {
 
@@ -218,79 +193,7 @@ public class VenueActivity extends AppToolbarActivity implements  GestureDetecto
 
                   } else if(item.getTitle().equals(getString(R.string.action_change_amount))) {
 
-                      LayoutInflater layoutInflater = LayoutInflater.from(VenueActivity.this);
-
-                      View promptView = layoutInflater.inflate(R.layout.input_number, null);
-
-                      AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(VenueActivity.this);
-
-                      alertDialogBuilder.setView(promptView);
-
-                      final EditText editText = (EditText) promptView;
-
-                      alertDialogBuilder.setCancelable(false)
-
-                              .setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
-
-                                  public void onClick(DialogInterface dialog, int id) {
-
-                                      slotContext.setAmount(slot, Integer.parseInt(editText.getText().toString()), new SaveCallback() {
-                                          @Override
-                                          public void done(ParseException e) {
-
-                                              if(e != null) {
-
-                                                  e.printStackTrace();
-
-                                              } else {
-
-                                                  AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-
-                                                          VenueActivity.this);
-
-                                                  String continueString = getString(R.string.continue_option);
-
-                                                  String successful = getString(R.string.successful_transaction);
-
-                                                  String message = getString(R.string.app_name);
-
-                                                  alertDialogBuilder.setTitle(successful)
-
-                                                          .setPositiveButton(continueString, new DialogInterface.OnClickListener() {
-
-                                                              public void onClick(DialogInterface dialog, int id) {
-
-                                                                  SplashActivity.goToStart(getApplicationContext());
-
-                                                              }
-                                                          }).setCancelable(false)
-
-                                                          .setMessage(message).show();
-
-                                              }
-
-                                          }
-                                      });
-
-                                  }
-
-                              })
-
-                              .setNegativeButton(getString(R.string.cancel),
-
-                                      new DialogInterface.OnClickListener() {
-
-                                          public void onClick(DialogInterface dialog, int id) {
-
-                                              dialog.cancel();
-
-                                          }
-
-                                      });
-
-                      AlertDialog alert = alertDialogBuilder.create();
-
-                      alert.show();
+                    changeAvailability();
 
                   }
 
@@ -336,13 +239,80 @@ public class VenueActivity extends AppToolbarActivity implements  GestureDetecto
 
         dateFormat(calendar);
 
-        WindowManager wm = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
+    }
 
-        DisplayMetrics metrics = new DisplayMetrics();
+    private void changeAvailability() {
 
-        wm.getDefaultDisplay().getMetrics(metrics);
+        LayoutInflater layoutInflater = LayoutInflater.from(VenueActivity.this);
 
-        dimension = metrics.scaledDensity;
+        View promptView = layoutInflater.inflate(R.layout.input_number, null);
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(VenueActivity.this);
+
+        alertDialogBuilder.setView(promptView);
+
+        final EditText editText = (EditText) promptView.findViewById(R.id.inputAmount);
+
+        alertDialogBuilder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int id) {
+
+                slotContext.setAmount(slot, Integer.parseInt(editText.getText().toString()), new SaveCallback() {
+
+                    @Override
+                    public void done(ParseException e) {
+
+                        if(e != null) {
+
+                            e.printStackTrace();
+
+                        } else {
+
+                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(VenueActivity.this);
+
+                            String continueString = getString(R.string.continue_option);
+
+                            String successful = getString(R.string.successful_transaction);
+
+                            String message = getString(R.string.app_name);
+
+                            alertDialogBuilder.setTitle(successful)
+
+                                    .setPositiveButton(continueString, new DialogInterface.OnClickListener() {
+
+                                        public void onClick(DialogInterface dialog, int id) {
+
+                                            SplashActivity.goToStart(getApplicationContext());
+
+                                        }
+                                    }).setCancelable(false)
+
+                                    .setMessage(message).show();
+
+                        }
+
+                    }
+                });
+
+            }
+
+        })
+
+                .setNegativeButton(getString(R.string.cancel),
+
+                        new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int id) {
+
+                                dialog.cancel();
+
+                            }
+
+                        });
+
+        AlertDialog alert = alertDialogBuilder.create();
+
+        alert.show();
 
     }
 
@@ -523,7 +493,7 @@ public class VenueActivity extends AppToolbarActivity implements  GestureDetecto
 
             newFragment.setInitialMinute(ultimateIsFromMinute);
 
-        } else {
+            } else {
 
             newFragment.setInitialHour(ultimateIsToHour);
 
@@ -777,6 +747,7 @@ public class VenueActivity extends AppToolbarActivity implements  GestureDetecto
         public void completion(Appointment appointment, AppError error) {
 
         }
+
     });
 
     }
@@ -788,6 +759,7 @@ public class VenueActivity extends AppToolbarActivity implements  GestureDetecto
             String objectId = getIntent().getStringExtra(CommonAttributes.objectId);
 
             venue = venueContext.getVenue(objectId, new VenueCompletion.ErrorCompletion() {
+
             @Override
             public void completion(Venue venue, AppError error) {
 
@@ -1011,10 +983,6 @@ public class VenueActivity extends AppToolbarActivity implements  GestureDetecto
     @Override
     public void onTouchToClick(int x, int y, Slot slot, int column) {
 
-        slotToDoubleClick = this.slot;
-
-        columnToDoubleClick = this.column;
-
         this.column = column;
 
         this.slot = slot;
@@ -1197,7 +1165,7 @@ public class VenueActivity extends AppToolbarActivity implements  GestureDetecto
 
                 appScrollView.fling((int) - velocityY);
 
-                leftAppScrollView.fling((int) -velocityY);
+                leftAppScrollView.fling((int) - velocityY);
 
         }
 
@@ -1273,6 +1241,33 @@ public class VenueActivity extends AppToolbarActivity implements  GestureDetecto
         }
 
         return velocity;
+
+    }
+
+    @Override
+    public boolean onSingleTapConfirmed(MotionEvent e) {
+
+        return false;
+
+    }
+
+    @Override
+    public boolean onDoubleTap(MotionEvent e) {
+
+        if(appointment != null) {
+
+            showAppointmentDialog(appointment);
+
+        }
+
+        return false;
+
+    }
+
+    @Override
+    public boolean onDoubleTapEvent(MotionEvent e) {
+
+        return false;
 
     }
 

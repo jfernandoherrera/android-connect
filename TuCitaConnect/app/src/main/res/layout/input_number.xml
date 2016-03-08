@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<EditText xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    android:layout_height="100dp"
     android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+<EditText
+    android:layout_width="85dp"
     android:layout_height="50dp"
     android:inputType="numberDecimal"
+    android:id="@+id/inputAmount"
     android:hint="@string/amount">
-
 </EditText>
+<TextView
+    android:layout_width="160dp"
+    android:layout_height="50dp"
+    android:textSize="12sp"
+    android:text="@string/workers_available"
+    android:gravity="bottom"
+    android:layout_toRightOf="@+id/inputAmount"
+    android:layout_toEndOf="@+id/inputAmount"/>
+</RelativeLayout>

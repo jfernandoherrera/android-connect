@@ -290,19 +290,51 @@ public class EditOpeningHoursFragment extends DialogFragment {
 
                                             editedOpeningHour.putDurationMinutes(duration);
 
-                                            editedOpeningHourContext.saveEditedOpeningHour(editedOpeningHour, new EditedOpeningHourCompletion.EditedOpeningHourErrorCompletion() {
+                                            slotContext.destroyAllSlots(venue, new SlotCompletion.SlotErrorCompletion() {
 
                                                 @Override
-                                                public void completion(List<EditedOpeningHour> editedOpeningHours, AppError error) {
+                                                public void completion(List<Slot> slotList, AppError error) {
 
-                                                    if(error == null) {
+                                                }
 
-                                                        showSuccessfulTransaction();
+                                                @Override
+                                                public void completion(int duration, AppError error) {
+
+                                                    if(error != null) {
+
+                                                        AlertDialogError alertDialogError = new AlertDialogError();
+
+                                                        alertDialogError.noInternetConnectionAlert(getContext());
+
+                                                    }else {
+
+                                                        editedOpeningHourContext.saveEditedOpeningHour(editedOpeningHour, new EditedOpeningHourCompletion.EditedOpeningHourErrorCompletion() {
+
+                                                            @Override
+                                                            public void completion(List<EditedOpeningHour> editedOpeningHours, AppError error) {
+
+                                                                if (error == null) {
+
+                                                                    showSuccessfulTransaction();
+
+                                                                } else {
+
+                                                                    AlertDialogError alertDialogError = new AlertDialogError();
+
+                                                                    alertDialogError.noInternetConnectionAlert(getContext());
+
+                                                                }
+
+                                                            }
+                                                        });
 
                                                     }
 
                                                 }
+
                                             });
+
+
 
                                         }
 

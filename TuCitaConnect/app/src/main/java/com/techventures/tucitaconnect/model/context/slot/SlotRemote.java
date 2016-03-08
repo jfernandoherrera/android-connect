@@ -1,6 +1,11 @@
 package com.techventures.tucitaconnect.model.context.slot;
 
+import android.util.Log;
+
+import com.parse.DeleteCallback;
 import com.parse.GetCallback;
+import com.parse.ParseObject;
+import com.techventures.tucitaconnect.activities.venue.adapters.ExpandableWithoutParentAdapter;
 import com.techventures.tucitaconnect.model.domain.slot.Slot;
 import com.techventures.tucitaconnect.model.domain.slot.SlotAttributes;
 import com.techventures.tucitaconnect.model.domain.venue.Venue;
@@ -13,6 +18,8 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import java.util.List;
+
+import bolts.AggregateException;
 
 
 public class SlotRemote {
@@ -54,7 +61,7 @@ public class SlotRemote {
 
                     AppError appError = e != null ? new AppError(Slot.class.toString(), 0, null) : null;
 
-                    if(e != null) {
+                    if (e != null) {
 
                         completion.completion(-1, appError);
 
@@ -135,6 +142,88 @@ public class SlotRemote {
         }
 
         return locked;
+
+    }
+
+    public void findSlots(ParseQuery<Slot> slotParseQuery, final SlotCompletion.SlotErrorCompletion completion) {
+
+
+        query = slotParseQuery;
+
+        query.findInBackground(new FindCallback<Slot>() {
+
+            @Override
+            public void done(List<Slot> slots, ParseException e) {
+
+                AppError appError = e != null ? new AppError(Slot.class.toString(), 0, null) : null;
+
+                completion.completion(slots, appError);
+
+            }
+
+        });
+
+    }
+            public void destroyAllSlots(final ParseQuery<Slot> slotParseQuery, final SlotCompletion.SlotErrorCompletion completion) {
+
+             findSlots(slotParseQuery, new SlotCompletion.SlotErrorCompletion() {
+
+                 @Override
+                 public void completion(List<Slot> slots, AppError error) {
+
+                     if (error == null && ! slots.isEmpty()) {
+
+                         ParseObject.deleteAllInBackground(slots, new DeleteCallback() {
+
+                             @Override
+                             public void done(ParseException e) {
+
+                                 AppError appError = e != null ? new AppError(Slot.class.toString(), 0, null) : null;
+
+                                 if (e != null) {
+
+                                     Log.i("exce" + e.getSuppressed()[0].getMessage(), "hola");
+
+                                     completion.completion(0, appError);
+
+                                     for (Throwable exception : e.getSuppressed()) {
+
+                                         exception.printStackTrace();
+
+                                     }
+
+                                 } else {
+
+                                    destroyAllSlots(slotParseQuery, completion);
+
+                                 }
+
+                             }
+                         });
+
+                     } else {
+
+                         if(error == null ) {
+
+                             completion.completion(1, null);
+
+                         } else {
+
+                         AppError appError = new AppError(Slot.class.toString(), 0, null);
+
+                         completion.completion(0, appError);
+
+                         }
+
+                     }
+                 }
+
+                 @Override
+                 public void completion(int duration, AppError error) {
+
+                 }
+
+             });
 
     }
 

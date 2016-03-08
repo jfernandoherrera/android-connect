@@ -7,6 +7,8 @@ import com.parse.ParseQuery;
 import com.parse.ParseRelation;
 import com.parse.SaveCallback;
 
+import java.util.List;
+
 public class SlotContext {
 
     private SlotRemote slotRemote;
@@ -53,6 +55,16 @@ public class SlotContext {
             e.printStackTrace();
 
         }
+
+    }
+
+    public void destroyAllSlots(Venue venue, SlotCompletion.SlotErrorCompletion completion) {
+
+        ParseRelation<Slot> object = (ParseRelation) venue.get(VenueAttributes.slots);
+
+        ParseQuery<Slot> query = object.getQuery();
+
+        slotRemote.destroyAllSlots(query, completion);
 
     }
 

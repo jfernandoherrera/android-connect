@@ -201,7 +201,7 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> 
 
                     }
 
-                    if( appointment.getColumn() == column) {
+                    if(appointment.getColumn() == column) {
 
                         slot.addAppointment(appointment);
 
@@ -290,7 +290,7 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> 
 
             for (Slot slot1 : slots) {
 
-                if (slot1.equals(slot) && slot1.getAppointment(column) == null) {
+                if (slot1.equals(slot)) {
 
                     slot1.setSelected(true);
 
@@ -305,6 +305,7 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> 
             }
 
             notifyDataSetChanged();
+
         }
 
         class ViewHolder extends RecyclerView.ViewHolder {

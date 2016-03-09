@@ -147,7 +147,6 @@ public class SlotRemote {
 
     public void findSlots(ParseQuery<Slot> slotParseQuery, final SlotCompletion.SlotErrorCompletion completion) {
 
-
         query = slotParseQuery;
 
         query.findInBackground(new FindCallback<Slot>() {
@@ -183,15 +182,8 @@ public class SlotRemote {
 
                                  if (e != null) {
 
-                                     Log.i("exce" + e.getSuppressed()[0].getMessage(), "hola");
+                                         e.printStackTrace();
 
-                                     completion.completion(0, appError);
-
-                                     for (Throwable exception : e.getSuppressed()) {
-
-                                         exception.printStackTrace();
-
-                                     }
 
                                  } else {
 

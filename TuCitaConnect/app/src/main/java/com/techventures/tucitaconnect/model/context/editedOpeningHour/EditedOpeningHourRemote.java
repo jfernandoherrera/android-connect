@@ -1,5 +1,7 @@
 package com.techventures.tucitaconnect.model.context.editedOpeningHour;
 
+import android.util.Log;
+
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -40,7 +42,13 @@ public class EditedOpeningHourRemote {
             @Override
             public void done(ParseException e) {
 
-                AppError appError = e != null ? new AppError(EditedOpeningHour.class.toString(), 0, null) : null;
+                if(e != null) {
+
+                    e.printStackTrace();
+
+                }
+
+                AppError appError = (e != null ) ? new AppError(EditedOpeningHour.class.toString(), 0, null) : null;
 
                 completion.completion(null, appError);
 

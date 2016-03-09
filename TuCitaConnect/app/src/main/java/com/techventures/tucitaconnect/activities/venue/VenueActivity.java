@@ -68,7 +68,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class VenueActivity extends AppToolbarActivity implements GestureDetector.OnDoubleTapListener, GestureDetector.OnGestureListener, EditOpeningHoursFragment.OnTimeSelected, DatePickerFragment.OnDateSelected, DiaryAdapter.OnTouchToClick, SelectTimesFragment.OnJustOneDateSelected, HourPickerFragment.OnHourSelected{
+public class VenueActivity extends AppToolbarActivity implements EditOpeningHoursFragment.OnEdited, GestureDetector.OnDoubleTapListener, GestureDetector.OnGestureListener, EditOpeningHoursFragment.OnTimeSelected, DatePickerFragment.OnDateSelected, DiaryAdapter.OnTouchToClick, SelectTimesFragment.OnJustOneDateSelected, HourPickerFragment.OnHourSelected{
 
     private VenueContext venueContext;
     private AppointmentContext appointmentContext;
@@ -804,7 +804,7 @@ public class VenueActivity extends AppToolbarActivity implements GestureDetector
 
         appScrollView.scrollTo(0, 0);
 
-        leftBarRecyclerView.scrollToPosition(0);
+        leftAppScrollView.scrollTo(0,0);
 
     }
 
@@ -830,7 +830,7 @@ public class VenueActivity extends AppToolbarActivity implements GestureDetector
 
             appScrollView.scrollTo(0, 0);
 
-            leftBarRecyclerView.scrollToPosition(0);
+            leftAppScrollView.scrollTo(0,0);
 
         }
 
@@ -1271,4 +1271,10 @@ public class VenueActivity extends AppToolbarActivity implements GestureDetector
 
     }
 
+    @Override
+    public void onEdited() {
+
+        setupVenue();
+
+    }
 }

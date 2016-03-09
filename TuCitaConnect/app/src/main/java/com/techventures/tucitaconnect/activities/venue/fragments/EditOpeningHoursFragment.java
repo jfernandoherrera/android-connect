@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
-
 import com.techventures.tucitaconnect.R;
 import com.techventures.tucitaconnect.activities.splash.SplashActivity;
 import com.techventures.tucitaconnect.model.context.editedOpeningHour.EditedOpeningHourCompletion;
@@ -42,13 +41,20 @@ public class EditOpeningHoursFragment extends DialogFragment {
     private Toolbar toolbar;
     private SlotContext slotContext;
     private EditText textDuration;
+    private OnEdited onEdited;
     private EditedOpeningHourContext editedOpeningHourContext;
     private RelativeLayout concealer;
 
 
-    public interface OnTimeSelected{
+    public interface OnTimeSelected {
 
         void onTimeSelected(Button view, int hour, int minute);
+
+    }
+
+    public interface OnEdited {
+
+        void onEdited();
 
     }
 
@@ -321,7 +327,9 @@ public class EditOpeningHoursFragment extends DialogFragment {
 
                                                                 if (error == null) {
 
-                                                                    showSuccessfulTransaction();
+                                                                    onEdited.onEdited();
+
+                                                                    dismiss();
 
                                                                 } else {
 
@@ -504,6 +512,7 @@ public class EditOpeningHoursFragment extends DialogFragment {
 
         listener = (OnTimeSelected) context;
 
+        onEdited = (OnEdited) context;
     }
 
 }

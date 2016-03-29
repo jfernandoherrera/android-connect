@@ -73,7 +73,7 @@ public class VenuesFragment extends AppFragment {
 
             String users = getString(R.string.users);
 
-            adapter = new VenuesAdapter(venues, reviewBy, users, typeface);
+            adapter = new VenuesAdapter(venues, reviewBy, users);
 
             recyclerView.setAdapter(adapter);
 

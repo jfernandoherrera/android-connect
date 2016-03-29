@@ -65,14 +65,4 @@ public class AppToolbarActivity extends AppCompatActivity{
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        TextView textView = getActionBarTextView();
-
-        textView.setTypeface(typeface, Typeface.BOLD);
-
-        return true;
-
-    }
 }

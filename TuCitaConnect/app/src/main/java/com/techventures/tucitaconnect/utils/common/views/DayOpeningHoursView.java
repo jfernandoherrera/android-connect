@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.techventures.tucitaconnect.R;
-import com.techventures.tucitaconnect.activities.venue.fragments.EditOpeningHoursFragment;
+import com.techventures.tucitaconnect.activities.venue.fragments.editopeninghour.EditOpeningHoursFragment;
 
 import java.util.Calendar;
 

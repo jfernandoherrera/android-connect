@@ -33,7 +33,6 @@ public class AccountActivity extends AppToolbarActivity {
     private UserContext userContext;
     private Toolbar toolbar;
     private VenuesFragment venuesFragment;
-    Typeface typeface;
     //private AppointmentContext appointmentContext;
     User user;
 
@@ -48,17 +47,11 @@ public class AccountActivity extends AppToolbarActivity {
 
         setToolbar();
 
-        AppFont appFont = new AppFont();
-
-        typeface = appFont.getAppFont(getApplicationContext());
-
        // appointmentContext = AppointmentContext.context(appointmentContext);
 
         userContext = UserContext.context(userContext);
 
         venuesFragment = new VenuesFragment();
-
-        venuesFragment.setTypeface(typeface);
 
         setupUser();
 
@@ -118,12 +111,6 @@ public class AccountActivity extends AppToolbarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.menu_logout, menu);
-
-        TextView textView = getActionBarTextView();
-
-        textView.setText(user.getName());
-
-        textView.setTypeface(typeface, Typeface.BOLD);
 
         MenuItem logoutItem = menu.findItem(R.id.action_logout);
 

@@ -1,4 +1,4 @@
-package com.techventures.tucitaconnect.activities.venue.fragments;
+package com.techventures.tucitaconnect.activities.venue.fragments.editopeninghour;
 
 import android.app.AlertDialog;
 import android.content.Context;

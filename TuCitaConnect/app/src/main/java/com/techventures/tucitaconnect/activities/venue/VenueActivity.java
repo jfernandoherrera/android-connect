@@ -11,7 +11,6 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.format.DateUtils;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -34,7 +33,7 @@ import com.techventures.tucitaconnect.activities.venue.adapters.layout.SlotLayou
 import com.techventures.tucitaconnect.activities.venue.fragments.AddUserFragment;
 import com.techventures.tucitaconnect.activities.venue.fragments.AppointmentDetailsFragment;
 import com.techventures.tucitaconnect.activities.venue.fragments.DatePickerFragment;
-import com.techventures.tucitaconnect.activities.venue.fragments.EditOpeningHoursFragment;
+import com.techventures.tucitaconnect.activities.venue.fragments.editopeninghour.EditOpeningHoursFragment;
 import com.techventures.tucitaconnect.activities.venue.fragments.HourPickerFragment;
 import com.techventures.tucitaconnect.activities.venue.fragments.SelectTimesFragment;
 import com.techventures.tucitaconnect.model.context.appointment.AppointmentCompletion;
@@ -85,7 +84,6 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
     private AppScrollView appScrollView;
     private AppScrollView leftAppScrollView;
     private AppHorizontalScrollView appHorizontalScrollView;
-    private Typeface typeface;
     private Button button;
     private Calendar calendar;
     private Calendar currentDay;
@@ -209,12 +207,6 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
 
         calendar = Calendar.getInstance();
 
-        AppFont appFont = new AppFont();
-
-        typeface = appFont.getAppFont(getApplicationContext());
-
-        button.setTypeface(typeface, Typeface.BOLD);
-
         button.setOnTouchListener(new View.OnTouchListener() {
 
             @Override
@@ -329,6 +321,8 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
         String title = getString(R.string.do_you_really);
 
         SpannableStringBuilder stringBuilder = new SpannableStringBuilder(willBlock);
+
+        Typeface typeface = new AppFont().getAppFontLight(this);
 
         stringBuilder.setSpan(new CustomSpanTypeface(null, Typeface.BOLD, 20, null, null, typeface), 0, willBlock.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
 
@@ -701,7 +695,7 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
 
             if (adapter == null) {
 
-                adapter = new DiaryAdapter(slots, typeface, columns, appointmentList, VenueActivity.this, null);
+                adapter = new DiaryAdapter(slots, columns, appointmentList, VenueActivity.this, null);
 
                 recyclerView.setAdapter(adapter);
 
@@ -973,8 +967,6 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
     public boolean onCreateOptionsMenu(Menu menu) {
 
         TextView textView = getActionBarTextView();
-
-        textView.setTypeface(typeface);
 
     return true;
 

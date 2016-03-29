@@ -42,7 +42,6 @@ public class LoginActivity extends AppCompatActivity {
     private TextView emailView;
     private EditText passwordView;
     private UserContext userContext;
-    private Typeface typeface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,14 +53,6 @@ public class LoginActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.login_animation_pull_in, R.anim.animation_hold);
 
         setContentView(R.layout.activity_login);
-
-        AppFont appFont = new AppFont();
-
-        typeface = appFont.getAppFont(getApplicationContext());
-
-        emailView = (AutoCompleteTextView) findViewById(R.id.email);
-
-        emailView.setTypeface(typeface);
 
         Button close = (Button) findViewById(R.id.close);
 
@@ -134,7 +125,6 @@ public class LoginActivity extends AppCompatActivity {
 
         passwordView = (EditText) findViewById(R.id.password);
 
-        passwordView.setTypeface(typeface);
 
         setupTitlesTypeface();
 
@@ -159,18 +149,6 @@ public class LoginActivity extends AppCompatActivity {
         final Button log = (Button) findViewById(R.id.email_sign_in_button);
 
         Button face = (Button) findViewById(R.id.facebook_button);
-
-        textInputLayoutEmail.setTypeface(typeface);
-
-        textInputLayoutPass.setTypeface(typeface);
-
-        forgiven.setTypeface(typeface, Typeface.BOLD);
-
-        newAccount.setTypeface(typeface, Typeface.BOLD);
-
-        log.setTypeface(typeface, Typeface.BOLD);
-
-        face.setTypeface(typeface, Typeface.BOLD);
 
         face.setBackgroundResource(R.drawable.cling_button_normal);
 
@@ -246,6 +224,8 @@ public class LoginActivity extends AppCompatActivity {
         String secondString = getResources().getString(R.string.or).toLowerCase();
 
         String thirdString = getResources().getString(R.string.action_sign_up).toUpperCase();
+
+        Typeface typeface = new AppFont().getAppFontLight(this);
 
         SpannableStringBuilder stringBuilder = new SpannableStringBuilder(firstString + " " + secondString + " " + thirdString);
 

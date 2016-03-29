@@ -54,8 +54,10 @@
     <string name="no_internet_connection">No hay conexión a internet</string>
     <string name="no_is_possible">No puede cerrar antes de abrir</string>
     <string name="must_be_a_number">Debe ser un numero</string>
-    <string name="amount">Cantidad</string>
+    <string name="amount">NUMERO DE</string>
     <string name="cancel">Cancelar</string>
     <string name="minutes">minutos</string>
     <string name="workers_available">Trabajadores disponibles</string>
+    <string name="all_day">Todo el día</string>
+    <string name="current_slot">Slot actual</string>
 </resources>

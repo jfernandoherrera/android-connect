@@ -29,14 +29,10 @@ public class VenuesAdapter extends RecyclerView.Adapter<VenuesAdapter.ViewHolder
     List<Venue> items;
     String reviewBy;
     String users;
-    Typeface typeface;
 
-
-    public VenuesAdapter(List<Venue> venues, String reviewBy, String users, Typeface typeface) {
+    public VenuesAdapter(List<Venue> venues, String reviewBy, String users) {
 
         super();
-
-        this.typeface = typeface;
 
         this.reviewBy = reviewBy;
 
@@ -156,12 +152,6 @@ public class VenuesAdapter extends RecyclerView.Adapter<VenuesAdapter.ViewHolder
             ratingBar = (RatingBar) itemView.findViewById(R.id.searchRatingBar);
 
             setupStars();
-
-            location.setTypeface(typeface);
-
-            name.setTypeface(typeface);
-
-            textViewReviews.setTypeface(typeface);
 
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
 

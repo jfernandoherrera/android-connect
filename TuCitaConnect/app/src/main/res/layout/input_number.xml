@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
 <EditText
-    android:layout_width="85dp"
+    android:layout_width="125dp"
     android:layout_height="50dp"
     android:inputType="numberDecimal"
     android:id="@+id/inputAmount"
@@ -18,4 +18,23 @@
     android:gravity="bottom"
     android:layout_toRightOf="@+id/inputAmount"
     android:layout_toEndOf="@+id/inputAmount"/>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/inputAmount"
+        android:layout_height="wrap_content">
+<com.techventures.tucitaconnect.utils.common.views.AppTextView
+    android:layout_width="wrap_content"
+    android:text="@string/all_day"
+    android:layout_marginLeft="16dp"
+    android:background="@drawable/button_accent3"
+    android:id="@+id/allDay"
+    android:layout_height="50dp" />
+        <com.techventures.tucitaconnect.utils.common.views.AppTextView
+            android:layout_width="match_parent"
+            android:background="@drawable/button_accent2"
+            android:layout_marginRight="16dp"
+            android:text="@string/current_slot"
+            android:layout_height="50dp"
+            android:layout_toRightOf="@+id/allDay"/>
+    </RelativeLayout>
 </RelativeLayout>

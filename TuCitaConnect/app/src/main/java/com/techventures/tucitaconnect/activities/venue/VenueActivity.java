@@ -284,15 +284,21 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
 
             public void onClick(DialogInterface dialog, int id) {
 
-                int amount =  Integer.parseInt(editText.getText().toString());
+                try {
 
-                if(VenueActivity.this.allDay) {
+                    int amount = Integer.parseInt(editText.getText().toString());
 
-                    setSlotAmount(((DiaryAdapter)adapter).getSlots(), amount);
+                    if (VenueActivity.this.allDay) {
 
-                } else {
+                        setSlotAmount(((DiaryAdapter) adapter).getSlots(), amount);
 
-                    setSlotAmount(slot, amount);
+                    } else {
+
+                        setSlotAmount(slot, amount);
+
+                    }
+
+                } catch (NumberFormatException e) {
 
                 }
 
@@ -681,7 +687,54 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
 
     }
 
+    private boolean sameDay(Calendar calendar, Calendar otherCalendar) {
+
+        boolean isSameDay = calendar.get(Calendar.DAY_OF_YEAR) == otherCalendar.get(Calendar.DAY_OF_YEAR);
+
+        boolean isSameYear = calendar.get(Calendar.YEAR) == otherCalendar.get(Calendar.YEAR);
+
+        boolean sameDay = isSameDay && isSameYear;
+
+        return sameDay;
+    }
+
     public void setupSlots(final Calendar calendar, final CalendarDay calendarDay){
+
+        Calendar current = Calendar.getInstance();
+
+        if(calendar != null ) {
+
+            if(sameDay(calendar, current)) {
+
+                appointmentFloatingView.setVisibility(View.VISIBLE);
+
+            } else if(current.after(calendar) ) {
+
+                appointmentFloatingView.setVisibility(View.GONE);
+
+            } else {
+
+                appointmentFloatingView.setVisibility(View.VISIBLE);
+
+            }
+
+        } else if(calendarDay != null) {
+
+            if(sameDay(calendarDay.getCalendar(), current)) {
+
+                appointmentFloatingView.setVisibility(View.VISIBLE);
+
+            } else if (current.after(calendarDay.getCalendar())) {
+
+                appointmentFloatingView.setVisibility(View.GONE);
+
+            } else {
+
+                appointmentFloatingView.setVisibility(View.VISIBLE);
+
+            }
+
+        }
 
         concealer.setVisibility(View.VISIBLE);
 
@@ -905,18 +958,6 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
 
     public void removeOneDay(View v){
 
-        int day = calendar.get(Calendar.DATE);
-
-        int month = calendar.get(Calendar.MONTH);
-
-        int currentDay = this.currentDay.get(Calendar.DATE);
-
-        int currentMonth = this.currentDay.get(Calendar.MONTH);
-
-        boolean isSameDate = (day == currentDay) && (month == currentMonth);
-
-        if(! isSameDate) {
-
             calendar.add(Calendar.DATE, -1);
 
             setupSlots(calendar, null);
@@ -926,8 +967,6 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
             appScrollView.scrollTo(0, 0);
 
             leftAppScrollView.scrollTo(0,0);
-
-        }
 
     }
 

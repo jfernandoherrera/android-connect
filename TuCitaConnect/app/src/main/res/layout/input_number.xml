@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    android:layout_height="100dp"
+<RelativeLayout android:layout_height="100dp"
     android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 <EditText
     android:layout_width="125dp"
     android:layout_height="50dp"
@@ -23,17 +23,24 @@
         android:layout_below="@+id/inputAmount"
         android:layout_height="wrap_content">
 <com.techventures.tucitaconnect.utils.common.views.AppTextView
-    android:layout_width="wrap_content"
+    android:layout_width="100dp"
     android:text="@string/all_day"
     android:layout_marginLeft="16dp"
+    android:gravity="center"
+    app:bold="true"
+    android:textColor="@android:color/white"
     android:background="@drawable/button_accent3"
     android:id="@+id/allDay"
     android:layout_height="50dp" />
         <com.techventures.tucitaconnect.utils.common.views.AppTextView
             android:layout_width="match_parent"
+            android:gravity="center"
+            app:bold="true"
+            android:textColor="@android:color/white"
             android:background="@drawable/button_accent2"
             android:layout_marginRight="16dp"
             android:text="@string/current_slot"
+            android:id="@+id/currentSlot"
             android:layout_height="50dp"
             android:layout_toRightOf="@+id/allDay"/>
     </RelativeLayout>

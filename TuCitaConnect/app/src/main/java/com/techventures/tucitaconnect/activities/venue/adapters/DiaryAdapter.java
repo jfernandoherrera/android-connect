@@ -34,7 +34,13 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> 
 
         }
 
-        public DiaryAdapter(List<Slot> offer, int columns, List<Appointment> appointments, OnTouchToClick onTouchToClick, List<Blockade> blockades) {
+    public List<Slot> getSlots() {
+
+        return slots;
+
+    }
+
+    public DiaryAdapter(List<Slot> offer, int columns, List<Appointment> appointments, OnTouchToClick onTouchToClick, List<Blockade> blockades) {
 
             super();
 

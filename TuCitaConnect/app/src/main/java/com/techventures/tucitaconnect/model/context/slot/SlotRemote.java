@@ -42,11 +42,42 @@ public class SlotRemote {
 
     }
 
-    public void setAmount(Slot slot, int amount, SaveCallback callback) {
+    public void setAmount(Slot slot, int amount, final SlotCompletion.SlotErrorCompletion callback) {
 
         slot.putAmount(amount);
 
-        slot.saveInBackground(callback);
+        slot.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+
+                AppError appError = e != null ? new AppError(Slot.class.toString(), 0, null) : null;
+
+                callback.completion(null, appError);
+
+            }
+        });
+
+    }
+
+
+    public void setAmount(List<Slot> slots, int amount, final SlotCompletion.SlotErrorCompletion callback) {
+
+        for(Slot slot : slots) {
+
+            slot.putAmount(amount);
+
+        }
+
+        ParseObject.saveAllInBackground(slots, new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+
+                AppError appError = e != null ? new AppError(Slot.class.toString(), 0, null) : null;
+
+                callback.completion(null, appError);
+
+            }
+        });
 
     }
 

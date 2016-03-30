@@ -103,6 +103,7 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
     private Button isFrom;
     private GestureDetectorCompat mDetector;
     float isInsensitive;
+    private boolean allDay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -243,48 +244,57 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
 
         alertDialogBuilder.setView(promptView);
 
+        this.allDay = true;
+
         final EditText editText = (EditText) promptView.findViewById(R.id.inputAmount);
+
+        final TextView allDay = (TextView) promptView.findViewById(R.id.allDay);
+
+        final TextView currentSlot = (TextView) promptView.findViewById(R.id.currentSlot);
+
+        allDay.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                allDay.setBackgroundResource(R.drawable.button_accent3);
+
+                currentSlot.setBackgroundResource(R.drawable.button_accent2);
+
+                VenueActivity.this.allDay = true;
+
+            }
+        });
+
+        currentSlot.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                currentSlot.setBackgroundResource(R.drawable.button_accent3);
+
+                allDay.setBackgroundResource(R.drawable.button_accent2);
+
+                VenueActivity.this.allDay = false;
+
+            }
+        });
 
         alertDialogBuilder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
 
             public void onClick(DialogInterface dialog, int id) {
 
-                slotContext.setAmount(slot, Integer.parseInt(editText.getText().toString()), new SaveCallback() {
+                int amount =  Integer.parseInt(editText.getText().toString());
 
-                    @Override
-                    public void done(ParseException e) {
+                if(VenueActivity.this.allDay) {
 
-                        if(e != null) {
+                    setSlotAmount(((DiaryAdapter)adapter).getSlots(), amount);
 
-                            e.printStackTrace();
+                } else {
 
-                        } else {
+                    setSlotAmount(slot, amount);
 
-                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(VenueActivity.this);
-
-                            String continueString = getString(R.string.continue_option);
-
-                            String successful = getString(R.string.successful_transaction);
-
-                            String message = getString(R.string.app_name);
-
-                            alertDialogBuilder.setTitle(successful)
-
-                                    .setPositiveButton(continueString, new DialogInterface.OnClickListener() {
-
-                                        public void onClick(DialogInterface dialog, int id) {
-
-                                            SplashActivity.goToStart(getApplicationContext());
-
-                                        }
-                                    }).setCancelable(false)
-
-                                    .setMessage(message).show();
-
-                        }
-
-                    }
-                });
+                }
 
             }
 
@@ -306,6 +316,97 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
 
         alert.show();
 
+    }
+
+    private void setSlotAmount(Slot slot, int amount) {
+
+        slotContext.setAmount(slot, amount, new SlotCompletion.SlotErrorCompletion() {
+            @Override
+            public void completion(List<Slot> slotList, AppError error) {
+
+                if(error != null) {
+
+
+
+                } else {
+
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(VenueActivity.this);
+
+                    String continueString = getString(R.string.continue_option);
+
+                    String successful = getString(R.string.successful_transaction);
+
+                    String message = getString(R.string.app_name);
+
+                    alertDialogBuilder.setTitle(successful)
+
+                            .setPositiveButton(continueString, new DialogInterface.OnClickListener() {
+
+                                public void onClick(DialogInterface dialog, int id) {
+
+                                    SplashActivity.goToStart(getApplicationContext());
+
+                                }
+                            }).setCancelable(false)
+
+                            .setMessage(message).show();
+
+                }
+
+            }
+
+            @Override
+            public void completion(int duration, AppError error) {
+
+            }
+
+        });
+
+    }
+
+    private void setSlotAmount(List<Slot> slot, int amount) {
+
+        slotContext.setAmount(slot, amount, new SlotCompletion.SlotErrorCompletion() {
+            @Override
+            public void completion(List<Slot> slotList, AppError error) {
+
+                if(error != null) {
+
+
+
+                } else {
+
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(VenueActivity.this);
+
+                    String continueString = getString(R.string.continue_option);
+
+                    String successful = getString(R.string.successful_transaction);
+
+                    String message = getString(R.string.app_name);
+
+                    alertDialogBuilder.setTitle(successful)
+
+                            .setPositiveButton(continueString, new DialogInterface.OnClickListener() {
+
+                                public void onClick(DialogInterface dialog, int id) {
+
+                                    SplashActivity.goToStart(getApplicationContext());
+
+                                }
+                            }).setCancelable(false)
+
+                            .setMessage(message).show();
+
+                }
+
+            }
+
+            @Override
+            public void completion(int duration, AppError error) {
+
+            }
+
+        });
     }
 
     private void actionBlock() {

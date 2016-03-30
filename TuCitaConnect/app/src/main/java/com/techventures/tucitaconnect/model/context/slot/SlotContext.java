@@ -68,9 +68,17 @@ public class SlotContext {
 
     }
 
-    public void setAmount(Slot slot, int amount, SaveCallback callback) {
+    public void setAmount(Slot slot, int amount, SlotCompletion.SlotErrorCompletion callback) {
 
         slotRemote.setAmount(slot, amount, callback);
+
+    }
+
+
+    public void setAmount(List<Slot> slots, int amount, SlotCompletion.SlotErrorCompletion callback) {
+
+        slotRemote.setAmount(slots, amount, callback);
+
     }
 
     public void lockSlot(Slot slot, SaveCallback callback) {

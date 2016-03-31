@@ -327,6 +327,7 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
     private void setSlotAmount(Slot slot, int amount) {
 
         slotContext.setAmount(slot, amount, new SlotCompletion.SlotErrorCompletion() {
+
             @Override
             public void completion(List<Slot> slotList, AppError error) {
 
@@ -350,7 +351,7 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
 
                                 public void onClick(DialogInterface dialog, int id) {
 
-                                    SplashActivity.goToStart(getApplicationContext());
+                                   setupSlots(calendar, null);
 
                                 }
                             }).setCancelable(false)
@@ -396,7 +397,7 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
 
                                 public void onClick(DialogInterface dialog, int id) {
 
-                                    SplashActivity.goToStart(getApplicationContext());
+                                    setupSlots(calendar, null);
 
                                 }
                             }).setCancelable(false)

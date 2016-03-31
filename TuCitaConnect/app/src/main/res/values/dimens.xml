@@ -1,4 +1,8 @@
 
 <resources>
     <dimen name="title">20sp</dimen>
+    <dimen name="high_margin">16dp</dimen>
+    <dimen name="double_high_margin">32dp</dimen>
+    <dimen name="activity_horizontal_margin">8dp</dimen>
+    <dimen name="activity_vertical_margin">8dp</dimen>
 </resources>

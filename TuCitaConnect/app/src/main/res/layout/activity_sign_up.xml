@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" android:gravity="center_horizontal"
+    android:orientation="vertical"
+    >
+    <ImageView
+        android:layout_width="match_parent"
+        android:id="@+id/loginLogo"
+        android:background="@drawable/logo_login"
+        android:elevation="8dp"
+        android:layout_height="180dp" />
+    <com.techventures.tucitaconnect.utils.common.views.AppTextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/loginLogo"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:id="@+id/inputEmail">
+
+        <com.techventures.tucitaconnect.utils.common.views.AppEditText
+            android:id="@+id/email" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:hint="@string/prompt_email"
+            android:drawablePadding="10dp"
+            android:drawableLeft="@drawable/email_icon"
+            android:inputType="textEmailAddress" android:maxLines="1"
+            android:singleLine="true" />
+
+    </com.techventures.tucitaconnect.utils.common.views.AppTextInputLayout>
+
+    <com.techventures.tucitaconnect.utils.common.views.AppTextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_below="@+id/inputEmail"
+        android:id="@+id/inputPassword">
+        <com.techventures.tucitaconnect.utils.common.views.AppEditText
+            android:id="@+id/password" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:hint="@string/prompt_password"
+            android:imeActionId="123"
+            android:imeActionLabel="@string/action_sign_in_short"
+            android:imeOptions="actionUnspecified" android:inputType="textPassword"
+            android:maxLines="1" android:singleLine="true"
+            android:layout_below="@+id/view"
+            android:drawablePadding="10dp"
+            android:drawableLeft="@drawable/password_icon"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"/>
+    </com.techventures.tucitaconnect.utils.common.views.AppTextInputLayout>
+
+    <com.techventures.tucitaconnect.utils.common.views.AppTextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/inputName"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_below="@+id/inputPassword">
+
+        <com.techventures.tucitaconnect.utils.common.views.AppEditText
+            android:id="@+id/name" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:hint="@string/prompt_name"
+            android:drawablePadding="10dp"
+            android:drawableLeft="@drawable/name_icon"
+            android:inputType="textEmailAddress" android:maxLines="1"
+            android:singleLine="true" />
+
+    </com.techventures.tucitaconnect.utils.common.views.AppTextInputLayout>
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_below="@+id/inputName"
+    android:layout_alignParentBottom="true"
+    android:background="@drawable/bg_bottom"
+    android:layout_height="wrap_content">
+    <com.techventures.tucitaconnect.utils.common.views.AppButton
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/action_sign_up"
+        android:id="@+id/buttonSignUp"
+        android:paddingStart="-5dp"
+        android:textColor="@android:color/white"
+        android:paddingLeft="-5dp"
+        android:paddingEnd="-5dp"
+        android:background="@drawable/button_interaction"
+        android:paddingRight="-5dp"
+        android:elevation="8dp"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>
+
+</RelativeLayout>

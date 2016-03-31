@@ -9,7 +9,9 @@
     <color name="light_gray">#c8c8c8</color>
     <color name="blue_link">#003eb8</color>
     <color name="blackPrimary">#de000000</color>
+    <color name="separator_color">#d5de94</color>
     <color name="blackSecondary">#8a000000</color>
+    <color name="white_login">#ebebeb</color>
     <color name="expanded_children_color">#FFFFFF</color>
     <color name="float_button_normal_color">#2c3c40</color>
     <color name="float_button_pressed_color">#416d78</color>

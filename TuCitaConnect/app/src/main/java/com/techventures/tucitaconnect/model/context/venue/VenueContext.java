@@ -64,9 +64,14 @@ public class VenueContext {
 
         ParseRelation<Venue> parseRelation = user.getVenues();
 
-        ParseQuery<Venue> parseQuery = parseRelation.getQuery();
+        if(parseRelation != null) {
 
-        venueRemote.loadVenues(parseQuery, completion);
+            ParseQuery<Venue> parseQuery = parseRelation.getQuery();
+
+            venueRemote.loadVenues(parseQuery, completion);
+
+        }
+
 
     }
 

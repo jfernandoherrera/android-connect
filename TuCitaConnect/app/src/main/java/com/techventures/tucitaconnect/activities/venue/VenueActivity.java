@@ -916,9 +916,7 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
 
                 setupSlots(Calendar.getInstance(), null);
 
-                TextView textView = getActionBarTextView();
-
-                textView.setText(venue.getName());
+                toolbar.setTitle(venue.getName());
 
             }
         });
@@ -1105,12 +1103,11 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onOptionsItemSelected(MenuItem item) {
 
-        TextView textView = getActionBarTextView();
+        finish();
 
-    return true;
-
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -1410,4 +1407,5 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
         setupVenue();
 
     }
+
 }

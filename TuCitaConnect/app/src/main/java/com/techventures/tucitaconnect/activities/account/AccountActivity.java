@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -31,7 +32,6 @@ import java.util.Calendar;
 public class AccountActivity extends AppToolbarActivity {
 
     private UserContext userContext;
-    private Toolbar toolbar;
     private VenuesFragment venuesFragment;
     //private AppointmentContext appointmentContext;
     User user;
@@ -111,6 +111,8 @@ public class AccountActivity extends AppToolbarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.menu_logout, menu);
+
+        toolbar.setTitle(getString(R.string.your_venues));
 
         MenuItem logoutItem = menu.findItem(R.id.action_logout);
 

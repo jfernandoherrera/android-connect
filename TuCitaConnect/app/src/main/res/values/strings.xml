@@ -59,5 +59,6 @@
     <string name="minutes">minutos</string>
     <string name="workers_available">Trabajadores disponibles</string>
     <string name="all_day">Todo el día</string>
+    <string name="your_venues">Tus Negocios</string>
     <string name="current_slot">Slot actual</string>
 </resources>

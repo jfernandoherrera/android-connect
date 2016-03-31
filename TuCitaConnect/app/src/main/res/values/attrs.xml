@@ -3,4 +3,8 @@
     <declare-styleable name="AppTextView">
         <attr name="bold" format="boolean"/>
         <attr name="light" format="boolean"/>
-    </declare-styleable></resources>
+    </declare-styleable>
+    <declare-styleable name="AppToolbar">
+        <attr name="navigationBack" format="boolean"/>
+    </declare-styleable>
+ç</resources>

@@ -19,7 +19,7 @@
         android:layout_toRightOf="@+id/business"
         android:layout_toEndOf="@+id/business"
         android:layout_height="wrap_content">
-        <TextView
+        <com.techventures.tucitaconnect.utils.common.views.AppTextView
             android:layout_width="wrap_content"
             android:gravity="center"
             android:id="@+id/textDay"
@@ -33,7 +33,7 @@
             android:id="@+id/concealer"
             android:visibility="gone"
             android:layout_height="wrap_content">
-            <TextView
+            <com.techventures.tucitaconnect.utils.common.views.AppTextView
                 android:layout_width="wrap_content"
                 android:text="@string/open"
                 android:paddingLeft="8dp"
@@ -41,19 +41,19 @@
                 android:paddingRight="4dp"
                 android:paddingEnd="4dp"
                 android:layout_height="wrap_content" />
-            <Button
+            <com.techventures.tucitaconnect.utils.common.views.AppButton
                 android:layout_width="60dp"
                 android:id="@+id/open"
                 android:onClick="showHourPickerDialog"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"/>
-            <TextView
+            <com.techventures.tucitaconnect.utils.common.views.AppTextView
                 android:layout_width="wrap_content"
                 android:text="@string/close"
                 android:paddingLeft="8dp"
                 android:paddingStart="8dp"
                 android:layout_height="wrap_content" />
-            <Button
+            <com.techventures.tucitaconnect.utils.common.views.AppButton
                 android:layout_width="60dp"
                 android:onClick="showHourPickerDialog"
                 android:id="@+id/close"

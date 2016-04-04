@@ -17,6 +17,7 @@ import com.techventures.tucitaconnect.model.context.venue.VenueContext;
 import com.techventures.tucitaconnect.model.domain.user.User;
 import com.techventures.tucitaconnect.model.domain.venue.Venue;
 import com.techventures.tucitaconnect.model.error.AppError;
+import com.techventures.tucitaconnect.utils.common.AlertDialogError;
 import com.techventures.tucitaconnect.utils.common.fragment.AppFragment;
 
 import java.util.List;
@@ -55,6 +56,14 @@ public class VenuesFragment extends AppFragment {
 
                     setupList();
 
+                    if(error != null) {
+
+                        AlertDialogError alertDialogError = new AlertDialogError();
+
+                        alertDialogError.noInternetConnectionAlert(getContext());
+
+                    }
+
                 }
             });
 
@@ -79,6 +88,10 @@ public class VenuesFragment extends AppFragment {
 
             noResults.setVisibility(View.GONE);
 
+        } else {
+
+            noResults.setVisibility(View.VISIBLE);
+
         }
 
     }
@@ -91,8 +104,6 @@ public class VenuesFragment extends AppFragment {
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
 
         noResults = (TextView) rootView.findViewById(R.id.noResults);
-
-        noResults.setTypeface(typeface);
 
         venueContext = VenueContext.context(venueContext);
 

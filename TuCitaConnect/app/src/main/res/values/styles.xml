@@ -24,5 +24,13 @@
       <style name="PopupMenu" parent="@android:style/Widget.PopupMenu">
         <item name="android:popupBackground">@android:color/transparent</item>
     </style>
-
+    <style name="RatingBar" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/rating</item>
+    </style>
+    <style name="AppTheme.Title" parent="AppTheme">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/blackPrimary</item>
+        <item name="android:textSize">@dimen/title</item>
+        <item name="android:layout_gravity">bottom|center_horizontal</item>
+    </style>
 </resources>

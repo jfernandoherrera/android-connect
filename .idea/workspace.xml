@@ -7,11 +7,36 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="37b3c1cb-e080-4404-9304-f319259e8c35" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout-ldpi/activity_login.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/menu/menu_options.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/mipmap-hdpi/ic_calendar.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/mipmap-mdpi/ic_calendar.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/mipmap-xhdpi/ic_calendar.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/mipmap-xxhdpi/ic_calendar.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/mipmap-xxxhdpi/ic_calendar.png" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/venue/fragments/SelectTimesFragment.java" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/venue/fragments/SelectTimesToBlockFragment.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/.idea/misc.xml" afterPath="$PROJECT_DIR$/TuCitaConnect/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/app.iml" afterPath="$PROJECT_DIR$/TuCitaConnect/app/app.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/values/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/account/fragments/venues/VenuesFragment.java" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/account/fragments/venues/VenuesFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/venue/VenueActivity.java" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/venue/VenueActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/venue/adapters/ExpandableWithoutParentAdapter.java" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/venue/adapters/ExpandableWithoutParentAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/venue/fragments/AddUserFragment.java" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/venue/fragments/AddUserFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/venue/fragments/AppointmentDetailsFragment.java" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/venue/fragments/AppointmentDetailsFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/utils/common/views/AppButton.java" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/utils/common/views/AppButton.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout/activity_account.xml" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout/activity_account.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout/activity_login.xml" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout/activity_login.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout/activity_sign_up.xml" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout/activity_sign_up.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout/activity_venue.xml" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout/activity_venue.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout/appointment_view.xml" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout/appointment_view.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout/fragment_appointment.xml" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout/fragment_appointment.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout/fragment_select_times.xml" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout/fragment_select_times.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout/fragment_venues.xml" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout/fragment_venues.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout/item_service.xml" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout/item_service.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout/item_slot.xml" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout/item_slot.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout/item_time_lapsus.xml" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout/item_time_lapsus.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout/item_venue.xml" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout/item_venue.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/values/styles.xml" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/values/styles.xml" />
     </list>
     <ignored path="tucita-connect.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -32,21 +57,41 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="AppToolbarActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/utils/common/activity/AppToolbarActivity.java">
+      <file leaf-file-name="HourPickerFragment.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/venue/fragments/HourPickerFragment.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="57" column="42" selection-start-line="57" selection-start-column="42" selection-end-line="57" selection-end-column="42" />
+              <caret line="15" column="16" selection-start-line="15" selection-start-column="16" selection-end-line="15" selection-end-column="16" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="strings.xml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/TuCitaConnect/app/src/main/res/values/strings.xml">
+      <file leaf-file-name="VenueActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/venue/VenueActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.91634244">
-              <caret line="43" column="27" selection-start-line="43" selection-start-column="27" selection-end-line="43" selection-end-column="27" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="1183" column="0" selection-start-line="1183" selection-start-column="0" selection-end-line="1183" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DatePickerFragment.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/venue/fragments/DatePickerFragment.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SelectTimesToBlockFragment.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/venue/fragments/SelectTimesToBlockFragment.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.15929204">
+              <caret line="35" column="4" selection-start-line="35" selection-start-column="4" selection-end-line="35" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -71,7 +116,6 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="2" />
     <option name="y" value="23" />
     <option name="width" value="1920" />
     <option name="height" value="999" />
@@ -87,7 +131,7 @@
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="AndroidView" proportions="" version="1">
+    <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -101,10 +145,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView">
-        <subPane />
-      </pane>
-      <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -482,6 +523,110 @@
               <option name="myItemId" value="activities" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="venue" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tucita-connect" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tucita-connect" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TuCitaConnect" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="techventures" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tucitaconnect" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="activities" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="venue" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fragments" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tucita-connect" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tucita-connect" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TuCitaConnect" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="techventures" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tucitaconnect" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="activities" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -495,8 +640,11 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
       <pane id="Scope" />
-      <pane id="PackagesPane" />
+      <pane id="AndroidView">
+        <subPane />
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -629,8 +777,45 @@
       <patterns />
       <method />
     </configuration>
+    <configuration default="true" type="JUnitTestDiscovery" factoryName="JUnit Test Discovery" changeList="All">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
     <configuration default="true" type="JarApplication" factoryName="JAR Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="Java Scratch" factoryName="Java Scratch">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="SCRATCH_FILE_ID" value="0" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
       <envs />
       <method />
     </configuration>
@@ -656,6 +841,34 @@
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="TestNGTestDiscovery" factoryName="TestNG Test Discovery" changeList="All">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
       <option name="OUTPUT_DIRECTORY" />
       <option name="ANNOTATION_TYPE" />
       <option name="ENV_VARIABLES" />
@@ -703,7 +916,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="2" y="23" width="1920" height="999" extended-state="6" />
+    <frame x="0" y="23" width="1920" height="999" extended-state="0" />
     <editor active="false" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32939634" sideWeight="0.49743918" order="6" side_tool="false" content_ui="tabs" />
@@ -745,11 +958,49 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/venue/fragments/HourPickerFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/venue/VenueActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="1183" column="0" selection-start-line="1183" selection-start-column="0" selection-end-line="1183" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/venue/fragments/DatePickerFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/utils/common/activity/AppToolbarActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TuCitaConnect/app/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/utils/common/activity/AppToolbarActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="57" column="42" selection-start-line="57" selection-start-column="42" selection-end-line="57" selection-end-column="42" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -765,7 +1016,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -791,18 +1041,49 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/utils/common/activity/AppToolbarActivity.java">
+    <entry file="file://$PROJECT_DIR$/TuCitaConnect/app/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="57" column="42" selection-start-line="57" selection-start-column="42" selection-end-line="57" selection-end-column="42" />
+        <state vertical-scroll-proportion="1.2548639">
+          <caret line="43" column="27" selection-start-line="43" selection-start-column="27" selection-end-line="43" selection-end-column="27" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TuCitaConnect/app/src/main/res/values/strings.xml">
+    <entry file="file://$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/utils/common/activity/AppToolbarActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.91634244">
-          <caret line="43" column="27" selection-start-line="43" selection-start-column="27" selection-end-line="43" selection-end-column="27" />
+        <state vertical-scroll-proportion="0.7699115">
+          <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/venue/fragments/HourPickerFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="15" column="16" selection-start-line="15" selection-start-column="16" selection-end-line="15" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/venue/VenueActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="1183" column="0" selection-start-line="1183" selection-start-column="0" selection-end-line="1183" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/venue/fragments/DatePickerFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/venue/fragments/SelectTimesToBlockFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.15929204">
+          <caret line="35" column="4" selection-start-line="35" selection-start-column="4" selection-end-line="35" selection-end-column="4" />
           <folding />
         </state>
       </provider>

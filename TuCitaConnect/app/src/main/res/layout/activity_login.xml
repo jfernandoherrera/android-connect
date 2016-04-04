@@ -5,11 +5,23 @@
     android:gravity="center_horizontal"
     android:orientation="vertical"
     >
-    <ImageView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:background="@drawable/logo_login"
         android:elevation="8dp"
-        android:layout_height="180dp" />
+        android:background="@drawable/bg_top"
+        android:layout_height="180dp">
+        <ImageView
+            android:layout_width="100dp"
+            android:background="@drawable/icon_clock"
+            android:layout_centerInParent="true"
+            android:layout_height="100dp" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:background="@drawable/triangle"
+            android:layout_centerInParent="true"
+            android:layout_alignParentBottom="true"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
 
     <com.techventures.tucitaconnect.utils.common.views.AppTextInputLayout
         android:layout_width="match_parent"

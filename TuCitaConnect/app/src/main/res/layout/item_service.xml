@@ -2,8 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/expanded_children_color">
-<TextView
+<com.techventures.tucitaconnect.utils.common.views.AppTextView
     android:layout_width="match_parent"
     android:id="@+id/textName"
     android:layout_height="50dp"
@@ -16,17 +17,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textName">
-<TextView
+<com.techventures.tucitaconnect.utils.common.views.AppTextView
     android:layout_width="wrap_content"
     android:layout_height="50dp"
     android:id="@+id/textDuration"
     android:paddingStart="32dp"
+    android:textColor="@color/colorAccentText"
+    app:bold="true"
     android:paddingLeft="32dp"
     android:paddingEnd="32dp"
     android:paddingRight="32dp"
     android:gravity="center_vertical"
 />
-<TextView
+<com.techventures.tucitaconnect.utils.common.views.AppTextView
     android:layout_width="wrap_content"
     android:id="@+id/textPricesFrom"
     android:layout_height="50dp"

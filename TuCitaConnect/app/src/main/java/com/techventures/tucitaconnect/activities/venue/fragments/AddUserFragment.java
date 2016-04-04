@@ -20,7 +20,6 @@ import com.techventures.tucitaconnect.model.error.AppError;
 
 public class AddUserFragment extends DialogFragment{
 
-    private Typeface typeface;
     private UserContext userContext;
     private Venue venue;
 
@@ -30,12 +29,6 @@ public class AddUserFragment extends DialogFragment{
         setStyle(DialogFragment.STYLE_NO_TITLE, 0);
 
         super.onAttach(context);
-
-    }
-
-    public void setTypeface(Typeface typeface) {
-
-        this.typeface = typeface;
 
     }
 
@@ -75,5 +68,7 @@ public class AddUserFragment extends DialogFragment{
         });
 
     return rootView;
+
     }
+
 }

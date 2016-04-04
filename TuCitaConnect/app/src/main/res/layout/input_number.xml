@@ -3,14 +3,14 @@
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-<EditText
+<com.techventures.tucitaconnect.utils.common.views.AppEditText
     android:layout_width="125dp"
     android:layout_height="50dp"
     android:inputType="numberDecimal"
     android:id="@+id/inputAmount"
     android:hint="@string/amount">
-</EditText>
-<TextView
+</com.techventures.tucitaconnect.utils.common.views.AppEditText>
+<com.techventures.tucitaconnect.utils.common.views.AppTextView
     android:layout_width="160dp"
     android:layout_height="50dp"
     android:textSize="12sp"

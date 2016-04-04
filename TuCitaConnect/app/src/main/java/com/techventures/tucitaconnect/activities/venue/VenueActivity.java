@@ -14,7 +14,6 @@ import android.text.format.DateUtils;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -23,8 +22,7 @@ import android.widget.EditText;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import com.parse.ParseException;
-import com.parse.SaveCallback;
+
 import com.techventures.tucitaconnect.R;
 import com.techventures.tucitaconnect.activities.splash.SplashActivity;
 import com.techventures.tucitaconnect.activities.venue.adapters.LeftBarAdapter;
@@ -35,7 +33,7 @@ import com.techventures.tucitaconnect.activities.venue.fragments.AppointmentDeta
 import com.techventures.tucitaconnect.activities.venue.fragments.DatePickerFragment;
 import com.techventures.tucitaconnect.activities.venue.fragments.editopeninghour.EditOpeningHoursFragment;
 import com.techventures.tucitaconnect.activities.venue.fragments.HourPickerFragment;
-import com.techventures.tucitaconnect.activities.venue.fragments.SelectTimesFragment;
+import com.techventures.tucitaconnect.activities.venue.fragments.SelectTimesToBlockFragment;
 import com.techventures.tucitaconnect.model.context.appointment.AppointmentCompletion;
 import com.techventures.tucitaconnect.model.context.appointment.AppointmentContext;
 import com.techventures.tucitaconnect.model.context.blockade.BlockadeCompletion;
@@ -62,12 +60,14 @@ import com.techventures.tucitaconnect.utils.common.scroll.AppHorizontalScrollVie
 import com.techventures.tucitaconnect.utils.common.scroll.AppScrollView;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.techventures.tucitaconnect.utils.common.scroll.LinearLayoutManager;
+import com.techventures.tucitaconnect.utils.common.views.AppTextView;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class VenueActivity extends AppToolbarActivity implements EditOpeningHoursFragment.OnEdited, GestureDetector.OnDoubleTapListener, GestureDetector.OnGestureListener, EditOpeningHoursFragment.OnTimeSelected, DatePickerFragment.OnDateSelected, DiaryAdapter.OnTouchToClick, SelectTimesFragment.OnJustOneDateSelected, HourPickerFragment.OnHourSelected{
+public class VenueActivity extends AppToolbarActivity implements EditOpeningHoursFragment.OnEdited, GestureDetector.OnDoubleTapListener, GestureDetector.OnGestureListener, EditOpeningHoursFragment.OnTimeSelected, DatePickerFragment.OnDateSelected, DiaryAdapter.OnTouchToClick, SelectTimesToBlockFragment.OnJustOneDateSelected, HourPickerFragment.OnHourSelected{
 
     private VenueContext venueContext;
     private AppointmentContext appointmentContext;
@@ -84,7 +84,7 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
     private AppScrollView appScrollView;
     private AppScrollView leftAppScrollView;
     private AppHorizontalScrollView appHorizontalScrollView;
-    private Button button;
+    private AppTextView selectDate;
     private Calendar calendar;
     private Calendar currentDay;
     private Appointment appointment;
@@ -92,10 +92,10 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
     private final int swipeThresholdVelocity = 3500;
     private Slot slot;
     private RelativeLayout progress;
-    private Button appointmentFloatingView;
+    private AppTextView appointmentFloatingView;
     private ServiceContext serviceContext;
     int twoDigitsNumber = 10;
-    private SelectTimesFragment selectTimesFragment;
+    private SelectTimesToBlockFragment selectTimesToBlockFragment;
     private int column;
     private BlockadeContext blockadeContext;
     private Button isTo;
@@ -142,13 +142,13 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
 
         noResults = (TextView) findViewById(R.id.noResults);
 
-        button = (Button) findViewById(R.id.datePicker);
+        selectDate = (AppTextView) findViewById(R.id.datePicker);
 
         progress = (RelativeLayout) findViewById(R.id.progress);
 
         progress.setVisibility(View.GONE);
 
-        appointmentFloatingView = (Button) findViewById(R.id.appointmentOptionsView);
+        appointmentFloatingView = (AppTextView) findViewById(R.id.appointmentOptionsView);
 
         appointmentFloatingView.setOnClickListener(new View.OnClickListener() {
 
@@ -157,15 +157,25 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
 
                 PopupMenu popupMenu = new PopupMenu(VenueActivity.this, v);
 
-                MenuInflater menuInflater = popupMenu.getMenuInflater();
+                Menu menu = popupMenu.getMenu();
 
-                menuInflater.inflate(R.menu.menu_options, popupMenu.getMenu());
+                String actionMultipleBlock = getString(R.string.action_multiple_block);
+
+                menu.add(typefaceAction(actionMultipleBlock)).setAlphabeticShortcut('c');
+
+                String actionEdit = getString(R.string.action_edit_working_hours);
+
+                menu.add(typefaceAction(actionEdit)).setAlphabeticShortcut('d');
 
                 if(slot != null){
 
-                    popupMenu.getMenu().add(getString(R.string.action_block));
+                    String actionBlock = getString(R.string.action_block);
 
-                    popupMenu.getMenu().add(getString(R.string.action_change_amount));
+                    menu.add(typefaceAction(actionBlock)).setAlphabeticShortcut('a');
+
+                    String actionChangeAmount = getString(R.string.action_change_amount);
+
+                    menu.add(typefaceAction(actionChangeAmount)).setAlphabeticShortcut('b');
 
                 }
 
@@ -174,30 +184,32 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
 
-                  if(item.getTitle().equals(getString(R.string.action_block))){
+                        if(item.getAlphabeticShortcut() == 'a'){
 
-                      actionBlock();
+                            actionBlock();
 
-                  } else if(item.getTitle().equals(getString(R.string.action_multiple_block))) {
+                        } else if(item.getAlphabeticShortcut() == 'c') {
 
-                    showSelectTimesDialog();
+                           showSelectTimesDialog();
 
-                  } else if(item.getTitle().equals(getString(R.string.action_add_appointment))) {
+                        } else if(item.getTitle().equals(getString(R.string.action_add_appointment))) {
 
 
 
-                  } else if(item.getTitle().equals(getString(R.string.action_edit_working_hours))) {
+                        } else if(item.getAlphabeticShortcut() == 'd') {
 
-                        showEditOpeningHoursDialog();
+                               showEditOpeningHoursDialog();
 
-                  } else if(item.getTitle().equals(getString(R.string.action_change_amount))) {
+                        } else if(item.getAlphabeticShortcut() == 'b') {
 
-                    changeAvailability();
+                          changeAvailability();
 
-                  }
+                        }
 
                         return false;
+
                     }
+
                 });
 
                 popupMenu.show();
@@ -208,29 +220,21 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
 
         calendar = Calendar.getInstance();
 
-        button.setOnTouchListener(new View.OnTouchListener() {
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-
-                    v.setBackgroundResource(ResponsiveInteraction.getPressedButton());
-
-                } else if (event.getAction() == MotionEvent.ACTION_UP) {
-
-                    v.setBackgroundResource(ResponsiveInteraction.getNormalButton());
-
-                }
-
-                return false;
-            }
-
-        });
-
         setupVenue();
 
         dateFormat(calendar);
+
+    }
+
+    private SpannableStringBuilder typefaceAction(String action) {
+
+        SpannableStringBuilder stringBuilder = new SpannableStringBuilder(action);
+
+        Typeface typeface = new AppFont().getAppFontLight(VenueActivity.this);
+
+        stringBuilder.setSpan(new CustomSpanTypeface(null, Typeface.BOLD, 20, null, null, typeface), 0, action.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+
+        return stringBuilder;
 
     }
 
@@ -569,7 +573,7 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
 
                         | DateUtils.FORMAT_ABBREV_WEEKDAY);
 
-        button.setText(title);
+        selectDate.setText(title);
 
     }
 
@@ -639,11 +643,11 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
 
         //progress.setVisibility(View.VISIBLE);
 
-        selectTimesFragment = new SelectTimesFragment();
+        selectTimesToBlockFragment = new SelectTimesToBlockFragment();
 
         String tag = "selectTimes";
 
-        selectTimesFragment.show(getSupportFragmentManager(), tag);
+        selectTimesToBlockFragment.show(getSupportFragmentManager(), tag);
 
     }
 
@@ -762,7 +766,7 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
 
                     if (slotList != null) {
 
-                        selectTimesFragment.setSlots(slotList);
+                        selectTimesToBlockFragment.setSlots(slotList);
 
                     }
 
@@ -1039,7 +1043,9 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
 
         String time = setupSpacesTime(slot.getStartHour(), slot.getStartMinute());
 
-        String preMinute =  slot.getDurationMinutes() + " min";
+        String minuteSuffix = "min";
+
+        String preMinute =  slot.getDurationMinutes() + " " + minuteSuffix;
 
         String text = time + "\n" + preMinute;
 
@@ -1132,7 +1138,7 @@ public class VenueActivity extends AppToolbarActivity implements EditOpeningHour
 
     public void blocked(View view){
 
-        selectTimesFragment.blockades(venue);
+        selectTimesToBlockFragment.blockades(venue);
 
     }
 

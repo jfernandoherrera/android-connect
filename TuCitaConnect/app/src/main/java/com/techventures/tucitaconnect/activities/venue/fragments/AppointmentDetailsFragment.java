@@ -37,7 +37,7 @@ public class AppointmentDetailsFragment extends DialogFragment {
     private Appointment appointment;
     private List<Service> services;
   //  private OnChangeDate listener;
-    private Typeface typeface;
+
 
 
     public interface OnChangeDate{
@@ -64,12 +64,6 @@ public class AppointmentDetailsFragment extends DialogFragment {
 
     }
 
-    public void setTypeface(Typeface typeface) {
-
-        this.typeface = typeface;
-
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -87,14 +81,6 @@ public class AppointmentDetailsFragment extends DialogFragment {
         Button button = (Button) rootView.findViewById(R.id.changeDate);
 
         Calendar calendar = Calendar.getInstance();
-
-        textTotal.setTypeface(typeface);
-
-        total.setTypeface(typeface, Typeface.BOLD);
-
-        appointmentView.setTypeface(typeface);
-
-        button.setTypeface(typeface);
 
         button.setVisibility(View.GONE);
 
@@ -235,7 +221,7 @@ public class AppointmentDetailsFragment extends DialogFragment {
 
         ViewUtils viewUtils = new ViewUtils(getContext());
 
-        adapter = new ExpandableWithoutParentAdapter(services, listViewServices, viewUtils, typeface);
+        adapter = new ExpandableWithoutParentAdapter(services, listViewServices, viewUtils);
 
         adapter.setInflater(inflater);
 

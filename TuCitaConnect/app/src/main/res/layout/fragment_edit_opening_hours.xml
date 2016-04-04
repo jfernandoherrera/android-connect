@@ -8,7 +8,7 @@
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.Base"
         android:background="@color/colorPrimary">
-        <EditText
+        <com.techventures.tucitaconnect.utils.common.views.AppEditText
             android:layout_width="wrap_content"
             android:hint="@string/duration"
             android:paddingLeft="8dp"
@@ -19,22 +19,26 @@
             android:lines="1"
             android:paddingEnd="4dp"
             android:layout_height="wrap_content" />
-        <TextView
+        <com.techventures.tucitaconnect.utils.common.views.AppTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/minutes"/>
     </android.support.v7.widget.Toolbar>
     <RelativeLayout
-        android:layout_below="@+id/toolbar"
         android:layout_width="match_parent"
-        android:background="@android:color/white"
         android:id="@+id/concealer"
+        android:gravity="center"
         android:layout_height="match_parent">
-        <ProgressBar
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_centerInParent="true"
-            android:indeterminate="true"/>
+        <ImageView
+            android:id="@+id/animation"
+            android:layout_margin="10dp"
+            android:src="@drawable/progress_bar_states"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:padding="10dp"
+            android:adjustViewBounds="true"
+            android:contentDescription=""
+            android:scaleType="centerCrop" />
     </RelativeLayout>
 <ScrollView
     android:layout_below="@+id/toolbar"

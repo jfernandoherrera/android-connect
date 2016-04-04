@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.techventures.tucitaconnect.R;
+import com.techventures.tucitaconnect.utils.common.AppFont;
 import com.techventures.tucitaconnect.utils.common.ResponsiveInteraction;
 
 public class StateButton extends Button{
@@ -32,6 +33,10 @@ public class StateButton extends Button{
         drawableOpen = getContext().getResources().getDrawable(ResponsiveInteraction.backgroundOpen);
 
         setText(getResources().getString(R.string.closed));
+
+        AppFont appFont = new AppFont();
+
+        setTypeface(appFont.getAppFontLight(context));
 
     }
 

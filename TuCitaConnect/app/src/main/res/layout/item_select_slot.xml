@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView
+<com.techventures.tucitaconnect.utils.common.views.AppTextView
     android:layout_width="50sp"
     android:layout_height="60sp"
     android:id="@+id/lapses"

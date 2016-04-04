@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<TextView
+<com.techventures.tucitaconnect.utils.common.views.AppTextView
     android:layout_width="180sp"
     android:id="@+id/appointment"
     android:layout_height="180sp"

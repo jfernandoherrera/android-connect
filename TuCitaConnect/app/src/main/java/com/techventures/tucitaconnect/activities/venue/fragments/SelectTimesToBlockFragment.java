@@ -31,7 +31,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class SelectTimesFragment extends DialogFragment{
+public class SelectTimesToBlockFragment extends DialogFragment{
 
     private MaterialCalendarView calendarView;
     private RecyclerView recyclerView;
@@ -250,7 +250,7 @@ public class SelectTimesFragment extends DialogFragment{
 
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 
-                            SelectTimesFragment.this.getContext());
+                            SelectTimesToBlockFragment.this.getContext());
 
                     String continueString = getString(R.string.continue_option);
 

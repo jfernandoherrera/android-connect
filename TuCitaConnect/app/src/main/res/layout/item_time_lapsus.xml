@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView
+<com.techventures.tucitaconnect.utils.common.views.AppTextView
     android:layout_width="50sp"
     android:layout_height="180sp"
     android:paddingLeft="3sp"
+    android:background="@drawable/shadow"
     android:paddingStart="3sp"
     android:id="@+id/lapses"
     xmlns:android="http://schemas.android.com/apk/res/android" />

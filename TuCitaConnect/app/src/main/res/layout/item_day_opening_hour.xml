@@ -41,7 +41,7 @@
                 android:paddingRight="4dp"
                 android:paddingEnd="4dp"
                 android:layout_height="wrap_content" />
-            <com.techventures.tucitaconnect.utils.common.views.AppButton
+            <Button
                 android:layout_width="60dp"
                 android:id="@+id/open"
                 android:onClick="showHourPickerDialog"
@@ -53,7 +53,7 @@
                 android:paddingLeft="8dp"
                 android:paddingStart="8dp"
                 android:layout_height="wrap_content" />
-            <com.techventures.tucitaconnect.utils.common.views.AppButton
+            <Button
                 android:layout_width="60dp"
                 android:onClick="showHourPickerDialog"
                 android:id="@+id/close"

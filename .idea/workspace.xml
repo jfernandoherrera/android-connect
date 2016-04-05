@@ -6,38 +6,7 @@
     </shared>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="37b3c1cb-e080-4404-9304-f319259e8c35" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout-ldpi/activity_login.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/menu/menu_options.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/mipmap-hdpi/ic_calendar.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/mipmap-mdpi/ic_calendar.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/mipmap-xhdpi/ic_calendar.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/mipmap-xxhdpi/ic_calendar.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/mipmap-xxxhdpi/ic_calendar.png" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/venue/fragments/SelectTimesFragment.java" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/venue/fragments/SelectTimesToBlockFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/.idea/misc.xml" afterPath="$PROJECT_DIR$/TuCitaConnect/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/app.iml" afterPath="$PROJECT_DIR$/TuCitaConnect/app/app.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/account/fragments/venues/VenuesFragment.java" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/account/fragments/venues/VenuesFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/venue/VenueActivity.java" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/venue/VenueActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/venue/adapters/ExpandableWithoutParentAdapter.java" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/venue/adapters/ExpandableWithoutParentAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/venue/fragments/AddUserFragment.java" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/venue/fragments/AddUserFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/venue/fragments/AppointmentDetailsFragment.java" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/venue/fragments/AppointmentDetailsFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/utils/common/views/AppButton.java" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/utils/common/views/AppButton.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout/activity_account.xml" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout/activity_account.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout/activity_login.xml" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout/activity_login.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout/activity_sign_up.xml" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout/activity_sign_up.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout/activity_venue.xml" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout/activity_venue.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout/appointment_view.xml" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout/appointment_view.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout/fragment_appointment.xml" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout/fragment_appointment.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout/fragment_select_times.xml" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout/fragment_select_times.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout/fragment_venues.xml" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout/fragment_venues.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout/item_service.xml" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout/item_service.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout/item_slot.xml" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout/item_slot.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout/item_time_lapsus.xml" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout/item_time_lapsus.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout/item_venue.xml" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/layout/item_venue.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/values/styles.xml" afterPath="$PROJECT_DIR$/TuCitaConnect/app/src/main/res/values/styles.xml" />
-    </list>
+    <list default="true" id="37b3c1cb-e080-4404-9304-f319259e8c35" name="Default" comment="" />
     <ignored path="tucita-connect.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -90,8 +59,8 @@
       <file leaf-file-name="SelectTimesToBlockFragment.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/venue/fragments/SelectTimesToBlockFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.15929204">
-              <caret line="35" column="4" selection-start-line="35" selection-start-column="4" selection-end-line="35" selection-end-column="4" />
+            <state vertical-scroll-proportion="0.5575221">
+              <caret line="50" column="5" selection-start-line="50" selection-start-column="5" selection-end-line="50" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -116,7 +85,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="y" value="23" />
+    <option name="x" value="20" />
+    <option name="y" value="55" />
     <option name="width" value="1920" />
     <option name="height" value="999" />
   </component>
@@ -145,7 +115,12 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="AndroidView">
+        <subPane />
+      </pane>
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -640,11 +615,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
-      <pane id="AndroidView">
-        <subPane />
-      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -916,14 +886,14 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1920" height="999" extended-state="0" />
+    <frame x="20" y="55" width="1920" height="999" extended-state="0" />
     <editor active="false" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32939634" sideWeight="0.49743918" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32690126" sideWeight="0.5025608" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32690126" sideWeight="0.5025608" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32939634" sideWeight="0.49487835" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -931,7 +901,7 @@
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24920128" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24920128" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
@@ -958,6 +928,30 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/venue/fragments/HourPickerFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/venue/VenueActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="1183" column="0" selection-start-line="1183" selection-start-column="0" selection-end-line="1183" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/venue/fragments/DatePickerFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/venue/fragments/HourPickerFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1082,8 +1076,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/TuCitaConnect/app/src/main/java/com/techventures/tucitaconnect/activities/venue/fragments/SelectTimesToBlockFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.15929204">
-          <caret line="35" column="4" selection-start-line="35" selection-start-column="4" selection-end-line="35" selection-end-column="4" />
+        <state vertical-scroll-proportion="0.5575221">
+          <caret line="50" column="5" selection-start-line="50" selection-start-column="5" selection-end-line="50" selection-end-column="5" />
           <folding />
         </state>
       </provider>
